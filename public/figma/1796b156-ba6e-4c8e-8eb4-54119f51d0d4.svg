@@ -1,0 +1,26 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="moleculs" clip-path="url(#clip0_0_3854)">
+<path id="Vector" d="M14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C10.866 14 14 10.866 14 7Z" fill="url(#paint0_radial_0_3854)"/>
+<g id="Frame 15" clip-path="url(#clip1_0_3854)">
+<path id="Vector_2" d="M3.55476 1.96841L5.74455 5.36186C6.12604 5.95304 5.72449 6.7355 5.02177 6.7703L0.988068 6.96999" stroke="white" stroke-width="1.25"/>
+<path id="Vector_3" d="M7.03012 0.988057L7.22982 5.02176C7.26462 5.72448 8.04708 6.12603 8.63826 5.74454L12.0317 3.55475" stroke="white" stroke-width="1.25"/>
+<path id="Vector_4" d="M10.4452 12.0316L8.25545 8.63814C7.87396 8.04696 8.27551 7.26449 8.97823 7.2297L13.0119 7.03001" stroke="white" stroke-width="1.25"/>
+<path id="Vector_5" d="M6.96988 13.0119L6.77018 8.97824C6.73538 8.27552 5.95292 7.87397 5.36174 8.25546L1.96829 10.4452" stroke="white" stroke-width="1.25"/>
+</g>
+</g>
+<defs>
+<radialGradient id="paint0_radial_0_3854" cx="0" cy="0" r="1" gradientTransform="matrix(14 14 -2.77941 55.2457 0 0)" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF723F"/>
+<stop offset="0.25" stop-color="#DC3FFF"/>
+<stop offset="0.5" stop-color="#7A3FFF"/>
+<stop offset="0.75" stop-color="#3F8CFF"/>
+<stop offset="1" stop-color="#00FFD1"/>
+</radialGradient>
+<clipPath id="clip0_0_3854">
+<rect width="14" height="14" fill="white"/>
+</clipPath>
+<clipPath id="clip1_0_3854">
+<rect width="7.5" height="7.5" fill="white" transform="translate(3.25 3.25)"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,96 @@
+/* The chat remains a full-width page. Navigation is revealed beneath it. */
+.mobile-drawer-dismiss { display: none; }
+@media (max-width: 700px) {
+  .app-shell {
+    --drawer-width: min(76vw, 336px);
+    --drawer-progress: 0;
+    --drawer-duration: 280ms;
+    position: relative;
+    display: block;
+    isolation: isolate;
+    min-height: 0;
+    overflow: hidden;
+    background: #f7f7f7;
+  }
+  .app-shell[data-mobile-menu="open"] { --drawer-progress: 1; }
+  .app-shell > .sidebar-shell,
+  .app-shell > .sidebar-shell.mobile-open {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 0;
+    width: var(--drawer-width);
+    height: 100%;
+    visibility: visible;
+    opacity: calc(.5 + var(--drawer-progress) * .5);
+    transform: translate3d(calc(-22px * (1 - var(--drawer-progress))), 0, 0);
+    transition: transform var(--drawer-duration) var(--ease-drawer), opacity var(--drawer-duration) var(--ease-drawer);
+    pointer-events: none;
+    box-shadow: none;
+  }
+  .app-shell[data-mobile-menu="open"] > .sidebar-shell { pointer-events: auto; }
+  .app-shell .sidebar-shell .sidebar {
+    position: static;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: max(16px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom));
+    background: transparent;
+    box-shadow: none;
+  }
+  .app-shell .sidebar-scroll { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .app-shell > .chat-main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: calc(38px * var(--drawer-progress));
+    overflow: hidden;
+    transform: translate3d(calc(var(--drawer-width) * var(--drawer-progress)), 0, 0);
+    transition: transform var(--drawer-duration) var(--ease-drawer), border-radius var(--drawer-duration) var(--ease-drawer);
+    box-shadow: -1px 0 0 rgb(0 0 0 / 5%), -12px 0 32px rgb(0 0 0 / 6%);
+    will-change: transform;
+  }
+  .app-shell > .mobile-drawer-dismiss {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    border-radius: calc(38px * var(--drawer-progress));
+    /* Fade one blurred scrim with the page; keep the navigation underneath crisp. */
+    background: rgb(0 0 0 / 20%);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: var(--drawer-progress);
+    transform: translate3d(calc(var(--drawer-width) * var(--drawer-progress)), 0, 0);
+    transition: transform var(--drawer-duration) var(--ease-drawer), border-radius var(--drawer-duration) var(--ease-drawer), opacity var(--drawer-duration) var(--ease-drawer);
+    pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .app-shell[data-mobile-menu="open"] > .mobile-drawer-dismiss { pointer-events: auto; }
+  .app-shell > .mobile-drawer-dismiss:active { transform: translate3d(calc(var(--drawer-width) * var(--drawer-progress)), 0, 0); }
+  .app-shell > .audio-player {
+    z-index: 2;
+    animation: none;
+    border-bottom-left-radius: calc(38px * var(--drawer-progress));
+    border-bottom-right-radius: calc(38px * var(--drawer-progress));
+    transform: translate3d(calc(var(--drawer-width) * var(--drawer-progress)), 0, 0);
+    transition: transform var(--drawer-duration) var(--ease-drawer), border-bottom-left-radius var(--drawer-duration) var(--ease-drawer), border-bottom-right-radius var(--drawer-duration) var(--ease-drawer);
+  }
+  .app-shell[data-mobile-menu="open"] > .audio-player { pointer-events: none; }
+  .app-shell[data-drawer-dragging="true"] > :is(.chat-main, .sidebar-shell, .mobile-drawer-dismiss, .audio-player) { transition: none; user-select: none; }
+  body[data-input="keyboard"] .app-shell { --drawer-duration: 0ms; }
+  .chat-header > .header-start > .expand-sidebar { display: none; }
+}
+@media (max-width: 700px) and (prefers-reduced-motion: reduce) {
+  .app-shell { --drawer-duration: 0ms; }
+}
+@media(max-width:700px){
+  .app-shell .sidebar-shell .sidebar{padding-top:calc(16px + env(safe-area-inset-top))}
+  .chat-header{top:calc(16px + env(safe-area-inset-top))}
+  .app-shell .sidebar:focus{outline:none}
+}

@@ -1,0 +1,159 @@
+/* Use the visible screen, including when the software keyboard is open. */
+@media (max-width: 700px) {
+  html:has(.app-shell),
+  body:has(.app-shell) {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .app-shell {
+    position: relative;
+    top: var(--mobile-viewport-top, 0px);
+    height: var(--mobile-viewport-height, 100dvh);
+    min-height: 0;
+  }
+
+  .account-panel-overlay,
+  .auth-modal-overlay,
+  .billing-overlay,
+  .mc-project-dialog-overlay,
+  .mc-project-sheet-overlay,
+  .media-library-overlay,
+  .media-viewer-overlay,
+  .mp-overlay,
+  .notification-backdrop,
+  .ra-overlay,
+  .rr-overlay,
+  .rs-preview-overlay,
+  .rs-modal-overlay,
+  .simple-overlay,
+  .settings-mobile,
+  .type-overlay {
+    top: var(--mobile-viewport-top, 0px);
+    bottom: auto;
+    height: var(--mobile-viewport-height, 100dvh);
+  }
+
+  .account-panel-overlay > .account-panel,
+  .auth-modal-overlay > .auth-modal,
+  .billing-overlay > .billing-modal,
+  .mc-project-dialog-overlay > .mc-project-dialog,
+  .media-library-overlay > .media-library,
+  .mp-overlay > .mp-dialog,
+  .notification-backdrop > .notification-sheet,
+  .ra-overlay > .ra-dialog,
+  .rr-overlay > .rr-dialog,
+  .rs-preview-overlay > .rs-preview,
+  .rs-modal-overlay > .rs-modal {
+    max-height: 100%;
+    min-height: 0;
+  }
+
+  .media-viewer-overlay > .media-viewer,
+  .billing-overlay > .billing-modal {
+    height: 100%;
+  }
+
+  .mc-project-sheet-overlay > .mc-project-sheet,
+  .settings-mobile > .settings-sheet {
+    display: flex;
+    flex-direction: column;
+    max-height: min(82%, 680px);
+    min-height: 0;
+  }
+
+  .mc-project-sheet > header,
+  .mc-project-sheet-grabber,
+  .settings-sheet-header {
+    flex-shrink: 0;
+  }
+
+  .mc-project-sheet-options,
+  .settings-sheet-content {
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .settings-sheet .settings-role-list,
+  .settings-sheet .settings-options {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .type-overlay > .type-sheet {
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .media-viewer .media-viewer-header {
+    height: calc(64px + env(safe-area-inset-top));
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+
+  html[data-mobile-keyboard] .home-curtain-wrap,
+  html[data-mobile-keyboard] .home-curtain-launch {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Once typing starts, keep the empty composer clear of the header and keyboard. */
+  html[data-mobile-keyboard] .home-hero-inner > .empty-chat {
+    top: auto;
+    bottom: 12px;
+    transform: translateX(-50%);
+  }
+
+  html[data-mobile-keyboard] .empty-chat > .greeting,
+  html[data-mobile-keyboard] .empty-chat > .mode-suggestions,
+  html[data-mobile-keyboard] .empty-chat > .image-examples,
+  html[data-mobile-keyboard] .empty-chat > .prompt-suggestions,
+  html[data-mobile-keyboard] .composer-promo {
+    display: none;
+  }
+
+  html[data-mobile-keyboard] .project-workspace-scroll.is-empty {
+    align-items: flex-end;
+    padding-bottom: 12px;
+  }
+
+  html[data-mobile-keyboard] .composer-field :is(textarea, .prompt-input) {
+    max-height: clamp(48px, calc(var(--mobile-viewport-height, 100dvh) - 290px), 160px);
+    overflow-y: auto;
+  }
+
+  html[data-mobile-keyboard] .chat-composer-dock,
+  html[data-mobile-keyboard] .empty-chat > .chat-composer {
+    max-height: max(96px, calc(var(--mobile-viewport-height, 100dvh) - 84px - env(safe-area-inset-top) - var(--audio-dock-height, 0px)));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+  }
+
+  /* Keep playback controls available without reserving three rows while typing. */
+  html[data-mobile-keyboard] .app-shell.has-audio {
+    --audio-dock-height: 64px;
+  }
+  html[data-mobile-keyboard] .app-shell > .audio-player {
+    position: absolute;
+    height: 64px;
+    grid-template-rows: 44px;
+    padding: 10px 12px;
+  }
+  html[data-mobile-keyboard] .audio-player-timeline,
+  html[data-mobile-keyboard] .audio-player-tools {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) and (max-height: 480px) {
+  .chat-composer-dock {
+    max-height: max(96px, calc(var(--mobile-viewport-height, 100dvh) - 84px - env(safe-area-inset-top) - var(--audio-dock-height, 0px)));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+  }
+}

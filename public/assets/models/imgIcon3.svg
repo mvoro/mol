@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon" clip-path="url(#clip0_0_2661)">
+<path id="Vector" d="M20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20C15.5228 20 20 15.5228 20 10Z" fill="#D6EFFF"/>
+<path id="Vector_2" d="M10 17.5C10 16.4625 9.80002 15.4875 9.4 14.575C9.01252 13.6625 8.48125 12.8688 7.80625 12.1938C7.13125 11.5188 6.3375 10.9875 5.425 10.6C4.5125 10.2 3.5375 10 2.5 10C3.5375 10 4.5125 9.80622 5.425 9.41875C6.3375 9.01872 7.13125 8.48125 7.80625 7.80625C8.48125 7.13125 9.01252 6.3375 9.4 5.425C9.80002 4.5125 10 3.5375 10 2.5C10 3.5375 10.1938 4.5125 10.5813 5.425C10.9813 6.3375 11.5188 7.13125 12.1938 7.80625C12.8688 8.48125 13.6625 9.01872 14.575 9.41875C15.4875 9.80622 16.4625 10 17.5 10C16.4625 10 15.4875 10.2 14.575 10.6C13.6625 10.9875 12.8688 11.5188 12.1938 12.1938C11.5188 12.8688 10.9813 13.6625 10.5813 14.575C10.1938 15.4875 10 16.4625 10 17.5Z" fill="url(#paint0_radial_0_2661)"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_0_2661" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(3.98862 8.59617) rotate(18.6832) scale(15.9656 127.895)">
+<stop offset="0.0671246" stop-color="#9168C0"/>
+<stop offset="0.342551" stop-color="#5684D1"/>
+<stop offset="0.672076" stop-color="#1BA1E3"/>
+</radialGradient>
+<clipPath id="clip0_0_2661">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>

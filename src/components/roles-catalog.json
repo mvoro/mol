@@ -1,0 +1,402 @@
+[
+  {
+    "id": "reels-scenarist",
+    "name": "Сценарист Reels",
+    "description": "Режиссёр сценариев для Reels, мега-промпт под алгоритмы 2026 года",
+    "group": "social",
+    "image": "/assets/roles/a26b8.png",
+    "likes": 720,
+    "runs": 2300,
+    "favorites": 190
+  },
+  {
+    "id": "threads-maker",
+    "name": "Threads Мейкер",
+    "description": "Превращаю мысли в короткие тексты, которые алгоритмы Threads подхватывают и выводят в топ",
+    "group": "social",
+    "image": "/assets/roles/cc46e.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "stories",
+    "name": "Прогрев в Stories",
+    "description": "Мастер прогревов, сценарии продаж в сторис на 7 дней",
+    "group": "social",
+    "image": "/assets/roles/44d72.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "carousels",
+    "name": "Инста Карусели",
+    "description": "Режиссёр визуального сторителлинга, карусели, которые долистывают",
+    "group": "social",
+    "image": "/assets/roles/17c9e.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "storytelling",
+    "name": "Сценарист сторителлинга",
+    "description": "Драматургия короткого формата, сценарии для сторис",
+    "group": "social",
+    "image": "/assets/roles/2da30.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "telegram-copywriter",
+    "name": "Телеграм Копирайтер",
+    "description": "Автор постов для Telegram-каналов",
+    "group": "social",
+    "image": "/assets/roles/39f18.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "smm-manager",
+    "name": "SMM-менеджер",
+    "description": "Контент-стратегии для соцсетей, привлечение и удержание аудитории",
+    "group": "social",
+    "image": "/assets/roles/5798a.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "video-scenarist",
+    "name": "Сценарист видео",
+    "description": "Сценарии для YouTube, Reels, TikTok, реклама",
+    "group": "social",
+    "image": "/assets/roles/7b6dd.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "farshatova",
+    "name": "Молекула Фаршатова",
+    "description": "Медиатренер в стиле Руслана Фаршатова, контент из жизни",
+    "group": "social",
+    "image": "/assets/roles/e369f.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "seo-copywriter",
+    "name": "SEO-копирайтер",
+    "description": "SEO-тексты, семантическое ядро, структура контента",
+    "group": "texts",
+    "image": "/assets/roles/50b79.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "content-manager",
+    "name": "Контент-менеджер",
+    "description": "Контент-стратегии для сайтов, блогов и соцсетей",
+    "group": "texts",
+    "image": "/assets/roles/482eb.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "marketplace-content",
+    "name": "Контент-менеджер маркетплейсов",
+    "description": "Карточки товаров (Ozon, Wildberries, Yandex Market), SEO и мерчандайзинг",
+    "group": "texts",
+    "image": "/assets/roles/647e6.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "copywriter",
+    "name": "Копирайтер",
+    "description": "Рекламные, коммерческие и имиджевые тексты (AIDA, 4U)",
+    "group": "texts",
+    "image": "/assets/roles/9ce8f.png",
+    "likes": 940,
+    "runs": 2900,
+    "favorites": 260
+  },
+  {
+    "id": "rewriter",
+    "name": "Рерайтер",
+    "description": "Переформулирование текстов без потери смысла, разные стили",
+    "group": "texts",
+    "image": "/assets/roles/7f3ec.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "positioning",
+    "name": "Смысловая упаковка",
+    "description": "Бренд-архитектор: упаковка, позиционирование, офферы (4U, JTBD)",
+    "group": "sales",
+    "image": "/assets/roles/6d780.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "lead-magnets",
+    "name": "Генератор Лид-магнитов",
+    "description": "Эксперт по лидогенерации и виральным бесплатным продуктам",
+    "group": "sales",
+    "image": "/assets/roles/14b04.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "funnels",
+    "name": "Конструктор воронок",
+    "description": "Архитектор Sales Funnels, автоматизация маркетинга",
+    "group": "sales",
+    "image": "/assets/roles/49312.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "marketer",
+    "name": "Маркетолог",
+    "description": "Аудитория, стратегии, контент-планы, digital/performance",
+    "group": "sales",
+    "image": "/assets/roles/06d2c.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "correspondence-sales",
+    "name": "Продажи в переписке А.Воробьева",
+    "description": "AI-ассистент по продажам через переписку (мега-промпт)",
+    "group": "sales",
+    "image": "/assets/roles/85b04.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "producer-farshatov",
+    "name": "Продюсер Фаршатов",
+    "description": "Вытаскиваю из твоего опыта готовый продукт, который можно продавать. Без воды, по шагам",
+    "group": "sales",
+    "image": "/assets/roles/e4429.png",
+    "likes": 860,
+    "runs": 2600,
+    "favorites": 210
+  },
+  {
+    "id": "sales-farshatov",
+    "name": "Продавец Фаршатов",
+    "description": "Помогу довести клиента до оплаты через переписку — без впаривания и без простыней",
+    "group": "sales",
+    "image": "/assets/roles/7293c.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "audience",
+    "name": "Анализ ЦА",
+    "description": "Профайлер, методология JTBD/CustDev, аватары клиентов",
+    "group": "analytics",
+    "image": "/assets/roles/47b04.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "custdev",
+    "name": "CustDev Аналитик",
+    "description": "Инсайт-майнер, разбор интервью и CustDev-исследований",
+    "group": "analytics",
+    "image": "/assets/roles/11921.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "seo",
+    "name": "SEO-специалист",
+    "description": "Техническая SEO-оптимизация, контент-стратегия, аналитика",
+    "group": "analytics",
+    "image": "/assets/roles/fb405.png",
+    "likes": 612,
+    "runs": 2100,
+    "favorites": 200
+  },
+  {
+    "id": "pcm",
+    "name": "Речевой аналитик PCM",
+    "description": "Анализ коммуникаций по модели PCM Тайби Калера",
+    "group": "analytics",
+    "image": "/assets/roles/ee960.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "ux-designer",
+    "name": "Product / UX дизайнер",
+    "description": "UX-исследования, прототипирование, дизайн-системы",
+    "group": "analytics",
+    "image": "/assets/roles/6bf7d.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "prompt-engineer",
+    "name": "Промпт Инженер",
+    "description": "Создаёт точные, структурные и человечные промпты для ИИ под любые задачи: от Reels и каруселей до гайдов, таблиц, анализа",
+    "group": "work",
+    "image": "/assets/roles/61e64.png",
+    "likes": 1085,
+    "runs": 3400,
+    "favorites": 340
+  },
+  {
+    "id": "pr-manager",
+    "name": "PR-менеджер",
+    "description": "Пресс-релизы, имидж бренда, антикризисные коммуникации",
+    "group": "work",
+    "image": "/assets/roles/97f80.png",
+    "likes": 47,
+    "runs": 1100,
+    "favorites": 80
+  },
+  {
+    "id": "hr-consultant",
+    "name": "HR-консультант",
+    "description": "Подбор кадров, HR-аналитика, адаптация сотрудников",
+    "group": "work",
+    "image": "/assets/roles/a3b45.png",
+    "likes": 124,
+    "runs": 1000,
+    "favorites": 65
+  },
+  {
+    "id": "ai-integrator",
+    "name": "Специалист интеграции ИИ",
+    "description": "Интеграция LLM в продукты, API моделей, RAG",
+    "group": "work",
+    "image": "/assets/roles/f4c54.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "financial-consultant",
+    "name": "Финансовый консультант",
+    "description": "Финансовое планирование, инвестиции, капитал",
+    "group": "work",
+    "image": "/assets/roles/e83a7.png",
+    "likes": 233,
+    "runs": 700,
+    "favorites": 45
+  },
+  {
+    "id": "teacher",
+    "name": "Преподаватель",
+    "description": "Методика обучения, объяснение сложных тем",
+    "group": "work",
+    "image": "/assets/roles/b9ef5.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "coach",
+    "name": "Коуч",
+    "description": "Личная эффективность, карьера, достижение целей",
+    "group": "work",
+    "image": "/assets/roles/3bdc1.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "translator",
+    "name": "Переводчик",
+    "description": "Изучение иностранных языков, грамматика, диалоги",
+    "group": "work",
+    "image": "/assets/roles/eefd8.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "numerologist",
+    "name": "Нумеролог",
+    "description": "Эксперт по нумерологии (Квадрат Пифагора, Ведическая нумерология), Дизайну Человека",
+    "group": "self",
+    "image": "/assets/roles/c921a.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "astrologer",
+    "name": "Астролог",
+    "description": "Западная астрология, натальная карта, транзиты, синастрия",
+    "group": "self",
+    "image": "/assets/roles/045b3.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "psychologist",
+    "name": "Психолог",
+    "description": "Консультирование, эмоциональные процессы, стресс-менеджмент",
+    "group": "self",
+    "image": "/assets/roles/2acea.png",
+    "likes": 545,
+    "runs": 1800,
+    "favorites": 170
+  },
+  {
+    "id": "human-design",
+    "name": "Дизайн Человека",
+    "description": "Human Design-аналитик: типы, стратегии, авторитеты, профили",
+    "group": "self",
+    "image": "/assets/roles/ab730.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "calories",
+    "name": "Подсчет калорий",
+    "description": "Персональный AI-нутрициолог и трекер калорий",
+    "group": "self",
+    "image": "/assets/roles/09c5c.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  },
+  {
+    "id": "motivator",
+    "name": "Мотиватор",
+    "description": "Жёсткий коуч-мотиватор, провокация и «волшебный пендель»",
+    "group": "self",
+    "image": "/assets/roles/42923.png",
+    "likes": 0,
+    "runs": 0,
+    "favorites": 0
+  }
+]

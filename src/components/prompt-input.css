@@ -1,0 +1,25 @@
+.prompt-input {
+  width: 100%; min-height: 40px; max-height: 200px; overflow-y: auto;
+  border: 0; outline: 0; padding: 0; background: transparent; color: #000;
+  font: 500 14px/24px "Manrope Variable", sans-serif;
+  white-space: pre-wrap; overflow-wrap: anywhere; caret-color: var(--accent); scrollbar-width: thin;
+}
+.prompt-input[data-empty="true"]::before { content: attr(data-placeholder); color: #7a7a7a; pointer-events: none; position: absolute; }
+.prompt-mention { display: inline-flex; align-items: center; gap: 4px; max-width: min(220px, 100%); padding: 1px 5px; border-radius: 7px; color: #333; background: #f0f0f0; font: inherit; font-size: .94em; line-height: 22px; vertical-align: middle; white-space: nowrap; }
+.prompt-mention img { flex: 0 0 18px; width: 18px; height: 18px; border-radius: 4px; object-fit: cover; }
+.prompt-mention > span { overflow: hidden; text-overflow: ellipsis; }
+.mention-popover { position: fixed; z-index: 130; padding: 8px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid #f4f4f4; border-radius: 24px; background: #fff; box-shadow: 0 4px 24px #00000010, 0 1px 8px #00000008; animation: mention-in 160ms cubic-bezier(.16,1,.3,1); transform-origin: bottom left; }
+.mention-heading { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px 10px; color: #919191; font-size: 12px; font-weight: 600; }
+.mention-option { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 8px 12px; border: 0; border-radius: 16px; background: transparent; color: #171717; text-align: left; font: inherit; cursor: pointer; }
+.mention-option[aria-selected="true"] { background: #f7f7f7; }
+.mention-option > img { width: 32px; height: 32px; flex: 0 0 32px; border-radius: 8px; object-fit: cover; }
+.mention-option > span { display: flex; flex: 1; flex-direction: column; min-width: 0; gap: 2px; }
+.mention-option b { font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mention-option small { font-size: 11px; line-height: 16px; color: #919191; }
+.mention-option > .icon:last-child { color: #aaa; flex: 0 0 14px; }
+.mention-empty { margin: 0; padding: 10px 12px 14px; color: #777; font-size: 13px; }
+.mention-upload { min-height: 44px; font-size: 13px; background: #f7f7f7; }
+@keyframes mention-in { from { opacity: 0; transform: translateY(4px) scale(.985); } to { opacity: 1; transform: none; } }
+@media (max-width: 700px) { .prompt-input { min-height: 24px; } .prompt-mention { max-width: 190px; } }
+.chat-composer[data-device="mobile"] .prompt-input { min-height: 24px; }
+@media (prefers-reduced-motion: reduce) { .mention-popover { animation: none; } }

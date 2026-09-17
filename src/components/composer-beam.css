@@ -1,0 +1,133 @@
+.composer-surface {
+  position: relative;
+  width: 100%;
+  --composer-radius: 26px;
+}
+
+.composer-beam-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: var(--composer-radius);
+  pointer-events: none;
+}
+
+.composer-beam-layer .composer-beam[data-beam] {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: visible;
+  pointer-events: none;
+  --beam-stroke-opacity: 5;
+  --beam-inner-opacity: 0.2;
+  --beam-bloom-opacity: 0.9;
+}
+
+/* Preserve the library's traveling masks; only substitute the brand palette. */
+.composer-beam-layer .composer-beam[data-beam]::after,
+.composer-beam-layer .composer-beam[data-beam]::before {
+  background: var(--composer-beam-palette);
+  border-radius: inherit;
+  clip-path: inset(0 round var(--composer-radius));
+}
+
+.composer-beam-layer .composer-beam[data-beam]::before {
+  box-shadow: none;
+}
+
+.composer-beam-layer .composer-beam[data-beam] > [data-beam-bloom] {
+  inset: -3px;
+  padding: 5px;
+  border-radius: calc(var(--composer-radius) + 3px);
+  clip-path: none;
+  background: var(--composer-beam-palette);
+  -webkit-mask:
+    conic-gradient(
+      from var(--composer-beam-angle, 0deg),
+      transparent 30%,
+      #fff 52%,
+      #fff 80%,
+      transparent 95%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask:
+    conic-gradient(
+      from var(--composer-beam-angle, 0deg),
+      transparent 30%,
+      #fff 52%,
+      #fff 80%,
+      transparent 95%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: intersect, exclude;
+  filter: blur(5px);
+}
+
+/* Generation is a persistent status, including after keyboard submission. */
+.composer-beam-layer .composer-beam[data-active] {
+  animation-duration: 2.6s, 240ms !important;
+}
+
+.composer-beam-layer .composer-beam[data-fading] {
+  animation-duration: 2.6s, 180ms !important;
+}
+
+@media (max-width: 700px) {
+  .composer-surface {
+    --composer-radius: 24px;
+  }
+}
+
+.chat-composer[data-device="mobile"] .composer-surface {
+  --composer-radius: 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .composer-beam-layer .composer-beam[data-beam],
+  .composer-beam-layer .composer-beam[data-beam]::before,
+  .composer-beam-layer .composer-beam[data-beam]::after,
+  .composer-beam-layer .composer-beam[data-beam] > [data-beam-bloom] {
+    animation: none !important;
+  }
+
+  .composer-beam-layer .composer-beam[data-beam]::before,
+  .composer-beam-layer .composer-beam[data-beam] > [data-beam-bloom] {
+    display: none;
+  }
+
+  .composer-beam-layer[data-generating="true"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--composer-beam-palette);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0.55;
+  }
+
+  .composer-beam-layer .composer-beam[data-beam]::after {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .composer-beam-layer .composer-beam[data-beam] {
+    display: none;
+  }
+
+  .composer-beam-layer[data-generating="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

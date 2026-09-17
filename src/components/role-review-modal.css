@@ -1,0 +1,43 @@
+.rr-overlay { position: fixed; inset: 0; z-index: 130; padding: 24px; display: grid; place-items: center; background: rgb(0 0 0 / 10%); backdrop-filter: blur(5px); transition: opacity 180ms var(--ease-out); }
+.rr-dialog { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; width: 532px; max-width: 100%; max-height: calc(100dvh - 48px); padding: 32px; border-radius: 24px; overflow-y: auto; overscroll-behavior: contain; background: #fff; box-shadow: 0 0 8px rgb(0 0 0 / 10%); color: #000; font-family: "Manrope Variable", sans-serif; outline: none; scrollbar-width: thin; transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out); }
+.rr-close { position: absolute; top: 12px; right: 12px; width: 48px; height: 48px; background: #fff; }
+.rr-avatar { width: 112px; height: 112px; flex-shrink: 0; border-radius: 26px; object-fit: cover; }
+.rr-heading { display: flex; flex-direction: column; gap: 12px; text-align: center; }
+.rr-heading h2, .rr-heading p { margin: 0; }
+.rr-heading h2 { font-family: "Geist Variable", sans-serif; font-size: 24px; font-weight: 500; line-height: 1.15; }
+.rr-heading p { color: #9c9c9c; font-size: 16px; line-height: 1.4; }
+.rr-form { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+.rr-aspects { min-width: 0; padding: 0; margin: 0; border: 0; }
+.rr-aspects legend, .rr-comment label { padding: 0; margin-bottom: 8px; font-size: 14px; line-height: 20px; font-weight: 600; }
+.rr-aspects > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.rr-aspects button { min-height: 40px; padding: 8px 20px; border-radius: 64px; color: #000; background: #f7f7f7; font-size: 14px; line-height: 20px; font-weight: 600; transition: background-color 140ms ease, color 140ms ease; }
+.rr-aspects button[aria-pressed="true"] { background: #000; color: #fff; }
+.rr-comment { display: flex; flex-direction: column; min-width: 0; }
+.rr-comment textarea { width: 100%; min-height: 96px; resize: vertical; border: 2px solid #efefef; border-radius: 16px; padding: 12px 16px; font: inherit; font-size: 14px; line-height: 20px; background: #fff; }
+.rr-comment textarea::placeholder { color: #9c9c9c; }
+.rr-comment textarea:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.rr-note { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; color: #9c9c9c; font-size: 12px; line-height: 16px; }
+.rr-note > :last-child { flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.rr-primary { width: 100%; flex-shrink: 0; min-height: 48px; border-radius: 64px; padding: 8px 24px; color: #fff; background: #000; font-size: 16px; line-height: 24px; font-weight: 600; }
+.rr-primary:disabled { opacity: .35; cursor: default; }
+.rr-skip { align-self: center; min-height: 40px; padding: 8px 20px; border-radius: 64px; background: transparent; color: #9c9c9c; font-size: 14px; line-height: 20px; font-weight: 600; }
+.rr-grabber { display: none; }
+.rr-overlay[data-closing], .rr-dialog[data-closing] { opacity: 0; }
+.rr-dialog[data-closing] { transform: scale(.97); }
+@starting-style { .rr-overlay { opacity: 0; } .rr-dialog { opacity: 0; transform: scale(.97); } }
+@media (hover: hover) and (pointer: fine) { .rr-close:hover, .rr-skip:hover { background: #f7f7f7; } .rr-primary:not(:disabled):hover, .rr-aspects button[aria-pressed="true"]:hover { background: #292929; } .rr-aspects button:not([aria-pressed="true"]):hover { background: #efefef; } }
+@media (max-width: 700px) {
+  .rr-overlay { padding: 0; place-items: end center; }
+  .rr-dialog { width: 100%; max-height: calc(100dvh - 16px); gap: 16px; padding: 28px 20px max(20px, env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; }
+  .rr-grabber { display: block; position: absolute; top: 8px; left: calc(50% - 18px); width: 36px; height: 4px; border-radius: 99px; background: #e5e5e5; }
+  .rr-close { width: 40px; height: 40px; }
+  .rr-avatar { width: 96px; height: 96px; border-radius: 22px; }
+  .rr-heading h2 { font-size: 22px; line-height: 26px; }
+  .rr-heading p { font-size: 14px; line-height: 20px; }
+  .rr-form { gap: 16px; }
+  .rr-aspects button { min-height: 36px; padding: 8px 14px; font-size: 12px; }
+  .rr-primary { min-height: 44px; font-size: 14px; }
+  .rr-dialog[data-closing] { transform: translateY(32px); }
+  @starting-style { .rr-dialog { transform: translateY(32px); } }
+}
+@media (prefers-reduced-motion: reduce) { .rr-overlay, .rr-dialog, .rr-aspects button { transition: none; } .rr-dialog[data-closing] { transform: none; } }

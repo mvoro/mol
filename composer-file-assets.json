@@ -1,0 +1,42 @@
+[
+  {
+    "sourceNode": "2227:165782",
+    "name": "file-document.svg",
+    "url": "https://www.figma.com/api/mcp/asset/4167995a-159c-4cc4-a9ea-7e121288b2bc.svg"
+  },
+  {
+    "sourceNode": "2227:165782",
+    "name": "file-remove.svg",
+    "url": "https://www.figma.com/api/mcp/asset/27c338fb-fcf1-4aaa-8a6d-e4950b6fce68.svg"
+  },
+  {
+    "sourceNode": "2227:165780",
+    "name": "file-video.svg",
+    "url": "https://www.figma.com/api/mcp/asset/98f1a075-145b-49eb-8e0e-5317e12cd351.svg"
+  },
+  {
+    "sourceNode": "2227:165779",
+    "name": "file-audio.svg",
+    "url": "https://www.figma.com/api/mcp/asset/ae300b64-95f9-4aa3-a0c4-80a9494f718c.svg"
+  },
+  {
+    "sourceNode": "2227:166024",
+    "name": "ref-add.svg",
+    "url": "https://www.figma.com/api/mcp/asset/b92053a6-e128-4081-989b-0479eb13be04.svg"
+  },
+  {
+    "sourceNode": "2227:166022",
+    "name": "ref-add-hover.svg",
+    "url": "https://www.figma.com/api/mcp/asset/f565b6ec-513f-43cd-826a-84d2e346b05a.svg"
+  },
+  {
+    "sourceNode": "2227:166166",
+    "name": "ref-add-error.svg",
+    "url": "https://www.figma.com/api/mcp/asset/c050aae6-ec28-4589-8502-de9d092bc6b1.svg"
+  },
+  {
+    "sourceNode": "2227:165778",
+    "name": "file-sample.png",
+    "url": "https://www.figma.com/api/mcp/asset/804720d5-d0b5-4bc8-879d-ead608881d5b.png"
+  }
+]

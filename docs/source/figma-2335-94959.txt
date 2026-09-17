@@ -1,0 +1,493 @@
+const imgVector = "https://www.figma.com/api/mcp/asset/b700847d-458e-4f3c-97a5-ebd6ded7872f.svg";
+const imgVector1 = "https://www.figma.com/api/mcp/asset/dd94d429-8f71-4e7b-876e-2f600e82d11d.svg";
+const imgVuesaxLinearProfileCircle = "https://www.figma.com/api/mcp/asset/5ac71264-28c6-4f1d-aa2c-11c6a053d4c1.svg";
+const imgVuesaxLinearFolderAdd = "https://www.figma.com/api/mcp/asset/4145b40c-963a-4301-af94-f6f3606506b3.svg";
+const imgFrame15 = "https://www.figma.com/api/mcp/asset/6ca87add-5bef-4bda-96b4-bd3eb54b95d6.svg";
+const imgGroup7 = "https://www.figma.com/api/mcp/asset/7511f4b5-cd83-400e-81e6-26300b737843.svg";
+const imgVuesaxLinearSidebarLeft = "https://www.figma.com/api/mcp/asset/42de67bd-f695-4516-b71b-4ea5d9bc4b15.svg";
+const imgVuesaxLinearAddSquare = "https://www.figma.com/api/mcp/asset/50fcb0c2-ce9b-45f2-bc88-02dbd228e6d3.svg";
+const imgVuesaxLinearGallery = "https://www.figma.com/api/mcp/asset/079a6377-c37c-4a43-bcb5-998103f336a0.svg";
+const imgVuesaxLinearElementEqual = "https://www.figma.com/api/mcp/asset/ce678f4e-7d62-4cbd-b1ba-dc74dc04fb12.svg";
+const imgVuesaxLinearSearchNormal = "https://www.figma.com/api/mcp/asset/1fa86d65-97ae-4105-a14e-c95935620497.svg";
+const imgSocial = "https://www.figma.com/api/mcp/asset/5b0128af-0d01-4622-bf50-1c4cd1a99d6a.svg";
+const imgVuesaxLinearArrowUp = "https://www.figma.com/api/mcp/asset/ae7cc77e-97ae-43bf-b9c4-74f2a095e73b.svg";
+const imgSep = "https://www.figma.com/api/mcp/asset/d4f67a64-89ea-40d0-bee5-6e9ea44ee67e.svg";
+const imgBlur = "https://www.figma.com/api/mcp/asset/1c22adf4-67ad-44af-a2e7-b5e89e9f6b8d.png";
+const imgVuesaxLinearText = "https://www.figma.com/api/mcp/asset/611263ec-4424-426c-8a47-f00fa5e77252.svg";
+const imgVuesaxLinearGallery1 = "https://www.figma.com/api/mcp/asset/92602f36-5a5b-4c98-83ab-ae67d9000eb7.svg";
+const imgVuesaxLinearVideo = "https://www.figma.com/api/mcp/asset/6d93423f-3b65-4c6e-977e-eae42269868a.svg";
+const imgVuesaxLinearAudioSquare = "https://www.figma.com/api/mcp/asset/a7b47413-7290-4709-bafb-f787e7a9324f.svg";
+const imgMoleculs = "https://www.figma.com/api/mcp/asset/1796b156-ba6e-4c8e-8eb4-54119f51d0d4.svg";
+const imgVuesaxLinearInfoCircle = "https://www.figma.com/api/mcp/asset/21510cc7-63d3-4486-8560-bc6eafc57b7e.svg";
+const imgVuesaxLinearAdd = "https://www.figma.com/api/mcp/asset/2bd89323-9d2c-4ec6-9837-ed0d9c6f7504.svg";
+const imgVuesaxLinearLevel = "https://www.figma.com/api/mcp/asset/05036c12-1370-4a47-9ba1-6fa477790457.svg";
+const imgVuesaxLinearSignpost = "https://www.figma.com/api/mcp/asset/c11b15d3-6920-4cc1-8cd4-2177e73c459c.svg";
+const imgVuesaxLinearMicrophone2 = "https://www.figma.com/api/mcp/asset/18d4de2e-e491-487e-8671-ff2d6a24a1ff.svg";
+const imgVector2 = "https://www.figma.com/api/mcp/asset/d1157dd3-c209-4b0b-b4fb-e1d10b37a7c6.svg";
+const imgVuesaxLinearArrowDown = "https://www.figma.com/api/mcp/asset/edd4a673-76b6-4046-955f-70aac063c5f0.svg";
+const imgFrame16 = "https://www.figma.com/api/mcp/asset/0fc37e97-e2cd-4480-8465-1836c1cacbd7.svg";
+
+type TriggerProps = {
+  className?: string;
+  collapsed?: "false";
+  device?: "desktop";
+};
+
+function Trigger({ className, collapsed = "false", device = "desktop" }: TriggerProps) {
+  return (
+    <div className={className || "bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[12px] items-center justify-center pb-[16px] pt-[24px] px-[24px] relative rounded-tl-[24px] rounded-tr-[24px] w-[776px]"} data-node-id="1314:7016">
+      <div className="content-stretch flex flex-[1_0_0] gap-[12px] items-center min-w-px relative" data-node-id="1314:6669" data-name="text">
+        <div className="h-[16.467px] relative shrink-0 w-[13.23px]" data-node-id="1314:6670" data-name="Vector">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVector} />
+        </div>
+        <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px overflow-hidden relative text-[14px] text-[color:var(----gray,#9c9c9c)] text-ellipsis whitespace-nowrap" data-node-id="1314:6671">
+          Попробуйте прямо сейчас
+        </p>
+      </div>
+      <div className="content-stretch flex gap-[12px] items-center justify-end relative shrink-0" data-node-id="1314:6672" data-name="text">
+        <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] overflow-hidden relative shrink-0 text-[#cfcfcf] text-[14px] text-ellipsis text-right whitespace-nowrap" data-node-id="1314:6673">
+          Листайте вниз
+        </p>
+        <div className="h-[10.636px] relative shrink-0 w-[8.357px]" data-node-id="1314:6674" data-name="Vector">
+          <div className="absolute inset-[-7.41%_-9.43%]">
+            <img alt="" className="block max-w-none size-full" src={imgVector1} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type ProfileSidebarProps = {
+  className?: string;
+  device?: "desktop";
+  sidebarToggled?: "False";
+  variant?: "default";
+};
+
+function ProfileSidebar({ className, device = "desktop", sidebarToggled = "False", variant = "default" }: ProfileSidebarProps) {
+  return (
+    <div className={className || "content-stretch flex flex-col gap-[8px] h-[61px] items-center justify-end relative"} data-node-id="285:54621">
+      <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] items-center p-[12px] relative rounded-[16px] shrink-0 w-[224px]" data-node-id="285:54630" data-name="profile-button-card">
+        <div className="bg-[var(----primary,#7a3fff)] content-stretch flex items-center justify-center relative rounded-[64px] shrink-0 size-[28px]" data-node-id="285:54631" data-name="avatar">
+          <div className="relative shrink-0 size-[16px]" data-node-id="285:54632" data-name="profile-circle">
+            <div className="absolute contents inset-0" data-node-id="I285:54632;79:13630" data-name="vuesax/linear/profile-circle">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearProfileCircle} />
+            </div>
+          </div>
+        </div>
+        <div className="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col font-['Manrope:SemiBold'] font-semibold gap-[2px] h-[37px] items-start justify-center leading-[normal] min-w-px relative whitespace-nowrap" data-node-id="285:54633" data-name="info">
+          <p className="overflow-hidden relative shrink-0 text-[14px] text-[color:var(----black,black)] text-ellipsis w-full" data-node-id="285:54634">
+            mock-mail@gmail.com
+          </p>
+          <p className="overflow-hidden relative shrink-0 text-[12px] text-[rgba(0,0,0,0.5)] text-ellipsis w-full" data-node-id="285:54635">
+            Бесплатный
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type ProjectsProps = {
+  className?: string;
+  device?: "desktop";
+  projects?: "empty";
+  toggled?: "false";
+};
+
+function Projects({ className, device = "desktop", projects = "empty", toggled = "false" }: ProjectsProps) {
+  return (
+    <div className={className || "content-stretch flex flex-col items-start relative w-[224px]"} data-node-id="222:154142">
+      <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="222:154148" data-name="button">
+        <div className="relative shrink-0 size-[18px]" data-node-id="I222:154148;369:56199" data-name="folder-add">
+          <div className="absolute contents inset-0" data-node-id="I222:154148;369:56199;79:13662" data-name="vuesax/linear/folder-add">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearFolderAdd} />
+          </div>
+        </div>
+        <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[14px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I222:154148;369:56200">
+          Новый проект
+        </p>
+      </div>
+    </div>
+  );
+}
+
+type SidebarProps = {
+  className?: string;
+  device?: "desktop";
+  history?: boolean;
+  hoverToggle?: "False";
+  shortkeyMacos?: "false";
+  shortkeyWin?: "false";
+  toggle?: "False";
+};
+
+function Sidebar({ className, device = "desktop", history = true, hoverToggle = "False", shortkeyMacos = "false", shortkeyWin = "false", toggle = "False" }: SidebarProps) {
+  return (
+    <div className={className || "bg-[var(----bg,#f7f7f7)] content-stretch flex flex-col gap-[12px] h-[1080px] items-center pb-[12px] pt-[32px] px-[12px] relative"} data-node-id="306:158057">
+      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[24px] items-start min-h-px relative w-full" data-node-id="306:158063" data-name="top-items">
+        <div className="content-stretch flex items-center justify-between pl-[12px] relative shrink-0 w-full" data-node-id="306:158064" data-name="header">
+          <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[113.093px]" data-node-id="306:158065" data-name="logo">
+            <div className="relative shrink-0 size-[20px]" data-node-id="306:158066">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgFrame15} />
+            </div>
+            <div className="absolute h-[19.368px] left-[28px] top-[1.32px] w-[85.207px]" data-node-id="306:158071">
+              <div className="absolute inset-[-0.93%_-0.21%_-0.69%_-0.21%]">
+                <img alt="" className="block max-w-none size-full" src={imgGroup7} />
+              </div>
+            </div>
+          </div>
+          <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] items-center justify-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 size-[40px]" data-node-id="306:158074" data-name="button">
+            <div className="relative shrink-0 size-[18px]" data-node-id="I306:158074;369:58898" data-name="sidebar-left">
+              <div className="absolute contents inset-0" data-node-id="I306:158074;369:58898;79:17729" data-name="vuesax/linear/sidebar-left">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearSidebarLeft} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-col items-start relative shrink-0 w-[224px]" data-node-id="306:158075" data-name="main-actions">
+          <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158076" data-name="button">
+            <div className="relative shrink-0 size-[18px]" data-node-id="I306:158076;369:56199" data-name="add-square">
+              <div className="absolute contents inset-0" data-node-id="I306:158076;369:56199;79:16959" data-name="vuesax/linear/add-square">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearAddSquare} />
+              </div>
+            </div>
+            <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[14px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I306:158076;369:56200">
+              Новый чат
+            </p>
+          </div>
+          <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158077" data-name="button">
+            <div className="relative shrink-0 size-[18px]" data-node-id="I306:158077;369:58898" data-name="gallery">
+              <div className="absolute contents inset-0" data-node-id="I306:158077;369:58898;79:19534" data-name="vuesax/linear/gallery">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearGallery} />
+              </div>
+            </div>
+            <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[14px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I306:158077;369:58899">
+              Файлы и медиа
+            </p>
+          </div>
+          <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158078" data-name="button">
+            <div className="relative shrink-0 size-[18px]" data-node-id="I306:158078;369:56199" data-name="element-equal">
+              <div className="absolute contents inset-0" data-node-id="I306:158078;369:56199;79:18700" data-name="vuesax/linear/element-equal">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearElementEqual} />
+              </div>
+            </div>
+            <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[14px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I306:158078;369:56200">
+              Инструменты
+            </p>
+          </div>
+        </div>
+        <Projects className="content-stretch flex flex-col items-start relative shrink-0 w-full" />
+        {history && (
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-end min-h-px overflow-clip relative w-[224px]" data-node-id="306:158081" data-name="history_wrapper">
+            <div className="content-stretch flex items-center justify-between pl-[12px] pr-[6px] relative shrink-0 w-full" data-node-id="306:158082" data-name="models-header">
+              <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[14px] text-[color:var(----gray,#9c9c9c)] whitespace-nowrap" data-node-id="306:158083">
+                История чатов
+              </p>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] items-center justify-center px-[16px] py-[8px] relative rounded-[10px] shrink-0 size-[32px]" data-node-id="306:158084" data-name="button">
+                <div className="relative shrink-0 size-[14px]" data-node-id="I306:158084;369:58916" data-name="search-normal">
+                  <div className="absolute contents inset-0" data-node-id="I306:158084;369:58916;79:15272" data-name="vuesax/linear/search-normal">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearSearchNormal} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-px relative w-[224px]" data-node-id="306:158085" data-name="models-items">
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158086" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158086;369:58899">
+                  5 вирусных фактов о верблюдах
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158087" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158087;369:58899">
+                  Посчитай экономический эффект
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158088" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158088;369:58899">
+                  Составь список гостей на меро
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158089" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158089;369:58899">
+                  Подготовь отчет для нотариуса
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158090" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158090;369:58899">
+                  Сделай анализ резюме по шаблону
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158091" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158091;369:58899">
+                  Напиши краткое эссе на тему
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158092" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158092;369:58899">
+                  Сделай сравнение двух устройств
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158093" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158093;369:58899">
+                  Оцени качество полученного материал
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158094" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158094;369:58899">
+                  Выбери арбуз и скажи какой лучше
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158095" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158095;369:58899">
+                  Сочини песню для новогоднего спектакля
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158096" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158096;369:58899">
+                  Сделай сочинение на тему как я провел лето
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center px-[12px] py-[8px] relative rounded-[12px] shrink-0 w-full" data-node-id="306:158097" data-name="button">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px relative text-[14px] text-[color:var(----black,black)]" data-node-id="I306:158097;369:58899">
+                  Создай изображение в стиле art
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="bg-[var(----white,white)] content-stretch flex flex-col gap-[8px] items-start justify-center p-[12px] relative rounded-[16px] shrink-0 w-[224px]" data-node-id="306:158098" data-name="support-banner">
+        <div className="relative shrink-0 size-[18px]" data-node-id="306:158099" data-name="social">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgSocial} />
+        </div>
+        <div className="[word-break:break-word] content-stretch flex flex-col gap-[4px] items-start leading-[normal] relative shrink-0 w-full" data-node-id="306:158100" data-name="text">
+          <p className="font-['Manrope:SemiBold'] font-semibold relative shrink-0 text-[14px] text-[color:var(----black,black)] whitespace-nowrap" data-node-id="306:158101">
+            Задать вопрос
+          </p>
+          <p className="font-['Manrope:Medium'] font-medium min-w-full relative shrink-0 text-[12px] text-[rgba(0,0,0,0.5)] w-[min-content]" data-node-id="306:158102">
+            Напишите нам и мы постараемся ответить на все ваши вопросы
+          </p>
+        </div>
+        <div className="absolute flex items-center justify-center right-[8.65px] size-[25.456px] top-[8px]" data-node-id="306:158103">
+          <div className="flex-none rotate-45">
+            <div className="relative size-[18px]" data-name="arrow-up">
+              <div className="absolute contents inset-0" data-node-id="I306:158103;79:13063" data-name="vuesax/linear/arrow-up">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearArrowUp} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="h-[0.003px] relative shrink-0 w-full" data-node-id="306:158104" data-name="sep">
+        <div className="absolute inset-[-0.5px_0]">
+          <img alt="" className="block max-w-none size-full" src={imgSep} />
+        </div>
+      </div>
+      <ProfileSidebar className="content-stretch flex flex-col gap-[8px] h-[61px] items-center justify-end relative shrink-0" />
+    </div>
+  );
+}
+
+export default function Initial() {
+  return (
+    <div className="bg-[var(----white,white)] relative size-full" data-node-id="2335:94959" data-name="initial">
+      <div className="absolute content-stretch flex items-start left-0 top-0 w-[1920px]" data-node-id="2335:94960" data-name="body">
+        <Sidebar className="bg-[var(----bg,#f7f7f7)] content-stretch flex flex-col gap-[12px] h-[1080px] items-center pb-[12px] pt-[32px] px-[12px] relative shrink-0" />
+        <div className="bg-[var(----white,white)] content-stretch flex flex-col h-[1080px] items-center justify-end relative shrink-0 w-[1672px]" data-node-id="2335:94962" data-name="text-zone">
+          <Trigger className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[12px] items-center justify-center pb-[16px] pt-[24px] px-[24px] relative rounded-tl-[24px] rounded-tr-[24px] shrink-0 w-[776px]" />
+          <div className="-translate-x-1/2 -translate-y-1/2 absolute content-stretch flex flex-col gap-[24px] h-[898px] items-center justify-center left-1/2 top-[calc(50%-30px)] w-[728px]" data-node-id="2335:94964" data-name="text-chat-message-offers">
+            <div className="content-stretch flex items-center justify-center relative shrink-0 w-full" data-node-id="2335:94965" data-name="text">
+              <p className="[word-break:break-word] font-['Geist:SemiBold'] font-semibold leading-[1.2] relative shrink-0 text-[28px] text-[color:var(----black,black)] whitespace-nowrap" data-node-id="2335:94966">
+                Что сегодня сделаем вместе?
+              </p>
+            </div>
+            <div className="content-stretch flex gap-[8px] items-start justify-center relative shrink-0" data-node-id="2335:96883" data-name="variants">
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] h-[32px] items-center px-[16px] py-[8px] relative rounded-[256px] shrink-0" data-node-id="2335:96884" data-name="button">
+                <div className="bg-[var(----third,#ff723f)] content-stretch flex items-center justify-center relative rounded-[4px] shrink-0 size-[14px]" data-node-id="I2335:96884;369:58916" data-name="Section=Text, Variant=Color">
+                  <div className="relative shrink-0 size-[9px]" data-node-id="I2335:96884;369:58916;2227:162234" data-name="text">
+                    <div className="absolute contents inset-0" data-node-id="I2335:96884;369:58916;2227:162234;79:12750" data-name="vuesax/linear/text">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearText} />
+                    </div>
+                  </div>
+                </div>
+                <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] whitespace-nowrap" data-node-id="I2335:96884;369:58917">
+                  Текст
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] h-[32px] items-center px-[16px] py-[8px] relative rounded-[256px] shrink-0" data-node-id="2335:97494" data-name="button">
+                <div className="bg-[#dc3fff] content-stretch flex items-center justify-center relative rounded-[4px] shrink-0 size-[14px]" data-node-id="I2335:97494;369:58916" data-name="Section=Photo, Variant=Color">
+                  <div className="relative shrink-0 size-[9px]" data-node-id="I2335:97494;369:58916;2227:162238" data-name="gallery">
+                    <div className="absolute contents inset-0" data-node-id="I2335:97494;369:58916;2227:162238;79:19534" data-name="vuesax/linear/gallery">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearGallery1} />
+                    </div>
+                  </div>
+                </div>
+                <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] whitespace-nowrap" data-node-id="I2335:97494;369:58917">
+                  Картинка
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] h-[32px] items-center px-[16px] py-[8px] relative rounded-[256px] shrink-0" data-node-id="2335:98992" data-name="button">
+                <div className="bg-[var(----primary,#7a3fff)] content-stretch flex items-center justify-center relative rounded-[4px] shrink-0 size-[14px]" data-node-id="I2335:98992;369:58916" data-name="Section=Video, Variant=Color">
+                  <div className="relative shrink-0 size-[9px]" data-node-id="I2335:98992;369:58916;2227:162232" data-name="video">
+                    <div className="absolute contents inset-0" data-node-id="I2335:98992;369:58916;2227:162232;79:19550" data-name="vuesax/linear/video">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearVideo} />
+                    </div>
+                  </div>
+                </div>
+                <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] whitespace-nowrap" data-node-id="I2335:98992;369:58917">
+                  Видео
+                </p>
+              </div>
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] h-[32px] items-center px-[16px] py-[8px] relative rounded-[256px] shrink-0" data-node-id="2335:99014" data-name="button">
+                <div className="bg-[#3f8cff] content-stretch flex items-center justify-center relative rounded-[4px] shrink-0 size-[14px]" data-node-id="I2335:99014;369:58916" data-name="Section=Audio, Variant=Color">
+                  <div className="relative shrink-0 size-[9px]" data-node-id="I2335:99014;369:58916;2227:162236" data-name="audio-square">
+                    <div className="absolute contents inset-0" data-node-id="I2335:99014;369:58916;2227:162236;79:19231" data-name="vuesax/linear/audio-square">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearAudioSquare} />
+                    </div>
+                  </div>
+                </div>
+                <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] whitespace-nowrap" data-node-id="I2335:99014;369:58917">
+                  Аудио
+                </p>
+              </div>
+            </div>
+            <div className="content-stretch flex flex-col items-center relative shrink-0 w-[728px]" data-node-id="2335:95540" data-name="ChatComposer">
+              <div className="content-stretch flex items-start px-[32px] relative shrink-0 w-[728px]" data-node-id="I2335:95540;2298:70791" data-name="top-panel">
+                <div className="bg-[var(----bg,#f7f7f7)] border-[#f4f4f4] border-l border-r border-solid border-t content-stretch flex flex-[1_0_0] gap-[8px] items-center min-w-px pb-[8px] pt-[12px] px-[16px] relative rounded-tl-[20px] rounded-tr-[20px]" data-node-id="I2335:95540;2298:70792" data-name="panel">
+                  <div className="relative shrink-0 size-[14px]" data-node-id="I2335:95540;2298:70792;2303:84476" data-name="moleculs">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgMoleculs} />
+                  </div>
+                  <p className="[word-break:break-word] flex-[1_0_0] font-['Manrope:SemiBold'] font-semibold leading-[normal] min-w-px overflow-hidden relative text-[12px] text-[color:var(----black,black)] text-ellipsis whitespace-nowrap" data-node-id="I2335:95540;2298:70792;2303:84436">
+                    Молли ждёт ваш запрос…
+                  </p>
+                  <div className="relative shrink-0 size-[16px]" data-node-id="I2335:95540;2298:70792;2303:85075" data-name="tooltip-icon">
+                    <div className="absolute contents inset-0" data-node-id="I2335:95540;2298:70792;2303:85075;79:16934" data-name="vuesax/linear/info-circle">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearInfoCircle} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-[var(--bg\/canvas,#f7f7f7)] border border-[#f4f4f4] border-solid content-stretch flex flex-col gap-[8px] items-center p-[4px] relative rounded-[26px] shrink-0 w-full" data-node-id="I2335:95540;2298:70793" data-name="wrapper">
+                <div className="bg-[var(--bg\/surface,white)] border border-[#f4f4f4] border-solid content-stretch flex flex-col gap-[var(--dimensions\/spacing\/5,10px)] items-start overflow-clip pb-[12px] pl-[16px] pr-[12px] pt-[16px] relative rounded-[var(--dimensions\/radius\/3xl,24px)] shrink-0 w-full" data-node-id="I2335:95540;2298:70805" data-name="field">
+                  <div className="content-stretch flex gap-px items-start overflow-clip relative shrink-0 w-full" data-node-id="I2335:95540;2327:77332" data-name="prompt-row">
+                    <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--font-family\/ui,'Manrope:Medium')] font-medium leading-[var(--dimensions\/leading\/sm,20px)] min-h-[40px] min-w-px relative self-stretch text-[color:var(--fg\/muted,#7a7a7a)] text-[length:var(--dimensions\/font\/sm,14px)]" data-node-id="I2335:95540;2298:70806">
+                      Спросите что-нибудь…
+                    </p>
+                  </div>
+                  <div className="content-stretch flex gap-[var(--dimensions\/spacing\/2,4px)] items-center relative shrink-0 w-full" data-node-id="I2335:95540;2298:70807" data-name="bar">
+                    <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] items-center justify-center px-[16px] py-[8px] relative rounded-[256px] shrink-0 size-[32px]" data-node-id="I2335:95540;2298:70808" data-name="action-plus">
+                      <div className="relative shrink-0 size-[14px]" data-node-id="I2335:95540;2298:70808;369:58916" data-name="add">
+                        <div className="absolute contents inset-0" data-node-id="I2335:95540;2298:70808;369:58916;79:16948" data-name="vuesax/linear/add">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearAdd} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] h-[32px] items-center justify-center px-[16px] py-[8px] relative rounded-[64px] shrink-0" data-node-id="I2335:95540;2298:70809" data-name="chip-1">
+                      <div className="relative shrink-0 size-[14px]" data-node-id="I2335:95540;2298:70809;369:58916" data-name="level">
+                        <div className="absolute contents inset-0" data-node-id="I2335:95540;2298:70809;369:58916;79:16617" data-name="vuesax/linear/level">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearLevel} />
+                        </div>
+                      </div>
+                      <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I2335:95540;2298:70809;369:58917">
+                        Быстро
+                      </p>
+                    </div>
+                    <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] h-[32px] items-center justify-center px-[16px] py-[8px] relative rounded-[64px] shrink-0" data-node-id="I2335:95540;2298:70810" data-name="chip-2">
+                      <div className="relative shrink-0 size-[14px]" data-node-id="I2335:95540;2298:70810;369:58916" data-name="signpost">
+                        <div className="absolute contents inset-0" data-node-id="I2335:95540;2298:70810;369:58916;79:16739" data-name="vuesax/linear/signpost">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearSignpost} />
+                        </div>
+                      </div>
+                      <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I2335:95540;2298:70810;369:58917">
+                        Роль
+                      </p>
+                    </div>
+                    <div className="flex-[1_0_0] h-px min-w-px relative" data-node-id="I2335:95540;2298:70812" data-name="spacer" />
+                    <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[8px] items-center justify-center px-[16px] py-[8px] relative rounded-[256px] shrink-0 size-[32px]" data-node-id="I2335:95540;2298:70813" data-name="action-mic">
+                      <div className="relative shrink-0 size-[14px]" data-node-id="I2335:95540;2298:70813;369:58916" data-name="microphone-2">
+                        <div className="absolute contents inset-0" data-node-id="I2335:95540;2298:70813;369:58916;79:19430" data-name="vuesax/linear/microphone-2">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearMicrophone2} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="content-stretch flex items-start px-[164px] relative shrink-0 w-[728px]" data-node-id="I2335:95540;2298:70820" data-name="promo">
+                <div className="content-stretch flex flex-[1_0_0] gap-[8px] items-center justify-center min-w-px px-[24px] py-[6px] relative rounded-bl-[16px] rounded-br-[16px]" data-node-id="I2335:95540;2298:70821" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 400 28' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(40 2.8 -7.9412 11.049 0 -2.4869e-14)'><stop stop-color='rgba(255,114,63,1)' offset='0'/><stop stop-color='rgba(246,101,111,1)' offset='0.0625'/><stop stop-color='rgba(238,89,159,1)' offset='0.125'/><stop stop-color='rgba(229,76,207,1)' offset='0.1875'/><stop stop-color='rgba(220,63,255,1)' offset='0.25'/><stop stop-color='rgba(171,63,255,1)' offset='0.375'/><stop stop-color='rgba(122,63,255,1)' offset='0.5'/><stop stop-color='rgba(93,101,255,1)' offset='0.625'/><stop stop-color='rgba(63,140,255,1)' offset='0.75'/><stop stop-color='rgba(32,197,232,1)' offset='0.875'/><stop stop-color='rgba(16,226,221,1)' offset='0.9375'/><stop stop-color='rgba(0,255,209,1)' offset='1'/></radialGradient></defs></svg>\")" }} data-development-annotations="опционально – только для новых пользователей" data-name="promo-badge">
+                  <div className="h-[10px] relative shrink-0 w-[11px]" data-node-id="I2335:95540;2298:70822" data-name="Vector">
+                    <div className="absolute inset-[-5%_-4.55%]">
+                      <img alt="" className="block max-w-none size-full" src={imgVector2} />
+                    </div>
+                  </div>
+                  <p className="[word-break:break-word] font-['Manrope:Bold'] font-bold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----white,white)] whitespace-nowrap" data-node-id="I2335:95540;2298:70823">
+                    1 бесплатная генерация
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="absolute h-[96px] left-0 right-0 top-0" data-node-id="2335:95043" data-name="blur">
+            <img alt="" className="absolute backdrop-blur-[0px] inset-0 max-w-none object-cover pointer-events-none size-full" src={imgBlur} />
+          </div>
+          <div className="absolute content-stretch flex items-center justify-between left-[32px] top-[32px] w-[1608px]" data-node-id="2335:96935" data-name="chat-module-header">
+            <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[10px] h-[40px] items-center justify-center px-[20px] py-[8px] relative rounded-[64px] shrink-0" data-node-id="2335:106214" data-name="model-select">
+              <div className="relative shrink-0 size-[18px]" data-node-id="I2335:106214;369:56199" data-name="moleculs" />
+              <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[14px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="I2335:106214;369:56200">
+                Молли 1.0
+              </p>
+              <div className="relative shrink-0 size-[12px]" data-node-id="I2335:106214;369:56202" data-name="arrow-down">
+                <div className="absolute contents inset-0" data-node-id="I2335:106214;369:56202;79:13093" data-name="vuesax/linear/arrow-down">
+                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVuesaxLinearArrowDown} />
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex flex-col h-[40px] items-end relative shrink-0" data-node-id="2335:96942" data-name="coins">
+              <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex gap-[4px] h-[40px] items-center justify-center p-[4px] relative rounded-[64px] shrink-0 w-full" data-node-id="2335:96943" data-name="coin_tab">
+                <div className="bg-[var(----bg,#f7f7f7)] content-stretch flex h-[32px] items-center px-[16px] py-[8px] relative rounded-[256px] shrink-0" data-node-id="2335:96944" data-name="button">
+                  <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-node-id="2335:96945">
+                    <div className="relative shrink-0 size-[14px]" data-node-id="2335:96946">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgFrame16} />
+                    </div>
+                    <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----black,black)] text-center whitespace-nowrap" data-node-id="2335:96951">
+                      5 MC
+                    </p>
+                  </div>
+                </div>
+                <div className="bg-[var(----black,black)] content-stretch flex gap-[8px] h-[32px] items-center px-[16px] py-[8px] relative rounded-[256px] shrink-0" data-node-id="2335:96952" data-name="button">
+                  <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[12px] text-[color:var(----white,white)] whitespace-nowrap" data-node-id="I2335:96952;79:20694">
+                    Пополнить
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+SUPER CRITICAL: The generated React+Tailwind code MUST be converted to match the target project's technology stack and styling system.
+1. Analyze the target codebase to identify: technology stack, styling approach, component patterns, and design tokens
+2. Convert React syntax to the target framework/library
+3. Transform all Tailwind classes to the target styling system while preserving exact visual design
+4. Follow the project's existing patterns and conventions
+DO NOT install any Tailwind as a dependency unless the user instructs you to do so.
+
+Node ids have been added to the code as data attributes, e.g. `data-node-id="1:2"`.
+These styles are contained in the design: logo-gradient: , ui/default-regular: Font(family: "font-family/ui", style: Medium, size: dimensions/font/sm, weight: 500, lineHeight: dimensions/leading/sm, letterSpacing: 0), molly-gradinet: .
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## ChatComposer
+**Node ID:** 2299:434161
+
+Композер чата Молекулы. 50 вариантов: Type (Auto · Text · Photo · Video · Audio) × Device (Desktop 728 / Mobile 342) × State (Default · Focus · Filled · Generating · Disabled). ВСЕГДА ЕСТЬ: поле ввода (prompt + caret), action bar (+ · чипы быстрых действий · микрофон/отправка), footer (тип генерации · модель). ОПЦИОНАЛЬНО, пропами: showTopPanel (panel → Variant = Role | Offer | Assistant), showUploads, showFiles, showFooter (тип + модель; по умолчанию включён), showPromo (по умолчанию включён). Обязательный минимум — поле ввода и action bar. Приоритет верхних панелей: Offer → Role → Assistant, слот один. ОБВОДКА ПОЛЯ нейтральна всегда: #F4F4F4 1 px, в Focus — токен --hover-bg (#E7E7E7) 1.5 px. ЦВЕТ ТИПА живёт ровно в двух местах: каретка и кнопка отправки/стопа. Text #FF723F · Photo #DC3FFF · Video #7A3FFF · Audio #3F8CFF · Auto — градиент, а каретка у Auto перебирает все цвета по тикам мигания. Микрофон и отправка живут в одном слоте и никогда не показываются вместе. БЫСТРЫЕ ДЕЙСТВИЯ. Чип-значение всегда несёт дефолт, всегда нейтральный, крестика не имеет. Чип без начального значения (Роль, Поиск в сети, Исследование) всегда подписан именем настройки; после выбора становится акцентным (#E3E0FF / #7A3FFF) и получает крестик сброса, но подпись не меняется — выбранная роль показана в верхней панели. Auto — Быстро (скорость ответа) · Роль Text — Роль · Поиск в сети · Исследование Photo — Авто (формат) · 1K (качество) · 1 шт (количество) Video — 16:9 (формат) · 5 с (длительность) · 720p (качество) Audio — Женский (голос) · Русский (язык) · Авто (длительность) МОДЕЛЬ ПО УМОЛЧАНИЮ: Auto — Молли 1.0 · Text — GPT-5 · Photo — Nano Banana · Video — Sora 2 · Audio — Suno v5. На мобиле чипы, «+», тип и модель раскрываются нижним листом, а не поповером.
+
+## ChatComposerTopPanel
+**Node ID:** 2292:68906
+
+Верхняя панель композера. Ось Variant — о чём панель: · Role — информер активной роли: иконка, название роли, тултип с описанием, крестик. · Offer — закрываемый CTA: заголовок, подзаголовок с таймером, кнопка «Подробнее», крестик. · Assistant — статус активной модели («Молли ждёт ваш запрос»): иконка модели, строка, тултип. Крестика НЕТ — статус не закрывают. Режим Авто, пока поле пустое. ПРИОРИТЕТ, слот один: Offer → Role → Assistant. Offer держит слот, пока его не закрыли (закрытие запоминается); Assistant уходит, как только в поле появился текст. Панель уже композера (по 32 px с боков на десктопе, 24 — на мобиле) и скруглена только сверху: она выезжает из-под карточки поля. Все варианты хагят высоту по контенту (counterAxisSizingMode = AUTO) — иначе при смене варианта в инстансе остаётся пустая полоса. Вставляется в ChatComposer через showTopPanel; экземпляр внутри — exposed instance с layoutSizing FILL / HUG.
+Images and SVGs will be stored as constants, e.g. const image = 'https://www.figma.com/api/mcp/asset/550e8400-e29b-41d4-a716-446655440000.png'. These constants will be used in the code as the source for the image, ex: <img src={image} />. Image assets are stored on a remote server for 7 days and can be fetched using the provided URLs until they expire.
+Some elements have annotation data attributes. They provide extra information about how the element should be implemented.IMPORTANT: Do not ignore these annotation attributes. They should not appear in your final code.

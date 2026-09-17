@@ -1,0 +1,52 @@
+.ui-tabs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: max-content;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 4px;
+  background: #f7f7f7;
+  border: 0;
+  border-radius: 24px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.ui-tabs::-webkit-scrollbar { display: none; }
+.ui-tabs > .ui-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  flex-direction: row;
+  gap: 8px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 256px;
+  background: transparent;
+  color: #000;
+  font: 600 12px/16px 'Manrope Variable', sans-serif;
+  white-space: nowrap;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+.ui-tabs > .ui-tab[aria-selected='true'] {
+  background: #fff;
+  box-shadow: 0 1px 1px #0000001a;
+}
+.ui-tabs > .ui-tab > small { font: inherit; color: #7a7a7a; }
+.ui-tabs > .ui-tab:disabled { opacity: .4; }
+.ui-tabs > .ui-tab:focus-visible { outline: 2px solid var(--primary, #7a3fff); outline-offset: -2px; }
+@media (hover: hover) and (pointer: fine) {
+  .ui-tabs > .ui-tab:not(:disabled):not([aria-selected='true']):hover { background: #ededed; }
+}
+@media (max-width: 700px) {
+  .ui-tabs { flex-shrink: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-tabs > .ui-tab { transition: none; }
+}

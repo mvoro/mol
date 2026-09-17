@@ -1,0 +1,479 @@
+.settings-layer {
+  --settings-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --settings-primary: var(--primary, #7a3fff);
+  position: absolute;
+  left: var(--menu-x, 20px);
+  bottom: var(--menu-bottom, calc(100% + 8px));
+  z-index: 80;
+  width: 384px;
+  color: #000;
+  font-family: "Manrope Variable", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+  text-align: left;
+  outline: none;
+}
+.settings-layer *,
+.settings-layer *::before,
+.settings-layer *::after {
+  box-sizing: border-box;
+}
+.settings-layer button {
+  font: inherit;
+}
+.settings-layer button {
+  cursor: pointer;
+  color: inherit;
+  border: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.settings-layer button:focus-visible {
+  outline: 2px solid var(--settings-primary);
+  outline-offset: 2px;
+}
+.settings-layer button:active {
+  transform: scale(0.98);
+}
+.settings-layer button {
+  transition:
+    transform 120ms var(--settings-ease),
+    background-color 120ms ease;
+}
+.settings-panel {
+  background: #fff;
+  border: 1.5px solid #f7f7f7;
+  border-radius: 24px;
+  padding: 8px;
+  box-shadow: 0 0 16px #0000001a;
+}
+.settings-main,
+.settings-submenu {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 180ms var(--settings-ease),
+    transform 180ms var(--settings-ease);
+  transform-origin: bottom left;
+}
+.settings-layer[data-state="closed"] {
+  pointer-events: none;
+}
+.settings-layer[data-state="closed"] .settings-main,
+.settings-layer[data-state="closed"] .settings-submenu {
+  opacity: 0;
+  transform: scale(0.96);
+  transition-duration: 120ms;
+}
+.settings-submenu {
+  position: absolute;
+  width: 264px;
+  left: 390px;
+  top: -58px;
+  transform-origin: top left;
+  max-height: min(480px, calc(100dvh - 48px));
+  overflow: hidden;
+}
+.settings-submenu-role {
+  width: 364px;
+}
+.settings-submenu-speed,
+.settings-submenu-voice {
+  width: 300px;
+}
+.settings-direct {
+  width: min(264px, calc(100vw - 24px));
+}
+.settings-direct-role {
+  width: min(364px, calc(100vw - 24px));
+}
+.settings-direct-speed,
+.settings-direct-voice {
+  width: min(300px, calc(100vw - 24px));
+}
+.settings-main {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.settings-submenu-header {
+  display: none;
+}
+.settings-layer[data-collision="replace"] .settings-main {
+  visibility: hidden;
+  pointer-events: none;
+}
+.settings-layer[data-collision="replace"] .settings-submenu-header {
+  display: block;
+}
+.settings-layer[data-collision="replace"] .settings-submenu {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.settings-layer[data-collision="replace"] .settings-sheet-header {
+  height: 40px;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+.settings-layer[data-collision="replace"] .settings-close {
+  width: 32px;
+  height: 32px;
+}
+.settings-section-title {
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9c9c9c;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 18px;
+  background: #fff;
+  text-align: left;
+}
+.settings-row > svg,
+.settings-row > img,
+.settings-row > .icon,
+.settings-glyph {
+  flex-shrink: 0;
+}
+.settings-glyph {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+}
+.settings-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.settings-value {
+  color: #9c9c9c;
+  white-space: nowrap;
+  flex: none;
+  margin-left: auto;
+}
+.settings-row-active {
+  background: #f7f7f7;
+}
+.settings-separator {
+  height: 8px;
+  position: relative;
+  margin-inline: 12px;
+}
+.settings-separator::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 1px;
+  background: #f0f0f0;
+}
+.settings-boost {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 12px;
+  margin-left: auto;
+}
+.settings-boost .settings-glyph {
+  color: #9c9c9c;
+}
+.settings-switch {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 24px;
+  border-radius: 256px;
+  flex: none;
+  background: #f7f7f7;
+  padding: 3.25px 4px;
+  transition: background-color 160ms ease;
+}
+.settings-switch > span {
+  width: 17.5px;
+  height: 17.5px;
+  border-radius: 100%;
+  background: #9c9c9c;
+  transition:
+    transform 180ms var(--settings-ease),
+    background-color 160ms ease;
+}
+.settings-switch.is-on {
+  background: var(--settings-primary);
+}
+.settings-switch.is-on > span {
+  background: #fff;
+  transform: translateX(14px);
+}
+.settings-option-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 2px;
+}
+.settings-description {
+  color: #9c9c9c;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 17px;
+}
+.settings-option.has-description {
+  min-height: 53px;
+}
+.settings-option.is-selected,
+.settings-role-row.is-selected {
+  color: var(--settings-primary);
+  background: #f7f7f7;
+}
+.settings-option.is-selected .settings-boost .settings-glyph {
+  color: inherit;
+}
+.settings-options {
+  overflow-y: auto;
+  max-height: min(400px, calc(100dvh - 74px));
+  scrollbar-width: thin;
+  scrollbar-color: #dedede transparent;
+}
+.settings-search {
+  display: flex;
+  margin-bottom: 8px;
+}
+.settings-role-list {
+  max-height: min(400px, calc(100dvh - 120px));
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #dedede transparent;
+  mask-image: linear-gradient(#000 calc(100% - 30px), #0005);
+}
+.settings-role-row {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: 18px;
+  padding-right: 6px;
+  gap: 4px;
+}
+.settings-role-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+  padding: 8px 12px;
+  height: 40px;
+  background: transparent;
+  text-align: left;
+  border-radius: 18px;
+}
+.settings-role-select span:not(.settings-glyph) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.settings-mini-button {
+  background: transparent;
+  width: 22px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  flex: none;
+  border-radius: 8px;
+}
+.settings-mini-button.settings-favorite {
+  color: var(--settings-primary);
+}
+.settings-layer .settings-mini-button.settings-favorite {
+  background: transparent;
+}
+.settings-mini-button.settings-role-info {
+  color: #9c9c9c;
+}
+.settings-role-check {
+  display: inline-flex;
+  padding-inline: 6px;
+}
+.settings-empty {
+  text-align: center;
+  margin: 24px 0;
+  color: #9c9c9c;
+}
+.settings-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.settings-mobile {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  z-index: 1000;
+}
+body:has(> .settings-mobile) {
+  overflow: hidden;
+}
+.settings-overlay {
+  position: absolute;
+  inset: 0;
+  background: #0005;
+  opacity: 1;
+  transition: opacity 240ms ease;
+}
+.settings-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: min(82dvh, 680px);
+  border: 0;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 8px max(12px, env(safe-area-inset-bottom));
+  box-shadow: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    transform 320ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 240ms ease;
+}
+.settings-sheet-handle {
+  display: block;
+  position: absolute;
+  top: 8px;
+  left: calc(50% - 18px);
+  width: 36px;
+  height: 4px;
+  background: #ededed;
+  border-radius: 4px;
+}
+.settings-sheet-header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px 0 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+.settings-sheet-header > span {
+  flex: 1;
+}
+.settings-close {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: #fafafa;
+  color: #9c9c9c !important;
+}
+.settings-back {
+  width: 28px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+}
+.settings-sheet-content {
+  max-height: calc(82dvh - 84px);
+  overflow-y: auto;
+}
+.settings-sheet .settings-role-list {
+  max-height: min(56dvh, 400px);
+}
+.settings-sheet .settings-options {
+  max-height: 58dvh;
+}
+.settings-sheet .settings-row {
+  padding-inline: 12px;
+}
+.settings-mobile[data-state="closed"] .settings-overlay {
+  opacity: 0;
+}
+.settings-mobile[data-state="closed"] .settings-sheet {
+  transform: translateY(100%);
+  transition-duration: 240ms;
+}
+@starting-style {
+  .settings-main,
+  .settings-submenu {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  .settings-overlay {
+    opacity: 0;
+  }
+  .settings-sheet {
+    transform: translateY(100%);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .settings-row:hover,
+  .settings-role-row:hover {
+    background: #f7f7f7;
+  }
+  .settings-mini-button:hover {
+    background: #ededed;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .settings-main,
+  .settings-submenu,
+  .settings-sheet,
+  .settings-layer[data-state="closed"] .settings-main,
+  .settings-layer[data-state="closed"] .settings-submenu,
+  .settings-mobile[data-state="closed"] .settings-sheet {
+    transform: none;
+    transition-property: opacity;
+  }
+  .settings-mobile[data-state="closed"] .settings-sheet {
+    opacity: 0;
+  }
+  .settings-switch > span {
+    transition-property: background-color;
+  }
+  .settings-layer button:active {
+    transform: none;
+  }
+  @starting-style {
+    .settings-main,
+    .settings-submenu,
+    .settings-sheet {
+      transform: none;
+      opacity: 0;
+    }
+  }
+}
+body[data-input="keyboard"] .settings-layer *,
+html[data-input="keyboard"] .settings-layer * {
+  transition: none !important;
+  animation: none !important;
+}
+body[data-input="keyboard"] .settings-layer button:active,
+html[data-input="keyboard"] .settings-layer button:active {
+  transform: none;
+}
+
+.settings-voice-option { display:flex;align-items:center;gap:4px; }
+.settings-voice-option > .settings-option { flex:1;min-width:0; }
+.settings-voice-preview { display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:0;margin-right:6px;background:#f7f7f7;border-radius:50%;color:#333; }
+.settings-voice-preview:hover, .settings-voice-preview[aria-pressed=true] { background:#e8e3ff;color:#7a3fff; }
