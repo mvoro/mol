@@ -14,10 +14,10 @@ export const BILLING_PLANS = [
 const formatNumber = value => new Intl.NumberFormat('ru-RU').format(value);
 const priceLabel = value => `${formatNumber(value)} ₽`;
 const FEATURES = [
-  { icon: 'text', title: 'Текстовые модели', description: 'Claude Opus 5 и Sonnet 5, ChatGPT-5.5, Gemini 3.1 Pro, DeepSeek V4 и другие — в одном окне, без VPN и отдельных подписок' },
-  { icon: 'files', title: 'Картинки без ограничений', description: 'Nano Banana Pro, GPT Image 2, Midjourney, Flux 1.1 PRO, Seedream 4.5, Ideogram v3' },
-  { icon: 'video', title: 'Видео из текста и фото', description: 'Veo 3.1, Kling 3.0, Seedance 2.0, Hailuo 02 — генерация из текста и по фото' },
-  { icon: 'music', title: 'Музыка и озвучка', description: 'Suno V5, V4.5 Plus, ElevenLabs Sound Effects, транскрибация голоса — генерация треков, звуковых эффектов и озвучки' },
+  { icon: '17c8e.svg', title: 'Текстовые модели', description: 'Claude Opus 5 и Sonnet 5, ChatGPT-5.5, Gemini 3.1 Pro, DeepSeek V4 и другие — в одном окне, без VPN и отдельных подписок' },
+  { icon: '17367.svg', title: 'Картинки без ограничений', description: 'Nano Banana Pro, GPT Image 2, Midjourney, Flux 1.1 PRO, Seedream 4.5, Ideogram v3' },
+  { icon: 'b0576.svg', title: 'Видео из текста и фото', description: 'Veo 3.1, Kling 3.0, Seedance 2.0, Hailuo 02 — генерация из текста и по фото' },
+  { icon: '49dab.svg', title: 'Музыка и озвучка', description: 'Suno V5, V4.5 Plus, ElevenLabs Sound Effects, транскрибация голоса — генерация треков, звуковых эффектов и озвучки' },
 ];
 
 function Reviews({ className = '' }) {
@@ -71,7 +71,7 @@ export function BillingModal({ onClose, balance = 5, initialPlan = 'pro' }) {
             <Reviews className="billing-mobile-reviews" />
           </div>
           <aside className="billing-benefits" aria-label="Что входит в подписку">
-            <div className="billing-feature-list">{FEATURES.map(feature => <div className="billing-feature" key={feature.icon}><span className="billing-feature-icon"><Icon name={feature.icon} size={18} /></span><div><h3>{feature.title}</h3><p>{feature.description}</p></div></div>)}</div>
+            <div className="billing-feature-list">{FEATURES.map(feature => <div className="billing-feature" key={feature.icon}><span className="billing-feature-icon"><img src={ASSET + "notif-final-0-" + feature.icon} width="18" height="18" alt="" /></span><div><h3>{feature.title}</h3><p>{feature.description}</p></div></div>)}</div>
             <div className="billing-review-divider" />
             <Reviews className="billing-desktop-reviews" />
             <p className="billing-legal billing-mobile-legal">Продолжая, вы соглашаетесь с <span>политикой конфиденциальности</span> и <span>пользовательским соглашением</span>.</p>

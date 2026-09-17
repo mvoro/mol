@@ -1,11 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import {
   ArrowLeft,
-  ArrowCounterClockwise as ArrowRotateLeft,
+  ArrowRotateLeft,
   Check,
-  CaretRight as ChevronRight,
-  Info as CircleInfo,
-} from "../outline-icons.jsx";
+  ChevronRight,
+  CircleInfo,
+} from "@gravity-ui/icons";
 import {
   ChatComposer,
   FileChip,
@@ -13,7 +13,7 @@ import {
   defaultValues,
 } from "./ChatComposer.jsx";
 import { ModelPicker } from "./ModelPicker.jsx";
-import { RoleAbout } from "./RoleAbout.jsx";
+import { RolesShowcase } from "./RolesShowcase.jsx";
 import { Tabs } from "./Tabs.jsx";
 import { Select } from "./Select.jsx";
 import { ModeIcon, ModelIcon, MODE_NAMES, DEFAULT_MODELS } from "../ui.jsx";
@@ -117,6 +117,9 @@ function ComposerExample({
   const [generating, setGenerating] = useState(state === "Generating");
   const [feedback, setFeedback] = useState("");
   const [revision, setRevision] = useState(0);
+  const [draft, setDraft] = useState(
+    state === "Filled" || state === "Generating" ? SAMPLE_TEXT : "",
+  );
   const timer = useRef(null);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -136,6 +139,7 @@ function ComposerExample({
     setOfferVisible(offer);
     setGenerating(state === "Generating");
     setFeedback("");
+    setDraft(state === "Filled" || state === "Generating" ? SAMPLE_TEXT : "");
     setRevision((value) => value + 1);
   }
 
@@ -167,9 +171,7 @@ function ComposerExample({
         disabled={state === "Disabled"}
         forceState={state}
         device={device}
-        initialText={
-          state === "Filled" || state === "Generating" ? SAMPLE_TEXT : ""
-        }
+        initialText={draft}
         showFooter={showFooter}
         showPromo={showPromo}
         showTopPanel={showTopPanel}
@@ -200,7 +202,7 @@ function ComposerExample({
           onClick={reset}
           aria-label="Сбросить пример"
         >
-          <ArrowRotateLeft size={13} weight="regular" />
+          <ArrowRotateLeft width={13} height={13} />
           Сбросить
         </button>
       </div>
@@ -216,11 +218,16 @@ function ComposerExample({
         />
       )}
       {roleInfo && (
-        <RoleAbout
-          role={roleInfo}
+        <RolesShowcase
+          initialRole={roleInfo}
           onClose={() => setRoleInfo(null)}
-          onUse={() => {
-            setValues((previous) => ({ ...previous, role: roleInfo }));
+          onSelectRole={(selectedRole, prompt) => {
+            setValues((previous) => ({ ...previous, role: selectedRole }));
+            if (typeof prompt === "string") {
+              setDraft(prompt);
+              setRevision((value) => value + 1);
+            }
+            setRoleInfo(null);
           }}
         />
       )}
@@ -307,16 +314,16 @@ function RowExample({ size = "md", variant = "default", control = "none" }) {
       aria-pressed={control === "none" ? undefined : checked}
       onClick={() => setChecked(!checked)}
     >
-      <CircleInfo size={16} weight="regular" />
+      <CircleInfo width={16} height={16} />
       <span>Кнопка</span>
       {control === "none" && (
-        <ChevronRight className="gallery-row-end" size={14} weight="regular" />
+        <ChevronRight className="gallery-row-end" width={14} height={14} />
       )}
       {control === "checkbox" && (
         <span
           className={`gallery-row-check gallery-row-end ${checked ? "is-checked" : ""}`}
         >
-          {checked && <Check size={12} weight="regular" />}
+          {checked && <Check width={12} height={12} />}
         </span>
       )}
       {control === "radio" && (
@@ -451,7 +458,7 @@ function PrimitiveModels() {
             )}
             {state !== "loading" &&
               (selected === state ? (
-                <Check size={14} weight="regular" />
+                <Check width={14} height={14} />
               ) : (
                 <span className="gallery-model-booster">×2</span>
               ))}
@@ -478,7 +485,7 @@ function TooltipExample() {
         onBlur={() => setOpen(false)}
         onClick={() => setOpen(!open)}
       >
-        <CircleInfo size={20} weight="regular" />
+        <CircleInfo width={20} height={20} />
       </button>
       <span
         className={`gallery-tooltip ${open ? "is-open" : ""}`}
@@ -505,7 +512,7 @@ export function ComponentGallery({ onBack, imageUrl }) {
           className="gallery-control gallery-back"
           onClick={onBack}
         >
-          <ArrowLeft size={18} weight="regular" />
+          <ArrowLeft width={18} height={18} />
           <span>Вернуться в чат</span>
         </button>
         <a
@@ -515,7 +522,7 @@ export function ComponentGallery({ onBack, imageUrl }) {
           rel="noreferrer"
         >
           Макеты в Figma
-          <ChevronRight size={14} weight="regular" />
+          <ChevronRight width={14} height={14} />
         </a>
       </header>
       <div className="gallery-body">
@@ -712,16 +719,16 @@ export function ComponentGallery({ onBack, imageUrl }) {
             >
               <ModeIcon mode="auto" />
               Выбрать модель
-              <ChevronRight size={16} weight="regular" />
+              <ChevronRight width={16} height={16} />
             </button>
             <button
               className="gallery-control gallery-action"
               type="button"
               onClick={() => setRoleInfo(true)}
             >
-              <CircleInfo size={18} weight="regular" />
+              <CircleInfo width={18} height={18} />
               Описание роли
-              <ChevronRight size={16} weight="regular" />
+              <ChevronRight width={16} height={16} />
             </button>
           </div>
         </Section>
@@ -812,7 +819,7 @@ export function ComponentGallery({ onBack, imageUrl }) {
             onClick={onBack}
           >
             Вернуться в чат
-            <ArrowLeft size={14} weight="regular" />
+            <ArrowLeft width={14} height={14} />
           </button>
         </footer>
       </div>
@@ -829,10 +836,10 @@ export function ComponentGallery({ onBack, imageUrl }) {
         />
       )}
       {roleInfo && (
-        <RoleAbout
-          role="Контент-менеджер маркетплейсов"
+        <RolesShowcase
+          initialRole="Менеджер маркетплейсов"
           onClose={() => setRoleInfo(false)}
-          onUse={() => setRoleInfo(false)}
+          onSelectRole={() => setRoleInfo(false)}
         />
       )}
     </main>

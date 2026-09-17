@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Check, Copy, EnvelopeSimple, PaperPlaneTilt } from '../outline-icons.jsx';
+import { Check, Copy, EnvelopeSimple, PaperPlaneTilt } from '@phosphor-icons/react';
 import './share-link.css';
 
 export function CopyLinkButton({ value }) {

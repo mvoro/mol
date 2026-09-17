@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useId, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowElbowDownLeft, ImageSquare } from '../outline-icons.jsx';
+import { ArrowElbowDownLeft, ImageSquare } from '@phosphor-icons/react';
 import { Icon } from '../ui.jsx';
 import { filterPhotos, mentionQuery, normalizeParts, partsText } from '../prompt-mentions.js';
 import './prompt-input.css';

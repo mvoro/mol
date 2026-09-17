@@ -567,10 +567,10 @@ export function ChatComposer({
             ) : panel === "role" ? (
               <>
                 <Icon name="role" size={14} />
-                <button className="panel-role-name" onClick={onRoleInfo}>
+                <button className="panel-role-name" onClick={() => onRoleInfo(settings.role)}>
                   {settings.role}
                 </button>
-                <button aria-label="О роли" onClick={onRoleInfo}>
+                <button aria-label="О роли" onClick={() => onRoleInfo(settings.role)}>
                   <Icon name="info" />
                 </button>
                 <button
@@ -776,7 +776,7 @@ export function ChatComposer({
                   (listening ? " listening" : "")
                 }
                 disabled={disabled}
-                style={{ '--send-width': `${70 + costLabel.length * 7}px` }}
+                style={{ '--send-width': `${76 + costLabel.length * 7}px` }}
                 aria-label={
                   generating
                     ? "Остановить генерацию"
@@ -803,7 +803,7 @@ export function ChatComposer({
                     <Icon name={icon} size={14} />
                   </span>
                 ))}</span>
-                <span className="submit-cost" aria-hidden="true"><span>{costLabel}</span><Icon name="molecule" size={14}/></span>
+                <span className="submit-cost" aria-hidden="true"><span>{costLabel}</span><Icon name="molecule" size={12}/></span>
               </button>
             </div>
           </div>

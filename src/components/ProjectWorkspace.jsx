@@ -1,6 +1,6 @@
 import React, { useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { DotsThree, PencilSimple, GearSix, ShareNetwork, Trash, Plus, X, LinkSimple, PushPin } from '../outline-icons.jsx';
+import { DotsThree, PencilSimple, GearSix, ShareNetwork, Trash, Plus, X, LinkSimple, PushPin } from '@phosphor-icons/react';
 import { ProjectIcon, PROJECT_COLORS, getProjectNameError } from './Projects.jsx';
 import { Popover, MenuItem } from './Popover.jsx';
 import { TextInput } from './TextInput.jsx';

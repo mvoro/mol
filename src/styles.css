@@ -98,7 +98,7 @@ button img {
   gap: 24px;
 }
 .sidebar-scroll { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; display:flex; flex-direction:column; gap:24px; }
-.sidebar-scroll>.sidebar-bottom { margin-top:auto; padding-top:12px; }
+.sidebar>.sidebar-bottom { flex:none; padding-top:12px; }
 .sidebar-secondary-navigation { flex:none; }
 .sidebar-secondary-navigation .is-active { background:#ededed; }
 .sidebar-header {
@@ -231,6 +231,7 @@ button img {
   height: 61px;
 }
 .profile-avatar {
+  color: #fff;
   width: 28px;
   height: 28px;
   background: #7a3fff;
@@ -756,6 +757,9 @@ body[data-input="keyboard"] *::before {
   }
   .coin-balance button .icon {
     display: block;
+  }
+  .coin-balance button img.icon {
+    filter: brightness(0) invert(1);
   }
   .empty-chat {
     width: calc(100% - 32px);

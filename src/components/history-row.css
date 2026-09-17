@@ -89,14 +89,12 @@
     opacity 120ms ease,
     background-color 120ms ease;
 }
-.history-row[data-menu-open] .history-row-more,
-.history-row[data-revealed] .history-row-more {
+.history-row[data-menu-open] .history-row-more {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
-.history-row[data-menu-open] .history-row-modes,
-.history-row[data-revealed] .history-row-modes {
+.history-row[data-menu-open] .history-row-modes {
   opacity: 0;
   transform: translateX(3px);
 }
@@ -145,13 +143,30 @@
     color: #171717;
   }
 }
-@media (hover: none), (pointer: coarse) {
-  .history-row .history-row-more {
-    visibility: hidden;
+/* Touch has no hover: reserve separate lanes for modes and the visible menu. */
+@media (max-width: 700px), (hover: none), (pointer: coarse) {
+  .history-row .history-row-main {
+    padding-right: calc(var(--history-mode-width) + 48px);
   }
-  .history-row[data-menu-open] .history-row-more,
-  .history-row[data-revealed] .history-row-more {
+  .history-row-affordance {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: calc(var(--history-mode-width) + 34px);
+  }
+  .history-row .history-row-affordance .history-row-modes {
+    flex: 0 0 var(--history-mode-width);
+    width: var(--history-mode-width);
+    padding-right: 0;
+    opacity: 1;
+    transform: none;
+  }
+  .history-row .history-row-affordance .history-row-more {
+    position: static;
+    flex: 0 0 28px;
+    opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {

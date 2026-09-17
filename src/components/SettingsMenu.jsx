@@ -13,7 +13,16 @@ import "./settings.css";
 import { previewVoice } from "../speech-preview.js";
 
 function Glyph({ name, size = 18, filled = false }) {
-  return <Icon name={name} size={size} filled={filled} />;
+  const extras = {
+    attach: 'attach', chevron: 'chevron', check: 'check', star: 'star',
+    play: 'play', music: 'music', volume: 'volume', layers: 'layers',
+    imageImport: 'image-import', token: 'token', 'ratio-Авто': 'ratio-auto',
+    'ratio-1:1': 'ratio-1-1', 'ratio-3:2': 'ratio-3-2', 'ratio-2:3': 'ratio-2-3',
+    'ratio-4:3': 'ratio-4-3', 'ratio-3:4': 'ratio-3-4',
+    'ratio-16:9': 'ratio-16-9', 'ratio-9:16': 'ratio-9-16',
+  };
+  const source = name === 'star' && filled ? '/assets/roles/e551a.svg' : extras[name] && `/figma/settings-${extras[name]}.svg`;
+  return source ? <span aria-hidden="true" className="settings-glyph" style={{ width: size, height: size, maskImage: `url(${source})` }}/> : <Icon name={name} size={size}/>;
 }
 
 function Boost({ value }) {

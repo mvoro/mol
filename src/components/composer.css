@@ -130,6 +130,9 @@
 .chip-group.active .pill {
   padding-right: 6px;
 }
+.chip-group.active > .pill > img.icon {
+  filter: brightness(0) saturate(100%) invert(30%) sepia(51.266%) saturate(2151.857%) hue-rotate(238.375deg) brightness(100%) contrast(119.933%);
+}
 .chip-clear {
   display: flex;
   padding: 0 10px 0 0;
@@ -156,8 +159,8 @@
 }
 .composer-submit.has-cost { width: var(--send-width, 84px); }
 .submit-glyph { display: grid; place-items: center; width: 32px; height: 32px; flex: 0 0 32px; }
-.submit-cost { position: absolute; left: 32px; display: flex; align-items: center; gap: 5px; height: 16px; padding: 0 10px; border-left: 1px solid #ffffff59; font-size: 12px; font-weight: 600; line-height: 16px; opacity: 0; transform: translateX(-4px); transition: opacity 150ms ease, transform 220ms var(--ease-out); white-space: nowrap; }
-.submit-cost .icon { filter: brightness(0) invert(1); }
+.submit-cost { position: absolute; left: 32px; display: flex; align-items: center; gap: 5px; height: 16px; padding: 0 12px 0 10px; border-left: 1px solid #ffffff59; font-size: 12px; font-weight: 600; line-height: 16px; opacity: 0; transform: translateX(-4px); transition: opacity 150ms ease, transform 220ms var(--ease-out); white-space: nowrap; }
+.submit-cost .icon { width: 12px; height: 12px; filter: brightness(0) invert(1); }
 .composer-submit.has-cost .submit-cost { opacity: 1; transform: none; }
 .composer-submit.colored {
   background: var(--accent);

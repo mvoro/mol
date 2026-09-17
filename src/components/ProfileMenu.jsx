@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { UserCircle, ChatsCircle, CreditCard, SlidersHorizontal, Question, SignOut, SignIn } from '../outline-icons.jsx';
+import { UserCircle, ChatsCircle, CreditCard, SlidersHorizontal, Question, SignOut, SignIn } from '@phosphor-icons/react';
 import { Icon } from '../ui.jsx';
 import { Popover, MenuItem } from './Popover.jsx';
 

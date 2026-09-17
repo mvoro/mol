@@ -14,7 +14,6 @@ import {
   FileChip,
 } from "./components/ChatComposer.jsx";
 import { ModelPicker } from "./components/ModelPicker.jsx";
-import { RoleAbout } from "./components/RoleAbout.jsx";
 import { TextInput } from "./components/TextInput.jsx";
 import { AudioResult } from "./components/AudioResult.jsx";
 import { PromptText } from "./components/PromptInput.jsx";
@@ -160,6 +159,10 @@ export function App() {
   useEffect(() => persist(localStorage, HISTORY_KEY, history), [history]);
   const settings = allValues[mode],
     model = models[mode];
+  const openRoleInfo = role => {
+    setInspectedRole(role || settings.role);
+    setRoleOpen(true);
+  };
   useEffect(() => {
     const saveBeforeLeaving = () => {
       if (!generating || !currentChat.current) return;
@@ -665,11 +668,11 @@ export function App() {
                 ))}
             </div>
           </section>
+        </div>
         <div className="sidebar-bottom">
 
           <div className="sidebar-separator" />
           <ProfileMenu account={account} onSection={section => { setSidebarOpen(false); if(section === 'subscription') setBillingOpen(true); else setAccountSection(section); }} onSignOut={() => { setAccount(null); setToast("Вы вышли из демо-аккаунта"); }} onAuth={openAuth} />
-        </div>
         </div>
       </aside>
       </div>
@@ -726,7 +729,7 @@ export function App() {
           </div>
         </header>
         {(route === 'project' || (route === 'roles' && rolesReturnRoute === 'project')) && activeProject ? <ProjectWorkspace key={activeProject.id} onChatAction={actOnHistory} project={activeProject} index={projects.indexOf(activeProject)} chats={history.filter(chat => chat.projectId === activeProject.id)} onOpenChat={openHistory} onAction={actOnProject}>
-          <ChatComposer chatImages={chatImageReferences(messages)} key={composerKey} placeholder={`Новый чат в ${activeProject.name}`} sendOnEnter={preferences.sendOnEnter} onAuth={openAuth} mode={mode} onModeChange={changeMode} model={model} onModelOpen={() => setModelOpen(true)} values={settings} onChange={changeValue} initialText={draft} showFooter showPromo={false} files={files} onFilesChange={setFiles} onSend={send} onStop={stop} onRoleInfo={role => {setInspectedRole(typeof role === 'string' ? role : settings.role);setRoleOpen(true);}}/>
+          <ChatComposer chatImages={chatImageReferences(messages)} key={composerKey} placeholder={`Новый чат в ${activeProject.name}`} sendOnEnter={preferences.sendOnEnter} onAuth={openAuth} mode={mode} onModeChange={changeMode} model={model} onModelOpen={() => setModelOpen(true)} values={settings} onChange={changeValue} initialText={draft} showFooter showPromo={false} files={files} onFilesChange={setFiles} onSend={send} onStop={stop} onRoleInfo={openRoleInfo}/>
         </ProjectWorkspace> : messages.length === 0 ? (
           <HomeExperience onChoose={chooseHomeExample} resetKey={composerKey} mode={mode}>
           <div className={"empty-chat empty-" + mode}>
@@ -801,12 +804,7 @@ export function App() {
               onFilesChange={setFiles}
               onSend={send}
               onStop={stop}
-              onRoleInfo={(role) => {
-                setInspectedRole(
-                  typeof role === "string" ? role : settings.role,
-                );
-                setRoleOpen(true);
-              }}
+              onRoleInfo={openRoleInfo}
               offer={offer}
               onDismissOffer={() => setOffer(false)}
             />
@@ -914,12 +912,7 @@ export function App() {
                 onFilesChange={setFiles}
                 onSend={send}
                 onStop={stop}
-                onRoleInfo={(role) => {
-                  setInspectedRole(
-                    typeof role === "string" ? role : settings.role,
-                  );
-                  setRoleOpen(true);
-                }}
+                onRoleInfo={openRoleInfo}
               />
             </div>
           </>
@@ -945,16 +938,16 @@ export function App() {
       {historyAction && <HistoryDialog key={historyAction.chat.id + historyAction.action} {...historyAction} projects={projects} onClose={() => setHistoryAction(null)} onSave={saveHistoryAction}/>}
       {newProjectOpen&&<ProjectDialog existingNames={projects.map(project=>project.name)} onClose={()=>setNewProjectOpen(false)} onCreate={createProject}/>}
       {roleOpen && (
-        <RoleAbout
-          role={inspectedRole || settings.role || "Менеджер маркетплейсов"}
+        <RolesShowcase
+          initialRole={inspectedRole || settings.role}
           onClose={() => setRoleOpen(false)}
-          onUse={(prompt) => {
-            changeValue(
-              "role",
-              inspectedRole || settings.role || "Менеджер маркетплейсов",
-            );
-            setDraft(typeof prompt === "string" ? prompt : "");
-            setComposerKey((k) => k + 1);
+          onSelectRole={(role, prompt) => {
+            changeValue("role", role);
+            if (typeof prompt === "string") {
+              setDraft(prompt);
+              setComposerKey(k => k + 1);
+            }
+            setRoleOpen(false);
           }}
         />
       )}

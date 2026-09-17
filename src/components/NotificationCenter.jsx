@@ -9,15 +9,15 @@ import './notification-center.css';
 
 const ASSET = '/figma/notifications-billing/';
 const GLYPHS = {
-  bell: 'bell',
-  empty: 'bell',
-  gift: 'gift',
-  'billing-error': 'xCircle',
-  payment: 'checkCircle',
-  balance: 'warning',
+  bell: 'notif-detail-1-717c6.svg',
+  empty: 'notif-detail-0-529c0.svg',
+  gift: 'notif-popover-924e1.svg',
+  'billing-error': 'notif-popover-6b4ca.svg',
+  payment: 'notif-popover-d178b.svg',
+  balance: 'notif-popover-3229e.svg',
 };
 function Glyph({ name, size = 18 }) {
-  return <Icon name={GLYPHS[name]} size={size} className={`notification-glyph-${name}`} />;
+  return <img className="icon" src={ASSET + GLYPHS[name]} width={size} height={size} alt="" />;
 }
 
 function MobilePanel({ children, onClose }) {

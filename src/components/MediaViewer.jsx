@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { DownloadSimple, Copy, ArrowCounterClockwise, MagnifyingGlassPlus, MagnifyingGlassMinus } from "../outline-icons.jsx";
+import { DownloadSimple, Copy, ArrowCounterClockwise } from "@phosphor-icons/react";
 import { Icon, ModeIcon, ModelIcon } from "../ui.jsx";
 import { useModalBehavior } from "./modal-behavior.js";
 import { VideoPlayer } from "./VideoPlayer.jsx";
@@ -9,8 +9,7 @@ import { ratioValue, describeRequestOptions } from "../generation-request.js";
 import { downloadImageResult } from "../media-download.js";
 
 function ZoomIcon({ zoomed }) {
-  const Glyph = zoomed ? MagnifyingGlassMinus : MagnifyingGlassPlus;
-  return <Glyph size={18} weight="regular" aria-hidden="true" />;
+  return <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5" /><path d="m12.2 12.2 4.3 4.3M5.5 8h5" />{!zoomed && <path d="M8 5.5v5" />}</svg>;
 }
 
 export function MediaViewer({ items = [], initialId, onClose, onReuse }) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { LightbulbFilament } from '../outline-icons.jsx';
+import { LightbulbFilament } from '@phosphor-icons/react';
 import { Icon, ModeIcon, ModelIcon } from "../ui.jsx";
 import { homeBanners, homeCollections, homeModels } from "./home-content.js";
 import "./home-experience.css";

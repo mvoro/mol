@@ -109,6 +109,7 @@
 .auth-showcase-pause > .icon {
   color: inherit;
 }
+.auth-showcase-pause > img.icon { filter: brightness(0) invert(1); }
 .auth-showcase-content {
   position: relative;
   z-index: 1;
@@ -240,6 +241,7 @@
 .auth-free-badge > .icon {
   color: inherit;
 }
+.auth-free-badge > img.icon { filter: brightness(0) invert(1); }
 .auth-methods,
 .auth-socials,
 .auth-email-form,
@@ -301,6 +303,7 @@
 .auth-cta > .icon {
   color: inherit;
 }
+.auth-cta > img.icon { filter: brightness(0) invert(1); }
 .auth-modal .auth-cta:disabled {
   background: #eee;
   color: #aaa;

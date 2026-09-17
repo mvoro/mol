@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react';
-import { CaretDown, Check } from '../outline-icons.jsx';
+import { CaretDown, Check } from '@phosphor-icons/react';
 import { PROJECT_COLORS, ProjectIcon } from './Projects.jsx';
 import { MenuItem, Popover } from './Popover.jsx';
 import { TextInput } from './TextInput.jsx';

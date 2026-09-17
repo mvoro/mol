@@ -1,10 +1,5 @@
 .notification-trigger { position: relative; display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; padding: 0; background: #f7f7f7; border-radius: 50%; }
 .notification-trigger[aria-expanded='true'] { background: #e7e7e7; }
-.notification-glyph-empty { color: #9c9c9c; }
-.notification-glyph-gift { color: var(--primary); }
-.notification-glyph-billing-error { color: #e20000; }
-.notification-glyph-payment { color: #12d501; }
-.notification-glyph-balance { color: #edb100; }
 .notification-indicator { pointer-events: none; position: absolute; top: -1px; right: -1px; display: grid; place-items: center; width: 14px; height: 14px; opacity: 0; filter: blur(4px); transform: scale(.8); transition: opacity 150ms ease-out, transform 180ms ease-out, filter 180ms ease-out; }
 .notification-indicator.is-visible { opacity: 1; filter: blur(0); transform: scale(1); transition-duration: 200ms; }
 .notification-indicator-danger::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #ed2125; }

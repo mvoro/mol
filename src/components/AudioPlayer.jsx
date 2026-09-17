@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { DownloadSimple, MusicNotes, Pause, Play, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from '../outline-icons.jsx';
+import { DownloadSimple, MusicNotes, Pause, Play, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from '@phosphor-icons/react';
 import './audio-player.css';
 
 export function formatAudioTime(seconds) {

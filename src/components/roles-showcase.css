@@ -33,7 +33,7 @@
 .rs-card-copy > span { color: #9c9c9c; font-size: 12px; line-height: 16px; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .rs-card-actions { position: absolute; right: 16px; top: 16px; display: flex; align-items: center; }
 .rs-like, .rs-favorite { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 32px; min-height: 32px; padding: 8px 10px; border-radius: 64px; color: #9c9c9c; background: transparent; font-size: 12px; font-weight: 600; line-height: 16px; }
-.rs-like svg, .rs-favorite svg { display: block; flex-shrink: 0; }
+.rs-like img, .rs-favorite img { display: block; object-fit: contain; flex-shrink: 0; }
 .rs-like.is-active { color: #000; background: #fff; }
 .rs-favorite { padding: 8px 9px; }
 .rs-favorite.is-active { color: var(--primary, #7a3fff); }
@@ -171,8 +171,8 @@
 .rs-picker-header .rs-search { min-width: 180px; flex: 1 1 260px; max-width: 260px; margin-left: auto; }
 .rs-category-tabs .ui-tab { padding-left: 14px; padding-right: 14px; }
 .rs-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-.rs-heart { display: inline-block; width: 14px; height: 14px; flex-shrink: 0; }
-.rs-heart.is-filled { color: #ef4444; }
+.rs-heart { display: inline-block; width: 14px; height: 14px; flex-shrink: 0; background: currentColor; mask: url('/assets/roles/1e3d4.svg') center / contain no-repeat; }
+.rs-heart.is-filled { color: #ef4444; mask-image: url('/assets/roles/ef486.svg'); }
 .rs-heart-large { width: 28px; height: 28px; }
 .rs-like.is-active { color: #000; }
 .rs-feedback-actions { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }

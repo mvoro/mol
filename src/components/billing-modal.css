@@ -34,7 +34,8 @@
 .billing-benefits { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; padding: 24px; color: #fff; }
 .billing-feature-list { display: flex; flex-direction: column; gap: 32px; }
 .billing-feature { display: flex; gap: 16px; }
-.billing-feature-icon { display: grid; place-items: center; flex: 0 0 24px; width: 24px; height: 24px; border-radius: 4px; background: #fff; }
+.billing-feature-icon { display: grid; place-items: center; flex: 0 0 24px; width: 24px; height: 24px; color: #fff; background: transparent; }
+.billing-feature-icon > img { display: block; filter: brightness(0) invert(1); }
 .billing-feature h3 { margin: 0; font-size: 16px; font-weight: 600; line-height: 22px; }
 .billing-feature p { margin: 6px 0 0; color: #ffffffbf; font-size: 12px; line-height: 16px; font-weight: 500; }
 .billing-review-divider { width: 100%; height: 1px; background: #ffffff40; margin: 28px 0; }

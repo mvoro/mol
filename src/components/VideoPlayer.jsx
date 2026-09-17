@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CornersIn, CornersOut, Pause, SpeakerHigh, SpeakerSlash } from "../outline-icons.jsx";
 import { Icon } from "../ui.jsx";
 import "./video-player.css";
 import { ratioValue } from "../generation-request.js";
@@ -10,8 +9,9 @@ export function formatMediaTime(seconds) {
 }
 
 function PlayerIcon({ name, size = 18 }) {
-  const Glyph = { pause: Pause, volume: SpeakerHigh, muted: SpeakerSlash, expand: CornersOut, collapse: CornersIn }[name];
-  if (Glyph) return <Glyph size={size} weight="regular" aria-hidden="true" />;
+  if (name === "pause") return <svg viewBox="0 0 20 20" width={size} height={size} aria-hidden="true"><path d="M5 4h3v12H5zm7 0h3v12h-3z" fill="currentColor" /></svg>;
+  if (name === "volume" || name === "muted") return <svg viewBox="0 0 20 20" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 4 5 7H2v6h3l4 3z" />{name === "muted" ? <path d="m13 7 5 6m0-6-5 6" /> : <><path d="M12 7a5 5 0 0 1 0 6" /><path d="M15 4a9 9 0 0 1 0 12" /></>}</svg>;
+  if (name === "expand" || name === "collapse") return <svg viewBox="0 0 20 20" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={name === "expand" ? "M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4" : "M3 7h4V3m10 4h-4V3M7 17v-4H3m10 4v-4h4"} /></svg>;
   return <Icon name={name} size={size} />;
 }
 

@@ -40,7 +40,7 @@
   height: 24px;
 }
 .video-player-center > .icon {
-  color: inherit;
+  filter: brightness(0) invert(1);
 }
 .video-player-controls {
   position: absolute;
@@ -73,7 +73,7 @@
   height: 18px;
 }
 .video-player-control > .icon {
-  color: inherit;
+  filter: brightness(0) invert(1);
 }
 .video-player-control:disabled {
   opacity: 0.3;

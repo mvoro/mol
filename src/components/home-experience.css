@@ -179,6 +179,7 @@
   z-index: 1;
   color: #fff;
 }
+.home-featured-arrow:is(img.icon), .home-featured-arrow img.icon { filter: brightness(0) invert(1); }
 .home-section-heading {
   display: flex;
   align-items: center;
@@ -336,6 +337,7 @@
   opacity: 0;
   transition: opacity 150ms ease;
 }
+.home-example-arrow:is(img.icon), .home-example-arrow img.icon { filter: brightness(0) invert(1); }
 .home-bottom-note {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { CaretDown, Check, FolderSimple, FolderSimpleMinus, Folders, Plus, X } from '../outline-icons.jsx'
+import { CaretDown, Check, FolderSimple, FolderSimpleMinus, Folders, Plus, X } from '@phosphor-icons/react'
 import { useModalBehavior } from './modal-behavior.js'
 import { TextInput } from './TextInput.jsx'
 import './projects.css'

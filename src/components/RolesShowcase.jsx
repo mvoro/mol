@@ -1,10 +1,9 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, Heart, Star } from "../outline-icons.jsx";
 import { Icon, IconButton } from "../ui";
 import { InputShell, TextInput } from "./TextInput";
 import { useModalBehavior } from "./modal-behavior";
-import { ROLE_CATALOG } from "./role-data.js";
+import { ROLE_CATALOG, resolveCatalogRole } from "./role-data.js";
 import { useRoleFavorites } from "./useRoleFavorites.js";
 import { Tabs } from "./Tabs.jsx";
 import { RoleReviewModal } from "./RoleReviewModal.jsx";
@@ -48,14 +47,14 @@ function RoleAvatar({ role, large = false }) {
 function LikeButton({ role, liked, onToggle, label = false }) {
   const count = role.likes + Number(liked);
   return <button type="button" className={`rs-like${liked ? " is-active" : ""}`} aria-label={`${liked ? "Убрать отметку «Нравится»" : "Нравится"}: ${role.name}`} aria-pressed={liked} onClick={onToggle}>
-    <Heart className={`rs-heart${liked ? " is-filled" : ""}`} size={14} weight={liked ? "fill" : "regular"} aria-hidden="true" />
+    <span className={`rs-heart${liked ? " is-filled" : ""}`} aria-hidden="true" />
     {(label || count > 0) && <span>{label ? "Нравится" : compactNumber(count)}</span>}
   </button>;
 }
 
 function FavoriteButton({ role, favorite, onToggle, large = false }) {
   return <button type="button" className={`rs-favorite${favorite ? " is-active" : ""}${large ? " rs-favorite-large" : ""}`} aria-label={`${favorite ? "Убрать из избранного" : "Добавить в избранное"}: ${role.name}`} aria-pressed={favorite} onClick={onToggle}>
-    <Star size={large ? 18 : 14} weight={favorite ? "fill" : "regular"} aria-hidden="true" />
+    <img src={`/assets/roles/${favorite ? "e551a.svg" : "54fe0.svg"}`} width={large ? 18 : 14} height={large ? 18 : 14} alt="" />
   </button>;
 }
 
@@ -135,9 +134,9 @@ function RoleDetail({ role, favorites, likes, usage, savedReviews, onFavorite, o
       <div className="rs-detail-title"><h1 tabIndex={-1}>{role.name}</h1><p>{role.description}</p></div>
       <div className="rs-detail-actions"><button type="button" className="rs-primary" onClick={() => onStart(role)}>Начать чат с ролью</button><FavoriteButton role={role} favorite={favorites.includes(role.id)} onToggle={() => onFavorite(role.id)} large /></div>
     </header>
-    <div className="rs-metrics"><span><Heart className="rs-heart is-filled" size={14} weight="fill" aria-label="Нравится" role="img" />{compactNumber(role.likes + Number(liked))}</span><span>{compactNumber(role.runs + Number(usage[role.id] || 0))} запусков</span><span>{role.favorites + Number(favorites.includes(role.id))} в избранном</span><button type="button" onClick={() => onBack(role.group)}>{category.label}</button></div>
+    <div className="rs-metrics"><span><span className="rs-heart is-filled" aria-label="Нравится" role="img" />{compactNumber(role.likes + Number(liked))}</span><span>{compactNumber(role.runs + Number(usage[role.id] || 0))} запусков</span><span>{role.favorites + Number(favorites.includes(role.id))} в избранном</span><button type="button" onClick={() => onBack(role.group)}>{category.label}</button></div>
     <div className="rs-examples" style={{ "--role-gradient": `linear-gradient(139.2deg, ${category.colors})` }} aria-label="Примеры запросов">
-      {role.prompts.map(prompt => <button type="button" className="rs-example" key={prompt} onClick={() => onStart(role, prompt)}><span>{prompt}</span><span className="rs-example-send"><ArrowRight size={14} weight="regular" aria-hidden="true" /></span></button>)}
+      {role.prompts.map(prompt => <button type="button" className="rs-example" key={prompt} onClick={() => onStart(role, prompt)}><span>{prompt}</span><span className="rs-example-send"><img src="/assets/roles/27e09.svg" width="14" height="14" alt="" /></span></button>)}
     </div>
     <section className="rs-detail-section"><h2>Что умеет</h2>{about.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</section>
     <section className="rs-detail-section"><h2>Как с ней работать</h2><ol className="rs-steps">{(isPrompt ? PROMPT_STEPS : DEFAULT_STEPS).map(step => <li key={step}>{step}</li>)}</ol></section>
@@ -146,7 +145,7 @@ function RoleDetail({ role, favorites, likes, usage, savedReviews, onFavorite, o
     </section>}
     {feedbackOpen && <RoleReviewModal role={role} review={ownReview} onClose={() => setFeedbackOpen(false)} onSave={review => onSaveReview(role.id, review)} />}
     <section className="rs-reviews">
-      <div className="rs-review-summary"><h2>Отзывы</h2><strong><Heart className="rs-heart is-filled rs-heart-large" size={28} weight="fill" aria-label="Нравится" role="img" />{compactNumber(role.likes + Number(liked))}</strong><p>{compactNumber(role.runs + Number(usage[role.id] || 0))} запусков · {reviews.length} отзывов</p></div>
+      <div className="rs-review-summary"><h2>Отзывы</h2><strong><span className="rs-heart is-filled rs-heart-large" aria-label="Нравится" role="img" />{compactNumber(role.likes + Number(liked))}</strong><p>{compactNumber(role.runs + Number(usage[role.id] || 0))} запусков · {reviews.length} отзывов</p></div>
       <div className="rs-review-list">{reviews.length ? <>{(allReviews ? reviews : reviews.slice(0, 3)).map((review, index) => <article className="rs-review" key={`${review.name}-${index}`}><header><strong>{review.name}</strong><time>{review.date}</time></header>{review.text && <p>{review.text}</p>}{review.aspects?.length > 0 && <div className="rs-review-aspects">{review.aspects.map(aspect => <span key={aspect}>{aspect}</span>)}</div>}</article>)}{reviews.length > 3 && <button type="button" className="rs-text-button rs-reviews-more" aria-expanded={allReviews} onClick={() => setAllReviews(value => !value)}>{allReviews ? "Свернуть отзывы" : `Показать все отзывы (${reviews.length})`}</button>}</> : <p className="rs-muted">Здесь появятся отзывы о работе с ролью.</p>}</div>
     </section>
     <section className="rs-section"><header className="rs-section-heading"><h2>Похожие роли</h2></header><div className="rs-grid">{similar.map(item => <RoleCard key={item.id} role={item} favorite={favorites.includes(item.id)} liked={likes.includes(item.id)} onFavorite={onFavorite} onLike={onLike} onOpen={onPreview} />)}</div></section>
@@ -157,12 +156,13 @@ function RolesCatalog({ onSelectRole, onBack, onClose, initialRole }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [detail, setDetail] = useState(initialRole || null);
+  const [detail, setDetail] = useState(() => resolveCatalogRole(initialRole));
   const [favorites, setFavorites] = useRoleFavorites();
   const [likes, setLikes] = useSavedState(LIKES_KEY, []);
   const [usage, setUsage] = useSavedState(USAGE_KEY, {});
   const [reviews, setReviews] = useSavedState(REVIEWS_KEY, {});
   const scrollRef = useRef(null);
+  const previousView = useRef({ detailId: detail?.id, category });
   const queryText = query.trim().toLocaleLowerCase("ru");
   const matches = useMemo(() => SHOWCASE_ROLES.filter(role => (!category || role.group === category) && (!queryText || `${role.name} ${role.description} ${categoryFor(role).label}`.toLocaleLowerCase("ru").includes(queryText))), [queryText, category]);
   const favoriteMatches = matches.filter(role => favorites.includes(role.id));
@@ -171,6 +171,8 @@ function RolesCatalog({ onSelectRole, onBack, onClose, initialRole }) {
   const onFavorite = toggleSaved(setFavorites);
   const onLike = toggleSaved(setLikes);
   useEffect(() => {
+    if (previousView.current.detailId === detail?.id && previousView.current.category === category) return;
+    previousView.current = { detailId: detail?.id, category };
     scrollRef.current?.scrollTo({ top: 0 });
     scrollRef.current?.querySelector("h1")?.focus({ preventScroll: true });
   }, [detail?.id, category]);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MusicNotes, Play } from '../outline-icons.jsx';
+import { MusicNotes, Play } from '@phosphor-icons/react';
 import './audio-result.css';
 
 const WAVE_HEIGHTS = [9, 14, 22, 16, 29, 35, 23, 39, 31, 19, 26, 40, 33, 22, 14, 28, 36, 24, 41, 30, 18, 25, 34, 22, 15, 29, 38, 27, 18, 12, 22, 30, 21, 14, 8, 16, 25, 18, 12, 7];

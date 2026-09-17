@@ -1,13 +1,9 @@
 import React from "react";
 import {
-  Plus, MagnifyingGlass, Microphone, Info, CaretDown, SidebarSimple,
-  PlusSquare, Images, SquaresFour, FolderPlus, UserCircle, ArrowUpRight,
-  Crop, Diamond, Copy, Timer, Globe, MicrophoneStage, ThumbsUp, ThumbsDown,
-  Gift, LightbulbFilament, ArrowDown, X, Check, ArrowUp, ArrowLeft, CaretRight,
-  Square, Paperclip, Gear, Play, Pause, ArrowCounterClockwise, File, Question,
-  Star, Heart, MusicNotes, SpeakerHigh, Stack, Image, BoundingBox, Lightning,
-  Bell, BellZ, WarningCircle, CreditCard, Wallet, XCircle, CheckCircle, TextT, VideoCamera,
-} from "./outline-icons.jsx";
+  Xmark, Check, ArrowUp, ArrowLeft, ChevronRight, Square, Paperclip,
+  Globe, Magnifier, CircleInfo, ArrowDown, Play, ArrowRotateRight,
+  Gear, File, CircleQuestion,
+} from "@gravity-ui/icons";
 import assets from "../figma-assets.json";
 export const MODE_NAMES = {
   auto: "Авто",
@@ -32,50 +28,56 @@ export const MODE_COLORS = {
 };
 export const sourceAsset = (source, key) =>
   "/figma/" + assets[source][key].split("/").pop();
-const a = assets["figma-2335-94959"], p = assets["figma-2366-90475"];
-
-// The shared facade keeps a 1.5px contour at every interface glyph size.
-// Brand marks and the bespoke role silhouette keep their original identity.
-const outlineIcons = {
-  add: Plus, search: MagnifyingGlass, flash: Lightning, mic: Microphone,
-  info: Info, chevron: CaretDown, sidebar: SidebarSimple, newChat: PlusSquare,
-  files: Images, tools: SquaresFour, folder: FolderPlus, profile: UserCircle,
-  external: ArrowUpRight, crop: Crop, diamond: Diamond, copy: Copy, timer: Timer,
-  globe: Globe, voice: MicrophoneStage, like: ThumbsUp, dislike: ThumbsDown,
-  gift: Gift, bulb: LightbulbFilament, down: ArrowDown, close: X, check: Check,
-  send: ArrowUp, arrowLeft: ArrowLeft, arrowRight: CaretRight, stop: Square,
-  attach: Paperclip, brain: Gear, play: Play, pause: Pause, retry: ArrowCounterClockwise,
-  file: File, help: Question, star: Star, heart: Heart, music: MusicNotes,
-  volume: SpeakerHigh, layers: Stack, imageImport: Image, bell: Bell, bellZ: BellZ,
-  warning: WarningCircle, creditCard: CreditCard, wallet: Wallet,
-  xCircle: XCircle, checkCircle: CheckCircle, text: TextT, video: VideoCamera,
+const a = assets["figma-2335-94959"],
+  p = assets["figma-2366-90475"],
+  v = assets["figma-2368-92542"],
+  au = assets["figma-2368-95813"],
+  h = assets["figma-history"];
+const icons = {
+  add: a.imgVuesaxLinearAdd,
+  search: a.imgVuesaxLinearSearchNormal,
+  role: a.imgVuesaxLinearSignpost,
+  flash: a.imgVuesaxLinearLevel,
+  mic: a.imgVuesaxLinearMicrophone2,
+  info: a.imgVuesaxLinearInfoCircle,
+  chevron: a.imgVuesaxLinearArrowDown,
+  sidebar: a.imgVuesaxLinearSidebarLeft,
+  newChat: a.imgVuesaxLinearAddSquare,
+  files: a.imgVuesaxLinearGallery,
+  tools: a.imgVuesaxLinearElementEqual,
+  folder: a.imgVuesaxLinearFolderAdd,
+  profile: a.imgVuesaxLinearProfileCircle,
+  telegram: a.imgSocial,
+  external: a.imgVuesaxLinearArrowUp,
+  crop: p.imgVuesaxLinearCrop,
+  diamond: p.imgVuesaxLinearDiamonds,
+  copy: p.imgVuesaxLinearCopy,
+  timer: v.imgVuesaxLinearTimer,
+  globe: au.imgVuesaxLinearGlobal,
+  voice: au.imgVuesaxLinearVoiceCricle,
+  like: h.imgVuesaxLinearLike,
+  dislike: h.imgVuesaxLinearDislike,
+  gift: a.imgVector2,
+  bulb: a.imgVector,
+  down: a.imgVector1,
+  molecule: a.imgFrame16,
+};
+const fallback = {
+  close: Xmark, check: Check, send: ArrowUp, arrowLeft: ArrowLeft,
+  arrowRight: ChevronRight, stop: Square, attach: Paperclip, brain: Gear,
+  search: Magnifier, info: CircleInfo, down: ArrowDown, play: Play,
+  retry: ArrowRotateRight, file: File, help: CircleQuestion, globe: Globe,
 };
 
-function RoleGlyph(props) {
-  return <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={0.875} strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M10.045 1.167H5.227c-.234 0-.455.081-.636.221L3.313 2.409a1.01 1.01 0 0 0 0 1.593l1.278 1.02c.18.147.408.222.636.222h4.818c.566 0 1.021-.455 1.021-1.021V2.182c0-.56-.455-1.015-1.021-1.015Z"/>
-    <path d="M3.967 7h4.818c.233 0 .455.082.636.222l1.277 1.02a1.011 1.011 0 0 1 0 1.593l-1.277 1.021a1.007 1.007 0 0 1-.636.222H3.967c-.566 0-1.021-.456-1.021-1.022v-2.04C2.946 7.455 3.401 7 3.967 7Z"/>
-    <path d="M7 7V5.25m0 7.583v-1.75m-1.75 1.75h3.5"/>
-  </svg>;
-}
-
-function RatioGlyph({ ratio, ...props }) {
-  if (ratio === 'Авто') return <BoundingBox weight="regular" {...props}/>;
-  const [w, h] = ratio.split(':').map(Number);
-  const scale = 18 / Math.max(w, h);
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <rect x={(24-w*scale)/2} y={(24-h*scale)/2} width={w*scale} height={h*scale} rx={2}/>
-  </svg>;
-}
-
-export function Icon({ name = 'file', size = 16, className = "", filled = false, ...props }) {
-  const common = { 'aria-hidden': true, className: `icon ${className}`, width: size, height: size, ...props };
-  if (name === 'role') return <RoleGlyph {...common} data-ui-outline="stroke"/>;
-  if (name.startsWith('ratio-')) return <RatioGlyph ratio={name.slice(6)} {...common} data-ui-outline="stroke"/>;
-  if (name === 'token') return <span {...common} style={{display:'inline-block',width:size,height:size,backgroundColor:'currentColor',mask:'url(/figma/settings-token.svg) center / contain no-repeat',...props.style}}/>;
-  if (name === 'molecule' || name === 'telegram') return <img {...common} alt="" src={sourceAsset('figma-2335-94959', name === 'molecule' ? 'imgFrame16' : 'imgSocial')}/>;
-  const Glyph = outlineIcons[name] || File;
-  return <Glyph {...common} weight={filled ? 'fill' : 'regular'}/>;
+export function Icon({ name, size = 16, className = "", filled = false, ...props }) {
+  const src = icons[name];
+  const F = fallback[name] || File;
+  if (name === "role" || name === "profile") return <i
+    aria-hidden="true" className={`icon ${className}`} {...props}
+    style={{ width: size, height: size, backgroundColor: "currentColor", mask: `url(/figma/${src.split("/").pop()}) center / contain no-repeat`, WebkitMask: `url(/figma/${src.split("/").pop()}) center / contain no-repeat`, ...props.style }}
+  />;
+  return src ? <img aria-hidden="true" alt="" className={`icon ${className}`} src={"/figma/" + src.split("/").pop()} width={size} height={size} {...props}/>
+    : <F aria-hidden="true" width={size} height={size} className={`icon ${className}`} {...props}/>;
 }
 const modeGlyphs = {
   auto: p.imgFrame15,

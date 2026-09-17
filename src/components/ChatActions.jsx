@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShareNetwork, PencilSimple, PushPin, Archive, Trash, FolderSimple, FolderMinus } from '../outline-icons.jsx';
+import { ShareNetwork, PencilSimple, PushPin, Archive, Trash, FolderSimple, FolderMinus } from '@phosphor-icons/react';
 import { MenuItem } from './Popover.jsx';
 
 export function ChatActions({ chat, onAction }) {
