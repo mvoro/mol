@@ -14,3 +14,18 @@ export function estimateGenerationCost(mode = 'auto', settings = {}) {
   const speed = mode === 'auto' ? ({ 'Быстро': 1, 'Оптимально': 2, 'Глубоко': 3 }[settings.speed] || 1) : 1;
   return speed + (settings.web ? 15 : 0) + (settings.reasoning ? 1 : 0);
 }
+
+// Studio estimates share the composer's unit rates; no balance is debited locally.
+export function estimateCarouselCost({ count = 5 } = {}) {
+  const parsed = Number(count);
+  const slides = Number.isFinite(parsed) ? Math.min(10, Math.max(3, Math.round(parsed))) : 5;
+  return slides * estimateGenerationCost('image', { quality: '1K', count: '1 шт' });
+}
+
+export function estimateTrendCost({ quality = '720' } = {}) {
+  return estimateGenerationCost('video', { quality: quality === '1080' ? '1080p' : '720p', sound: false });
+}
+
+export function formatGenerationCost(value) {
+  return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2 }).format(value);
+}

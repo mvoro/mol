@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { LightbulbFilament } from '@phosphor-icons/react';
+import { Lightbulb, ChevronsUp } from 'lucide-react';
 import { Icon, ModeIcon, ModelIcon } from "../ui.jsx";
 import { homeBanners, homeCollections, homeModels } from "./home-content.js";
 import "./home-experience.css";
@@ -311,12 +311,12 @@ export function HomeExperience({ children, onChoose, resetKey, mode = 'auto' }) 
           >
             <span className="home-curtain-grabber" />
             <span>
-              <LightbulbFilament className="curtain-bulb" size={18} weight="regular" aria-hidden="true" />
+              <Lightbulb className="curtain-bulb" size={18} aria-hidden="true" strokeWidth={1.75}/>
               Немного вдохновения
             </span>
             <span className="home-curtain-hint">
               Листайте дальше
-              <span className="curtain-arrow" aria-hidden="true" />
+              <ChevronsUp className="curtain-arrow" size={14} strokeWidth={1.75} aria-hidden="true" />
             </span>
           </button>
     </div>

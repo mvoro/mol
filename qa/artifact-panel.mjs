@@ -1,0 +1,74 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const base = process.env.ARTIFACT_BASE_URL || 'http://127.0.0.1:5190';
+const browser=await chromium.launch();
+const page=await browser.newPage({viewport:{width:1800,height:1000}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const wait=()=>page.waitForTimeout(350);
+const open=async format=>{await page.getByRole('button',{name:`Открыть Городской сад.${format}`,exact:true}).click();await wait();};
+const box=()=>page.locator('.artifact-panel').boundingBox();
+await page.goto(`${base}/?chat=molecula-document-demo-v1`);await page.waitForTimeout(1000);
+await open('pdf');await page.locator('.react-pdf__Page canvas').first().waitFor({state:'visible',timeout:30000});await page.waitForFunction(()=>document.querySelectorAll('.react-pdf__Page canvas').length===3);await wait();
+assert.match(await page.locator('.artifact-toolbar').innerText(),/1 \/ 3/);console.log('PASS PDF renders 3 pages');
+await page.getByRole('button',{name:'Увеличить масштаб',exact:true}).click();assert.match(await page.locator('.artifact-toolbar').innerText(),/110%/);
+await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop=1600);await wait();assert.match(await page.locator('.artifact-toolbar').innerText(),/[23] \/ 3/);console.log('PASS PDF zoom / page counter');
+const pdfScroll = await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop);
+await page.getByRole('button',{name:'Скрыть предпросмотр'}).click();await wait();
+await page.getByRole('button',{name:'Открыть Городской сад.pdf',exact:true}).click();await page.waitForTimeout(750);
+assert.ok(Math.abs(await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop)-pdfScroll)<3);
+assert.match(await page.locator('.artifact-toolbar').innerText(),/110%/);console.log('PASS PDF hide/reopen scroll and zoom');
+await page.screenshot({path:'/tmp/artifact-desktop-tested.png'});
+await open('docx');await page.locator('.artifact-document img').waitFor();assert.equal(await page.locator('.artifact-document table').count(),1);assert.ok(await page.locator('.artifact-document img').evaluate(el=>el.naturalWidth>0));console.log('PASS DOCX image/table');
+await open('md');await page.locator('.artifact-document pre code').waitFor();assert.equal(await page.locator('.artifact-document table').count(),1);
+await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop=380);await wait();const scroll=await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop);const width=(await box()).width;
+await page.getByRole('button',{name:'Скрыть предпросмотр'}).click();await wait();assert.equal((await box()).width,0);
+await page.getByRole('button',{name:'Открыть Городской сад.md',exact:true}).click();await wait();assert.ok(Math.abs((await box()).width-width)<2);const reopened=await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop);console.log('SCROLL',scroll,reopened);assert.ok(Math.abs(scroll-reopened)<3);console.log('PASS hide/reopen width and scroll');
+await open('docx');await page.locator('.artifact-document img').waitFor();await open('md');await page.locator('.artifact-document pre code').waitFor();await wait();assert.ok(Math.abs(await page.locator('.artifact-scroll').evaluate(el=>el.scrollTop)-scroll)<3);console.log('PASS switch restores file scroll');
+await page.getByRole('button',{name:'Развернуть предпросмотр'}).click();await wait();const total=(await page.locator('.chat-main').boundingBox()).width;assert.ok(Math.abs((await box()).width-total)<2);
+await page.getByRole('button',{name:'Восстановить размер'}).click();await wait();assert.ok(Math.abs((await box()).width-width)<2);console.log('PASS fullscreen/restore');
+const main=await page.locator('.chat-main').boundingBox();
+main.width -= 16;
+for(const ratio of [.25,.5,.75,.61]){
+ const handle=await page.getByRole('separator').boundingBox();await page.mouse.move(handle.x+7,handle.y+400);await page.mouse.down();const target=handle.x+7+(await box()).width-main.width*ratio+(ratio===.61?0:12);await page.mouse.move(target,handle.y+400,{steps:10});assert.equal(await page.locator('body').evaluate(el=>el.style.userSelect),'none');await page.mouse.up();await wait();assert.ok(Math.abs((await box()).width-(main.width*ratio-(ratio===.61?0:12)))<2,`ratio ${ratio}, width ${(await box()).width}`);
+}console.log('PASS pointer resize / free width near quarters / selection lock');
+for (const event of ['lostpointercapture', 'pointercancel']) {
+ const handle = await page.getByRole('separator').boundingBox();
+ await page.mouse.move(handle.x + 8, handle.y + 300);
+ await page.mouse.down();
+ await page.mouse.move(handle.x + 51, handle.y + 300, {steps:8});
+ const visibleWidth = (await box()).width;
+ await page.getByRole('separator').dispatchEvent(event, {pointerId:1});
+ await page.mouse.up(); await wait();
+ assert.ok(Math.abs((await box()).width - visibleWidth) < 2, `${event} keeps last visible width`);
+}
+console.log('PASS interrupted resize retains width');
+const beforeAutoFull = (await box()).width;
+const edgeHandle = await page.getByRole('separator').boundingBox();
+await page.mouse.move(edgeHandle.x + 8, edgeHandle.y + 300);
+await page.mouse.down();
+await page.mouse.move(main.x + 360, edgeHandle.y + 300, {steps:16});
+await wait();
+assert.equal(await page.locator('.chat-main').getAttribute('data-artifact-full'), 'true');
+assert.ok(Math.abs((await box()).width-total)<2);
+await page.mouse.up();
+assert.notEqual(await page.locator('body').evaluate(el=>el.style.userSelect), 'none');
+await page.getByRole('button',{name:'Восстановить размер'}).click();await wait();
+assert.ok(Math.abs((await box()).width-beforeAutoFull)<2);
+console.log('PASS left-edge auto fullscreen / restore previous split / release capture');
+await page.getByRole('separator').focus();await page.keyboard.press('Home');await wait();assert.ok(Math.abs((await box()).width-300)<2);await page.keyboard.press('ArrowLeft');await wait();assert.ok(Math.abs((await box()).width-310)<2);await page.keyboard.press('End');await wait();assert.ok(Math.abs((await box()).width-(main.width-360))<2);console.log('PASS keyboard resize bounds');
+await page.keyboard.press('Escape');await wait();assert.equal(await page.locator('.artifact-panel').getAttribute('aria-hidden'),'true');
+await page.reload();await page.waitForTimeout(700);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('molecula-composer-history')).filter(c=>c.id==='molecula-document-demo-v1').length),1);console.log('PASS reload no duplicate demo');
+for(const format of ['pdf','docx','md']){
+ await page.route(`**/documents/garden.${format}`,route=>route.fulfill({status:503,body:'Unavailable'}));await open(format);await page.getByRole('alert').filter({hasText:'Не удалось открыть документ'}).waitFor();await page.unroute(`**/documents/garden.${format}`);await page.getByRole('button',{name:'Повторить',exact:true}).click();await page.locator(format==='pdf'?'.react-pdf__Page canvas':'.artifact-document').first().waitFor();console.log('PASS retry',format);
+}
+assert.deepEqual(errors,[]);await page.close();
+const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});mobile.on('pageerror',e=>errors.push(e.message));await mobile.goto(`${base}/?chat=molecula-document-demo-v1`);await mobile.waitForTimeout(800);await mobile.getByRole('button',{name:'Открыть Городской сад.md',exact:true}).click();await mobile.locator('.artifact-document pre').waitFor();await mobile.waitForTimeout(400);
+let sheet=await mobile.locator('.artifact-panel').boundingBox();assert.ok(sheet.height>550&&sheet.height<590);assert.equal(await mobile.locator('body').evaluate(el=>el.style.overflow),'hidden');assert.equal(await mobile.locator('.chat-pane').getAttribute('inert'),'');
+const client=await mobile.context().newCDPSession(mobile);
+async function swipe(x,y,endY){await client.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});for(let i=1;i<=10;i++)await client.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y+(endY-y)*i/10}]});await client.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await mobile.waitForTimeout(350);}
+let handle=await mobile.locator('.artifact-sheet-handle').boundingBox();await swipe(195,handle.y+15,80);sheet=await mobile.locator('.artifact-panel').boundingBox();assert.ok(sheet.height>780);console.log('PASS mobile expand swipe');
+await mobile.locator('.artifact-scroll').evaluate(el=>el.scrollTop=200);await swipe(180,600,300);assert.ok(Math.abs((await mobile.locator('.artifact-panel').boundingBox()).height-sheet.height)<2);console.log('PASS document scroll independent');
+await mobile.screenshot({path:'/tmp/artifact-mobile-tested.png'});
+handle=await mobile.locator('.artifact-sheet-handle').boundingBox();await swipe(195,handle.y+15,handle.y+215);assert.equal(await mobile.locator('.artifact-panel').getAttribute('aria-hidden'),'true');assert.equal(await mobile.locator('body').evaluate(el=>el.style.overflow),'');console.log('PASS mobile swipe dismiss / scroll unlock');
+await mobile.getByRole('button',{name:'Открыть Городской сад.md',exact:true}).click();await mobile.waitForTimeout(350);for(let i=0;i<12;i++)await mobile.keyboard.press('Tab');assert.ok(await mobile.locator('.artifact-panel').evaluate(el=>el.contains(document.activeElement)));await mobile.keyboard.press('Escape');await mobile.waitForTimeout(300);assert.equal(await mobile.locator('.artifact-panel').getAttribute('aria-hidden'),'true');console.log('PASS mobile focus trap / Escape');
+assert.deepEqual(errors,[]);await browser.close();console.log('ALL PASSED');

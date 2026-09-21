@@ -1,9 +1,15 @@
 import React from "react";
 import {
-  Xmark, Check, ArrowUp, ArrowLeft, ChevronRight, Square, Paperclip,
-  Globe, Magnifier, CircleInfo, ArrowDown, Play, ArrowRotateRight,
-  Gear, File, CircleQuestion,
-} from "@gravity-ui/icons";
+  X, Check, ArrowUp, ArrowLeft, ChevronLeft, ChevronRight, ChevronDown,
+  ChevronsUp, Square, Paperclip, Globe, Search, Info, ArrowDown, Play, Pause,
+  RotateCw, RotateCcw, Settings, File, FileText, CircleHelp, Plus, Signpost,
+  Zap, Mic, PanelLeft, PanelRight, GalleryHorizontalEnd, Clapperboard, SquarePen, SquarePlus, Images,
+  LayoutGrid, Folder, FolderPlus, CircleUserRound, ArrowUpRight, Crop, Gem,
+  Copy, Timer, Speech, ThumbsUp, ThumbsDown, Gift, Lightbulb, Star, Heart,
+  Bell, BellOff, CreditCard, CircleAlert, Wallet, Layers, Volume2, VolumeX,
+  ImageUp, ImagePlus, Type, Video, Music, RectangleHorizontal,
+  RectangleVertical, Ratio, Download, Mail, LogOut, LogIn, Maximize, Minimize, Sparkles, Archive,
+} from "lucide-react";
 import assets from "../figma-assets.json";
 export const MODE_NAMES = {
   auto: "Авто",
@@ -28,83 +34,57 @@ export const MODE_COLORS = {
 };
 export const sourceAsset = (source, key) =>
   "/figma/" + assets[source][key].split("/").pop();
-const a = assets["figma-2335-94959"],
-  p = assets["figma-2366-90475"],
-  v = assets["figma-2368-92542"],
-  au = assets["figma-2368-95813"],
-  h = assets["figma-history"];
-const icons = {
-  add: a.imgVuesaxLinearAdd,
-  search: a.imgVuesaxLinearSearchNormal,
-  role: a.imgVuesaxLinearSignpost,
-  flash: a.imgVuesaxLinearLevel,
-  mic: a.imgVuesaxLinearMicrophone2,
-  info: a.imgVuesaxLinearInfoCircle,
-  chevron: a.imgVuesaxLinearArrowDown,
-  sidebar: a.imgVuesaxLinearSidebarLeft,
-  newChat: a.imgVuesaxLinearAddSquare,
-  files: a.imgVuesaxLinearGallery,
-  tools: a.imgVuesaxLinearElementEqual,
-  folder: a.imgVuesaxLinearFolderAdd,
-  profile: a.imgVuesaxLinearProfileCircle,
-  telegram: a.imgSocial,
-  external: a.imgVuesaxLinearArrowUp,
-  crop: p.imgVuesaxLinearCrop,
-  diamond: p.imgVuesaxLinearDiamonds,
-  copy: p.imgVuesaxLinearCopy,
-  timer: v.imgVuesaxLinearTimer,
-  globe: au.imgVuesaxLinearGlobal,
-  voice: au.imgVuesaxLinearVoiceCricle,
-  like: h.imgVuesaxLinearLike,
-  dislike: h.imgVuesaxLinearDislike,
-  gift: a.imgVector2,
-  bulb: a.imgVector,
-  down: a.imgVector1,
-  molecule: a.imgFrame16,
-};
-const fallback = {
-  close: Xmark, check: Check, send: ArrowUp, arrowLeft: ArrowLeft,
-  arrowRight: ChevronRight, stop: Square, attach: Paperclip, brain: Gear,
-  search: Magnifier, info: CircleInfo, down: ArrowDown, play: Play,
-  retry: ArrowRotateRight, file: File, help: CircleQuestion, globe: Globe,
-};
+const a = assets["figma-2335-94959"];
 
-export function Icon({ name, size = 16, className = "", filled = false, ...props }) {
-  const src = icons[name];
-  const F = fallback[name] || File;
-  if (name === "role" || name === "profile") return <i
-    aria-hidden="true" className={`icon ${className}`} {...props}
-    style={{ width: size, height: size, backgroundColor: "currentColor", mask: `url(/figma/${src.split("/").pop()}) center / contain no-repeat`, WebkitMask: `url(/figma/${src.split("/").pop()}) center / contain no-repeat`, ...props.style }}
-  />;
-  return src ? <img aria-hidden="true" alt="" className={`icon ${className}`} src={"/figma/" + src.split("/").pop()} width={size} height={size} {...props}/>
-    : <F aria-hidden="true" width={size} height={size} className={`icon ${className}`} {...props}/>;
-}
-const modeGlyphs = {
-  auto: p.imgFrame15,
-  text: a.imgVuesaxLinearText,
-  image: a.imgVuesaxLinearGallery1,
-  video: a.imgVuesaxLinearVideo,
-  audio: a.imgVuesaxLinearAudioSquare,
+// Semantic names keep controls consistent across all screens. Brand marks remain assets.
+export const ICON_STROKE_WIDTH = 1.75;
+const icons = {
+  close: X, check: Check, send: ArrowUp, arrowLeft: ArrowLeft,
+  arrowRight: ChevronRight, chevronRight: ChevronRight, chevronLeft: ChevronLeft, chevron: ChevronDown,
+  chevronsUp: ChevronsUp, stop: Square, attach: Paperclip, brain: Settings,
+  search: Search, info: Info, down: ArrowDown, play: Play, pause: Pause,
+  retry: RotateCw, undo: RotateCcw, reset: RotateCcw, file: File, document: FileText,
+  help: CircleHelp, globe: Globe, add: Plus, role: Signpost, flash: Zap,
+  mic: Mic, sidebar: PanelLeft, sidebarExpand: PanelRight, carousel: GalleryHorizontalEnd,
+  trends: Clapperboard, newChat: SquarePlus, edit: SquarePen, files: Images, tools: LayoutGrid,
+  folder: Folder, folderPlus: FolderPlus, profile: CircleUserRound,
+  external: ArrowUpRight, crop: Crop, diamond: Gem, copy: Copy,
+  timer: Timer, voice: Speech, like: ThumbsUp, dislike: ThumbsDown,
+  gift: Gift, bulb: Lightbulb, star: Star, heart: Heart, bell: Bell,
+  bellOff: BellOff, creditCard: CreditCard, circleAlert: CircleAlert,
+  wallet: Wallet, layers: Layers, volume: Volume2, muted: VolumeX,
+  imageImport: ImageUp, imagePlus: ImagePlus, text: Type, image: Images,
+  video: Video, audio: Music, music: Music, download: Download, mail: Mail,
+  settings: Settings, logout: LogOut, login: LogIn, expand: Maximize,
+  collapse: Minimize, sparkles: Sparkles, archive: Archive,
 };
+const brandIcons = {
+  telegram: `/figma/${a.imgSocial.split("/").pop()}`,
+  molecule: `/figma/${a.imgFrame16.split("/").pop()}`,
+};
+function ratioIcon(name) {
+  if (name === 'ratio-Авто') return Ratio;
+  const [width, height] = name.slice(6).split(':').map(Number);
+  return width === height ? Square : width > height ? RectangleHorizontal : RectangleVertical;
+}
+export function Icon({ name, size = 16, className = "", filled = false, ...props }) {
+  if (name === 'token') return <span aria-hidden="true" className={`icon brand-token ${className}`} {...props} style={{ width: size, height: size, ...props.style }} />;
+  if (name === 'balanceToken') return <span aria-hidden="true" className={`icon balance-token ${className}`} {...props} style={{ width: size, height: size, maskImage: `url(${brandIcons.molecule})`, WebkitMaskImage: `url(${brandIcons.molecule})`, ...props.style }} />;
+  const src = brandIcons[name];
+  if (src) return <img aria-hidden="true" alt="" className={`icon ${className}`} src={src} width={size} height={size} {...props}/>;
+  const Glyph = icons[name] || (name?.startsWith('ratio-') ? ratioIcon(name) : File);
+  const sidebar = name === 'sidebar' || name === 'sidebarExpand';
+  return <Glyph aria-hidden="true" size={sidebar ? size * .85 : size} strokeWidth={ICON_STROKE_WIDTH}
+    fill={filled ? 'currentColor' : 'none'} className={`icon ${className}`} {...props}/>;
+}
+const modeGlyphs = { text: Type, image: Images, video: Video, audio: Music };
 export function ModeIcon({ mode = "auto", mono = false, size = 14 }) {
   if (mode === 'auto') return <img className="icon molly-mode-icon" src={sourceAsset('figma-2335-94959', 'imgMoleculs')} alt="" width={size} height={size} />;
-  return (
-    <span
-      className={"mode-icon " + (mono ? "mono" : "")}
-      style={{
-        width: size,
-        height: size,
-        background: mono ? "#9c9c9c" : MODE_COLORS[mode],
-      }}
-    >
-      <img
-        alt=""
-        src={"/figma/" + modeGlyphs[mode].split("/").pop()}
-        width={size * 0.64}
-        height={size * 0.64}
-      />
-    </span>
-  );
+  const Glyph = modeGlyphs[mode] || Type;
+  return <span className={"mode-icon " + (mono ? "mono" : "")}
+    style={{ width: size, height: size, background: mono ? "#9c9c9c" : MODE_COLORS[mode] }}>
+    <Glyph aria-hidden="true" size={size * 0.64} color="#fff" strokeWidth={ICON_STROKE_WIDTH}/>
+  </span>;
 }
 export function ModelIcon({ model = "Молли 1.0", size = 16 }) {
   const name = model.toLocaleLowerCase();

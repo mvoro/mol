@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const base=process.env.ARTIFACT_BASE_URL || 'http://127.0.0.1:5190';
+const b=await chromium.launch();const p=await b.newPage({viewport:{width:1280,height:900}});const errors=[];p.on('pageerror',e=>errors.push(e.message));
+await p.goto(`${base}/`);await p.waitForTimeout(800);
+await p.locator('.chat-composer input[type=file][multiple]').setInputFiles({name:'upload.md',mimeType:'text/markdown',buffer:Buffer.from('# Uploaded file\n\nSaved from composer')});
+await p.getByRole('textbox',{name:'Сообщение',exact:true}).fill('Проверь документ');await p.getByRole('button',{name:/Отправить сообщение/}).click();
+await p.getByRole('button',{name:'Открыть upload.md',exact:true}).click();await p.getByRole('heading',{name:'Uploaded file'}).waitFor();
+const id=await p.evaluate(()=>JSON.parse(localStorage.getItem('molecula-composer-history')).find(c=>c.messages.some(m=>m.files?.some(f=>f.name==='upload.md'))).id);
+await p.goto(`${base}/?chat=${id}`);await p.getByRole('button',{name:'Открыть upload.md',exact:true}).click();await p.getByRole('heading',{name:'Uploaded file'}).waitFor();console.log('PASS actual composer upload/send/reload/preview');assert.deepEqual(errors,[]);
+await p.goto(`${base}/carousel`);await p.waitForTimeout(500);assert.ok(await p.getByRole('heading',{name:'Карусель',exact:true}).isVisible());await p.goto(`${base}/trends`);await p.waitForTimeout(500);assert.ok(await p.getByRole('heading',{name:'Тренды',exact:true}).isVisible());console.log('PASS studio route smoke');await b.close();

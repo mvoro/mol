@@ -1,12 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
 import {
-  ArrowLeft,
-  ArrowRotateLeft,
-  Check,
-  ChevronRight,
-  CircleInfo,
-} from "@gravity-ui/icons";
-import {
   ChatComposer,
   FileChip,
   UploadRefCard,
@@ -16,7 +9,7 @@ import { ModelPicker } from "./ModelPicker.jsx";
 import { RolesShowcase } from "./RolesShowcase.jsx";
 import { Tabs } from "./Tabs.jsx";
 import { Select } from "./Select.jsx";
-import { ModeIcon, ModelIcon, MODE_NAMES, DEFAULT_MODELS } from "../ui.jsx";
+import { Icon, ModeIcon, ModelIcon, MODE_NAMES, DEFAULT_MODELS } from "../ui.jsx";
 import "./component-gallery.css";
 
 const MODES = ["auto", "text", "image", "video", "audio"];
@@ -202,7 +195,7 @@ function ComposerExample({
           onClick={reset}
           aria-label="Сбросить пример"
         >
-          <ArrowRotateLeft width={13} height={13} />
+          <Icon name="reset" size={13} />
           Сбросить
         </button>
       </div>
@@ -314,16 +307,16 @@ function RowExample({ size = "md", variant = "default", control = "none" }) {
       aria-pressed={control === "none" ? undefined : checked}
       onClick={() => setChecked(!checked)}
     >
-      <CircleInfo width={16} height={16} />
+      <Icon name="info" size={16} />
       <span>Кнопка</span>
       {control === "none" && (
-        <ChevronRight className="gallery-row-end" width={14} height={14} />
+        <Icon name="chevronRight" className="gallery-row-end" size={14} />
       )}
       {control === "checkbox" && (
         <span
           className={`gallery-row-check gallery-row-end ${checked ? "is-checked" : ""}`}
         >
-          {checked && <Check width={12} height={12} />}
+          {checked && <Icon name="check" size={12} />}
         </span>
       )}
       {control === "radio" && (
@@ -458,7 +451,7 @@ function PrimitiveModels() {
             )}
             {state !== "loading" &&
               (selected === state ? (
-                <Check width={14} height={14} />
+                <Icon name="check" size={14} />
               ) : (
                 <span className="gallery-model-booster">×2</span>
               ))}
@@ -485,7 +478,7 @@ function TooltipExample() {
         onBlur={() => setOpen(false)}
         onClick={() => setOpen(!open)}
       >
-        <CircleInfo width={20} height={20} />
+        <Icon name="info" size={20} />
       </button>
       <span
         className={`gallery-tooltip ${open ? "is-open" : ""}`}
@@ -512,7 +505,7 @@ export function ComponentGallery({ onBack, imageUrl }) {
           className="gallery-control gallery-back"
           onClick={onBack}
         >
-          <ArrowLeft width={18} height={18} />
+          <Icon name="arrowLeft" size={18} />
           <span>Вернуться в чат</span>
         </button>
         <a
@@ -522,7 +515,7 @@ export function ComponentGallery({ onBack, imageUrl }) {
           rel="noreferrer"
         >
           Макеты в Figma
-          <ChevronRight width={14} height={14} />
+          <Icon name="chevronRight" size={14} />
         </a>
       </header>
       <div className="gallery-body">
@@ -719,16 +712,16 @@ export function ComponentGallery({ onBack, imageUrl }) {
             >
               <ModeIcon mode="auto" />
               Выбрать модель
-              <ChevronRight width={16} height={16} />
+              <Icon name="chevronRight" size={16} />
             </button>
             <button
               className="gallery-control gallery-action"
               type="button"
               onClick={() => setRoleInfo(true)}
             >
-              <CircleInfo width={18} height={18} />
+              <Icon name="info" size={18} />
               Описание роли
-              <ChevronRight width={16} height={16} />
+              <Icon name="chevronRight" size={16} />
             </button>
           </div>
         </Section>
@@ -819,7 +812,7 @@ export function ComponentGallery({ onBack, imageUrl }) {
             onClick={onBack}
           >
             Вернуться в чат
-            <ArrowLeft width={14} height={14} />
+            <Icon name="arrowLeft" size={14} />
           </button>
         </footer>
       </div>

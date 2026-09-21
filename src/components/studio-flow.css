@@ -1,0 +1,169 @@
+/* Both studios share the same scrollable fields and persistent action area. */
+.studio-mobile-steps,
+.studio-mobile-next,
+.studio-mobile-label,
+.studio-selected-template { display: none; }
+
+.studio-settings-panel.studio-settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+.studio-form-fields { min-width: 0; min-height: 0; padding: 20px; }
+.studio-form-actions {
+  flex: none;
+  padding: 14px 20px 20px;
+  border-top: 1px solid #eeedf1;
+  background: #fff;
+}
+.studio-form-actions > button:first-child { width: 100%; margin-top: 0; }
+.studio-form-actions > :is(.carousel-primary-button, .trend-primary) { width: 100%; margin-top: 0; }
+.studio-form-actions > .trend-error { margin: 0 0 12px; }
+.studio-form-actions .trend-render-note { margin-bottom: 0; }
+
+@media (min-width: 701px) {
+  .studio-settings-panel.studio-settings-panel {
+    position: sticky;
+    top: 100px;
+    /* Leave room for the page heading even before the panel reaches its sticky position. */
+    max-height: calc(100dvh - 270px);
+    overflow: hidden;
+  }
+  .studio-settings-panel > .studio-form-fields {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 980px) {
+  .studio-form-fields { padding: 16px; }
+  .studio-form-actions { padding: 12px 16px 16px; }
+}
+
+@media (max-width: 700px) {
+  .studio-page--flow > :is(.carousel-studio-inner, .trends-inner) {
+    padding-bottom: calc(150px + env(safe-area-inset-bottom) + var(--audio-dock-height, 0px));
+  }
+  .studio-mobile-steps {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 34px;
+    margin: -5px 0 20px;
+    color: #837b90;
+    font-size: 11px;
+    line-height: 18px;
+  }
+  .studio-mobile-steps > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: none;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 7px 10px;
+    border-radius: 12px;
+    background: #f5f4f7;
+    color: #4e465c;
+    font-size: 11px;
+  }
+  .studio-mobile-steps > span { outline: none; }
+  .studio-desktop-label { display: none; }
+  .studio-mobile-label { display: inline; }
+  .studio-selected-template {
+    display: block;
+    margin-bottom: 8px;
+    color: #766d84;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .studio-settings-panel.studio-settings-panel {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+  .studio-form-fields { padding: 18px; overflow: visible; }
+  .studio-form-actions,
+  .studio-mobile-next {
+    display: block;
+    position: fixed;
+    z-index: 8;
+    left: 0;
+    right: 0;
+    bottom: var(--audio-dock-height, 0px);
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+    border-top: 1px solid #eeedf1;
+    background: #fffffff5;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .studio-mobile-next > button { width: 100%; margin-top: 0; min-height: 48px; }
+  .studio-form-actions > :is(.carousel-primary-button, .trend-primary) { min-height: 48px; }
+}
+
+/* Keep studio navigation centered on the title row, above the subtitle. */
+@media (min-width:701px) {
+  .chat-main :is(.trends-heading,.carousel-heading) { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; column-gap:24px; row-gap:8px; padding-top:9px; }
+  .chat-main :is(.trends-heading,.carousel-heading) > div:not(.ui-tabs) { display:contents; }
+  .chat-main :is(.trends-heading,.carousel-heading) h1 { grid-column:1; grid-row:1; margin:0; }
+  .chat-main :is(.trends-heading,.carousel-heading) p { grid-column:1; grid-row:2; }
+  .chat-main :is(.trends-heading,.carousel-heading) > .ui-tabs { grid-column:2; grid-row:1; justify-self:end; }
+}
+
+@media (min-width:701px) {
+  .chat-main :is(.trends-inner,.carousel-studio-inner) { max-width:none; padding-inline:32px; }
+}
+
+/* Measure the actual workspace, including the space taken by the sidebar. */
+:is(.carousel-studio,.trends-studio) { container:studio / inline-size; }
+.chat-main :is(.carousel-styles,.trends-collection) { container:studio-gallery / inline-size; min-width:0; }
+.chat-main :is(.carousel-style-grid,.trend-template-grid) { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 16px; }
+@container studio-gallery (min-width:520px) {
+  .chat-main :is(.carousel-style-grid,.trend-template-grid) { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@container studio-gallery (min-width:720px) {
+  .chat-main :is(.carousel-style-grid,.trend-template-grid) { grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+@media (min-width:701px) {
+  .chat-main :is(.carousel-workspace,.trends-workspace) { grid-template-columns:280px minmax(0,1fr); gap:24px; }
+  .chat-main :is(.carousel-history-grid,.trend-history-grid) { grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr)); }
+  @container studio (max-width:823px) {
+    .chat-main :is(.carousel-workspace,.trends-workspace) { grid-template-columns:minmax(0,1fr); gap:20px; }
+    .chat-main .studio-mobile-steps { display:flex; align-items:center; gap:10px; margin-bottom:20px; font-size:12px; color:#837b90; }
+    .chat-main .studio-mobile-steps > button { padding:8px; border-radius:12px; background:#f5f4f7; }
+    .chat-main .studio-mobile-next { display:block; position:fixed; right:40px; bottom:8px; width:calc(100cqw - 64px); z-index:8; padding:12px 0; background:#fff; }
+    .chat-main .studio-page--flow > :is(.carousel-studio-inner,.trends-inner) { padding-bottom:100px; }
+    .chat-main .studio-mobile-next > button { width:100%; margin:0; }
+    .chat-main .studio-settings-panel { position:static; max-height:none; overflow:visible; }
+    .chat-main .studio-form-fields { overflow:visible; }
+    .chat-main :is(.carousel-workspace,.trends-workspace).studio-mobile-step-1 > .studio-settings-panel,
+    .chat-main .carousel-workspace.studio-mobile-step-2 > .carousel-styles,
+    .chat-main .trends-workspace.studio-mobile-step-2 > .trends-collection,
+    .chat-main :is(.carousel-workspace,.trends-workspace).studio-mobile-step-2 > .studio-mobile-next { display:none; }
+  }
+  @container studio (max-width:579px) {
+    .chat-main :is(.trends-heading,.carousel-heading) { grid-template-columns:minmax(0,1fr); row-gap:12px; }
+    .chat-main :is(.trends-heading,.carousel-heading) > .ui-tabs { grid-column:1; grid-row:3; justify-self:start; }
+    .chat-main :is(.trends-heading,.carousel-heading) p { max-width:none; }
+  }
+}
+
+/* Both next-step buttons use the same layout and typography. */
+.studio-mobile-next > :is(.carousel-primary-button,.trend-primary) {
+  justify-content:center;
+  gap:10px;
+  border-radius:25px;
+  font-size:12px;
+  font-weight:600;
+  line-height:20px;
+}
+.studio-mobile-next > :is(.carousel-primary-button,.trend-primary):disabled { opacity:.5; }

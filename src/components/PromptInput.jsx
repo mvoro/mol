@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useId, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowElbowDownLeft, ImageSquare } from '@phosphor-icons/react';
+import { CornerDownLeft, ImageIcon } from 'lucide-react';
 import { Icon } from '../ui.jsx';
 import { filterPhotos, mentionQuery, normalizeParts, partsText } from '../prompt-mentions.js';
 import './prompt-input.css';
@@ -248,7 +248,7 @@ export const PromptInput = forwardRef(function PromptInput({ value, onChange, fi
       }}/>
     {query && createPortal(<div ref={menuRef} className="mention-popover" style={{ ...position, visibility: position ? 'visible' : 'hidden' }} onPointerDown={event => event.preventDefault()}>
       <div className="mention-heading" id={`${id}-heading`}>Прикреплённые фото <span>{allPhotos.length || ''}</span></div>
-      <div role="listbox" id={`${id}-list`} aria-labelledby={`${id}-heading`}>{candidates.map((file,index) => <button key={file.id} id={`${id}-${file.id}`} type="button" role="option" aria-selected={active === index} tabIndex={-1} className="mention-option" onPointerMove={event => { if (event.pointerType === 'mouse') setActive(index); }} onClick={() => choose(file)}>{file.url || file.preview ? <img src={file.url || file.preview} alt=""/> : <ImageSquare size={20} aria-hidden="true"/>}<span><b>{file.name}</b><small>{file.refLabel || `Фото ${allPhotos.findIndex(item => item.id === file.id) + 1}`}</small></span>{active === index && <ArrowElbowDownLeft size={14} aria-hidden="true"/>}</button>)}</div>
+      <div role="listbox" id={`${id}-list`} aria-labelledby={`${id}-heading`}>{candidates.map((file,index) => <button key={file.id} id={`${id}-${file.id}`} type="button" role="option" aria-selected={active === index} tabIndex={-1} className="mention-option" onPointerMove={event => { if (event.pointerType === 'mouse') setActive(index); }} onClick={() => choose(file)}>{file.url || file.preview ? <img src={file.url || file.preview} alt=""/> : <ImageIcon size={20} aria-hidden="true" strokeWidth={1.75}/>}<span><b>{file.name}</b><small>{file.refLabel || `Фото ${allPhotos.findIndex(item => item.id === file.id) + 1}`}</small></span>{active === index && <CornerDownLeft size={14} aria-hidden="true" strokeWidth={1.75}/>}</button>)}</div>
       {!candidates.length && <p className="mention-empty">{allPhotos.length ? 'Фото с таким названием не найдено' : 'Прикрепите фото, чтобы упомянуть его'}</p>}
       {!allPhotos.length && <button className="mention-option mention-upload" onClick={() => { close(); onUpload(); }}><Icon name="add" size={18}/><span>Добавить фото</span></button>}
     </div>, document.body)}

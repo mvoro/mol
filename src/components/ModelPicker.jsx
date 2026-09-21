@@ -118,13 +118,7 @@ function ModelRow({ item, active, onSelect }) {
         <span className="mp-model-description">{description}</span>
       </span>
       {active ? (
-        <img
-          className="mp-check"
-          src={`${ASSETS}imgCheck.svg`}
-          alt=""
-          width="14"
-          height="14"
-        />
+        <Icon name="check" className="mp-check" size={14}/>
       ) : (
         multiplier && (
           <span className="mp-multiplier">
@@ -282,12 +276,7 @@ export function ModelPicker({
                 <Icon name="close" size={18} />
               </button>
             ) : (
-              <img
-                src={`${ASSETS}imgVuesaxLinearSearchNormal.svg`}
-                width="18"
-                height="18"
-                alt=""
-              />
+              <Icon name="search" size={18}/>
             )}
           </InputShell>
           <Tabs className="mp-tabs" label="Тип модели" id={id} value={tab} onChange={changeTab} items={modes.map(item => ({ ...item, controls: `${id}-models`, icon: <ModeIcon mode={item.id} mono={tab !== item.id} size={16}/> }))}/>
@@ -307,12 +296,7 @@ export function ModelPicker({
                 </>
               ) : (
                 <div className="mp-empty" role="status">
-                  <img
-                    src={`${ASSETS}imgVuesaxLinearSearchNormal.svg`}
-                    alt=""
-                    width="24"
-                    height="24"
-                  />
+                  <Icon name="search" size={24}/>
                   <p>
                     Ничего не найдено,
                     <br />

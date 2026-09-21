@@ -145,10 +145,6 @@
 .settings-glyph {
   display: inline-block;
   flex: none;
-  background-color: currentColor;
-  mask-repeat: no-repeat;
-  mask-size: contain;
-  mask-position: center;
 }
 .settings-label {
   flex: 1;
@@ -477,3 +473,8 @@ html[data-input="keyboard"] .settings-layer button:active {
 .settings-voice-option > .settings-option { flex:1;min-width:0; }
 .settings-voice-preview { display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:0;margin-right:6px;background:#f7f7f7;border-radius:50%;color:#333; }
 .settings-voice-preview:hover, .settings-voice-preview[aria-pressed=true] { background:#e8e3ff;color:#7a3fff; }
+
+.settings-row[role="switch"][aria-checked="true"] .settings-boost,
+.settings-row[role="switch"][aria-checked="true"] .settings-boost .settings-glyph {
+  color:var(--settings-primary);
+}

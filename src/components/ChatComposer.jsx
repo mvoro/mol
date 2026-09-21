@@ -7,7 +7,6 @@ import {
   MODE_NAMES,
   DEFAULT_MODELS,
   MODE_COLORS,
-  sourceAsset,
 } from "../ui.jsx";
 import { SettingsMenu } from "./SettingsMenu.jsx";
 import { PromptInput } from "./PromptInput.jsx";
@@ -31,7 +30,7 @@ export const defaultValues = (mode) => ({
   sound: false,
   backgroundMusic: false,
 });
-export function FileChip({ file, onRemove }) {
+export function FileChip({ file, onRemove, onOpen }) {
   const name = file?.name || "Документ.pdf";
   const extension = (
     file?.typeLabel ||
@@ -62,8 +61,9 @@ export function FileChip({ file, onRemove }) {
         : type === "audio"
           ? "Аудио"
           : "PDF";
+  const Tag = onOpen ? "button" : "div";
   return (
-    <div className={"file-chip file-chip--" + type} title={name}>
+    <Tag className={"file-chip file-chip--" + type} title={name} onClick={onOpen} {...(onOpen ? {type:"button", "aria-label":`Открыть ${name}`} : {})}>
       {image ? (
         <img
           className="file-image-preview"
@@ -73,16 +73,7 @@ export function FileChip({ file, onRemove }) {
       ) : (
         <>
           <span className={"file-format format-" + type}>
-            {type === 'image' ? <ModeIcon mode="image" size={18}/> : <img
-              src={
-                "/assets/composer/file-" +
-                (type === "pdf" ? "document" : type) +
-                ".svg"
-              }
-              alt=""
-              width={18}
-              height={18}
-            />}
+            <Icon name={type === 'image' ? 'files' : type === 'audio' ? 'music' : type === 'video' ? 'video' : 'document'} size={18}/>
           </span>
           <span className="file-chip-text">
             <span className="file-chip-name">{name}</span>
@@ -97,15 +88,10 @@ export function FileChip({ file, onRemove }) {
           aria-label={"Удалить " + name}
           onClick={onRemove}
         >
-          <img
-            src="/assets/composer/file-remove.svg"
-            alt=""
-            width={12}
-            height={12}
-          />
+          <Icon name="close" size={12}/>
         </button>
       )}
-    </div>
+    </Tag>
   );
 }
 export function UploadRefCard({
@@ -170,12 +156,7 @@ export function UploadRefCard({
               className="ref-remove"
               onClick={onRemove}
             >
-              <img
-                src="/assets/composer/file-remove.svg"
-                alt=""
-                width={12}
-                height={12}
-              />
+              <Icon name="close" size={12}/>
             </button>
           )}
         </>
@@ -192,27 +173,9 @@ export function UploadRefCard({
           aria-invalid={error || undefined}
         >
           <span className="ref-glyph" aria-hidden="true">
-            <img
-              className="ref-glyph-default"
-              src="/assets/composer/ref-add.svg"
-              alt=""
-              width={20}
-              height={20}
-            />
-            <img
-              className="ref-glyph-hover"
-              src="/assets/composer/ref-add-hover.svg"
-              alt=""
-              width={20}
-              height={20}
-            />
-            <img
-              className="ref-glyph-error"
-              src="/assets/composer/ref-add-error.svg"
-              alt=""
-              width={20}
-              height={20}
-            />
+            <Icon name="imagePlus" size={20} className="ref-glyph-default"/>
+            <Icon name="imagePlus" size={20} className="ref-glyph-hover"/>
+            <Icon name="imagePlus" size={20} className="ref-glyph-error"/>
           </span>
           <span>{label}</span>
         </button>

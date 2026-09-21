@@ -2,6 +2,7 @@
 .notification-trigger[aria-expanded='true'] { background: #e7e7e7; }
 .notification-indicator { pointer-events: none; position: absolute; top: -1px; right: -1px; display: grid; place-items: center; width: 14px; height: 14px; opacity: 0; filter: blur(4px); transform: scale(.8); transition: opacity 150ms ease-out, transform 180ms ease-out, filter 180ms ease-out; }
 .notification-indicator.is-visible { opacity: 1; filter: blur(0); transform: scale(1); transition-duration: 200ms; }
+.notification-indicator-unread::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--primary); border: 2px solid #fff; }
 .notification-indicator-danger::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #ed2125; }
 .notification-indicator-gift.is-visible > .icon { animation: notification-gift 6s ease-in-out infinite; }
 .notification-popover { width: 424px; height: 516px; padding: 0; display: flex; flex-direction: column; overflow: hidden; border: 1.5px solid #f7f7f7; box-shadow: 0 0 8px #0000001a; outline: none; }

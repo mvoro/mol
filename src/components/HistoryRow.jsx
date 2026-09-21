@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  DotsThree,
-} from "@phosphor-icons/react";
+import { Ellipsis } from 'lucide-react';
 import { MODE_NAMES, ModeIcon } from "../ui.jsx";
 import { getChatModes } from "../history-types.js";
 import { Popover } from "./Popover.jsx";
@@ -70,7 +68,7 @@ export function HistoryRow({
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
         >
-          <DotsThree size={20} weight="regular" aria-hidden="true" />
+          <Ellipsis size={20} aria-hidden="true" strokeWidth={1.75}/>
         </button>
       </div>
       {open && (

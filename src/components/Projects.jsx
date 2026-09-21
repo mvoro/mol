@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { CaretDown, Check, FolderSimple, FolderSimpleMinus, Folders, Plus, X } from '@phosphor-icons/react'
+import { ChevronDown, Check, FolderMinus, Folders, Plus, X } from 'lucide-react';
 import { useModalBehavior } from './modal-behavior.js'
 import { TextInput } from './TextInput.jsx'
 import './projects.css'
@@ -13,9 +13,9 @@ const hasOtherModal = element => [...document.querySelectorAll('[aria-modal="tru
 
 export function ProjectIcon({ index, color, kind = 'project', size = 17 }) {
   const colorIndex = kind === 'project' && Number.isInteger(index) && index >= 0 ? index % PROJECT_COLORS.length : undefined
-  const Glyph = kind === 'unassigned' ? FolderSimpleMinus : kind === 'all' ? Folders : FolderSimple
+  const Glyph = kind === 'unassigned' ? FolderMinus : Folders
   return <Glyph className="mc-project-icon" data-folder-color={colorIndex} data-kind={kind}
-    size={size} weight={color || colorIndex !== undefined ? 'fill' : 'regular'}
+    size={size} strokeWidth={1.75} fill="none"
     style={{ width: size, height: size, color: color || (colorIndex === undefined ? undefined : PROJECT_COLORS[colorIndex]) }}
     aria-hidden="true" focusable="false" />
 }
@@ -67,12 +67,12 @@ function useProjectMenuKeyboard(menuRef, onClose, triggerRef) {
 function ProjectOptions({ projects, value, onChoose, onNew, onWithoutProject }) {
   return <>
     {onWithoutProject && <button type="button" role="menuitemradio" aria-checked={value === null} data-label="Без проекта" className="mc-project-option" onClick={() => onChoose(onWithoutProject)}>
-      <ProjectIcon kind="unassigned" /><span>Без проекта</span>{value === null && <Check className="mc-project-check" size={15} aria-hidden="true" />}
+      <ProjectIcon kind="unassigned" /><span>Без проекта</span>{value === null && <Check className="mc-project-check" size={15} aria-hidden="true" strokeWidth={1.75}/>}
     </button>}
     {projects.map((project, index) => <button key={project.id} type="button" role="menuitemradio" aria-checked={project.id === value} data-label={project.name} className="mc-project-option" onClick={() => onChoose(() => onNew.change(project.id))}>
-      <ProjectIcon index={index} color={project.color} /><span title={project.name}>{project.name}</span>{project.id === value && <Check className="mc-project-check" size={15} aria-hidden="true" />}
+      <ProjectIcon index={index} color={project.color} /><span title={project.name}>{project.name}</span>{project.id === value && <Check className="mc-project-check" size={15} aria-hidden="true" strokeWidth={1.75}/>}
     </button>)}
-    <button type="button" role="menuitem" data-label="Новый проект" className="mc-project-option" onClick={() => onChoose(onNew.create)}><Plus size={17} aria-hidden="true" /><span>Новый проект</span></button>
+    <button type="button" role="menuitem" data-label="Новый проект" className="mc-project-option" onClick={() => onChoose(onNew.create)}><Plus size={17} aria-hidden="true" strokeWidth={1.75}/><span>Новый проект</span></button>
   </>
 }
 
@@ -159,7 +159,7 @@ function MobileProjectMenu({ id, onClose, onChoose, ...options }) {
   return createPortal(<div className="mc-project-sheet-overlay" data-closing={closing || undefined} onPointerDown={event => { if (event.target === event.currentTarget) requestClose() }}>
     <section className="mc-project-sheet" ref={dialogRef} role="dialog" aria-modal="true" aria-label="Выберите проект" tabIndex={-1} data-closing={closing || undefined} onKeyDown={keyDown}>
       <div className="mc-project-sheet-grabber" />
-      <header><span>Выберите проект</span><button type="button" className="mc-project-close" aria-label="Закрыть выбор проекта" onClick={requestClose}><X size={18} /></button></header>
+      <header><span>Выберите проект</span><button type="button" className="mc-project-close" aria-label="Закрыть выбор проекта" onClick={requestClose}><X size={18} strokeWidth={1.75} aria-hidden="true"/></button></header>
       <div id={id} ref={menuRef} className="mc-project-sheet-options" role="menu" aria-label="Проект">
         <ProjectOptions {...options} onChoose={action => { if (choosing.current || closing) return; choosing.current = true; onChoose(action); requestClose() }} />
       </div>
@@ -197,7 +197,7 @@ export function ProjectSelect({ projects = [], value, onChange, onNew, onWithout
     {value && onOpen && <button type="button" className="pill mc-project-select mc-project-open" aria-label={name} title={name} onClick={() => onOpen(value)}><ProjectIcon index={selectedIndex} color={projects[selectedIndex]?.color}/><span>{name}</span></button>}
     <button ref={triggerRef} type="button" className="pill mc-project-select" aria-label={`Проект: ${name}`} title={name} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined}
       onKeyDown={openFromKeyboard} onClick={() => { pendingAction.current = null; setInitialEdge('first'); setOpen(current => !current) }}>
-      {!(value && onOpen) && <><ProjectIcon index={selectedIndex} color={projects[selectedIndex]?.color} kind={value === null ? 'all' : 'project'} /><span>{name}</span></>}<CaretDown size={12} aria-hidden="true" />
+      {!(value && onOpen) && <><ProjectIcon index={selectedIndex} color={projects[selectedIndex]?.color} kind={value === null ? 'all' : 'project'} /><span>{name}</span></>}<ChevronDown size={12} aria-hidden="true" strokeWidth={1.75}/>
     </button>
     {open && (mobile ? <MobileProjectMenu {...menuProps} /> : <DesktopProjectMenu {...menuProps} triggerRef={triggerRef} initialEdge={initialEdge} />)}
   </div>
@@ -250,7 +250,7 @@ export function ProjectDialog({ onClose, onCreate, existingNames = [] }) {
   }
   return createPortal(<div className="mc-project-dialog-overlay" data-closing={closing || undefined} onPointerDown={event => { if (event.target === event.currentTarget && !pending) requestClose() }}>
     <section className="mc-project-dialog" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`} tabIndex={-1} data-closing={closing || undefined}>
-      <button type="button" className="mc-project-close mc-project-dialog-close" aria-label="Закрыть создание проекта" onClick={requestClose} disabled={pending}><X size={18} aria-hidden="true" /></button>
+      <button type="button" className="mc-project-close mc-project-dialog-close" aria-label="Закрыть создание проекта" onClick={requestClose} disabled={pending}><X size={18} aria-hidden="true" strokeWidth={1.75}/></button>
       <form className="mc-project-dialog-form" onSubmit={create} noValidate>
         <header><h2 id={`${id}-title`}>Новый проект</h2></header>
         <div className="mc-project-name-field">

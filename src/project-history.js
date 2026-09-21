@@ -42,7 +42,7 @@ export function conversationSnapshot({ id, projectId, mode, model, values, messa
       ...message,
       ...(message.generation ? {generation:sanitizeGenerationRequest(message.generation)} : {}),
       ...(message.media?.poster?.startsWith('blob:') ? {media:{...message.media,poster:message.media.type === 'video' ? '/media/creative-demo.jpg' : undefined}} : {}),
-      files: message.files?.map(file => ({ id: file.id, name: file.name, mime: file.mime || file.type, size: file.size })),
+      files: message.files?.map(file => ({ id: file.id, name: file.name, mime: file.mime || file.type, size: file.size, ...(file.url?.startsWith("/documents/") ? {url:file.url} : {}) })),
     })),
   };
 }

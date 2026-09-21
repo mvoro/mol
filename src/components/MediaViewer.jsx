@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { DownloadSimple, Copy, ArrowCounterClockwise } from "@phosphor-icons/react";
+import { Download, FolderDown, Copy, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react';
 import { Icon, ModeIcon, ModelIcon } from "../ui.jsx";
 import { useModalBehavior } from "./modal-behavior.js";
 import { VideoPlayer } from "./VideoPlayer.jsx";
@@ -9,10 +9,11 @@ import { ratioValue, describeRequestOptions } from "../generation-request.js";
 import { downloadImageResult } from "../media-download.js";
 
 function ZoomIcon({ zoomed }) {
-  return <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5" /><path d="m12.2 12.2 4.3 4.3M5.5 8h5" />{!zoomed && <path d="M8 5.5v5" />}</svg>;
+  const Glyph = zoomed ? ZoomOut : ZoomIn;
+  return <Glyph size={18} strokeWidth={1.75} aria-hidden="true" />;
 }
 
-export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
+export function MediaViewer({ items = [], initialId, onClose, onReuse, loading = false, error = '', onRetry, onDownloadAll }) {
   const id = useId();
   const [selectedId, setSelectedId] = useState(initialId);
   const [view, setView] = useState({ zoom: false, x: 0, y: 0 });
@@ -20,6 +21,7 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
   const [failedImage, setFailedImage] = useState(null);
   const [retry, setRetry] = useState(0);
   const [notice, setNotice] = useState("");
+  const [downloadingAll, setDownloadingAll] = useState(false);
   const closeRef = useRef(null);
   const stageRef = useRef(null);
   const imageRef = useRef(null);
@@ -43,6 +45,8 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
   );
   const active = shown[index];
   const isVideo = active?.type === "video";
+  const isCarousel = active?.label === 'Карусель';
+  const copyLabel = isCarousel ? 'Копировать текст слайда' : 'Копировать запрос';
   useEffect(() => () => window.clearTimeout(noticeTimer.current), []);
   useEffect(() => {
     setSelectedId(initialId);
@@ -73,13 +77,13 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(active.title || "");
-      announce("Запрос скопирован");
+      announce(isCarousel ? 'Текст слайда скопирован' : 'Запрос скопирован');
     } catch {
-      announce("Не удалось скопировать. Можно выделить текст запроса ниже.");
+      announce("Не удалось скопировать. Можно выделить текст ниже.");
     }
   };
   const filename = active
-    ? `molecula-${active.id || "result"}.${active.src.split("?")[0].match(/\.([a-z0-9]+)$/i)?.[1] || (isVideo ? "mp4" : "png")}`
+    ? active.filename || `molecula-${active.id || "result"}.${active.src.split("?")[0].match(/\.([a-z0-9]+)$/i)?.[1] || (isVideo ? "mp4" : "png")}`
     : "molecula";
 
   const viewer = (
@@ -123,7 +127,7 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
           <span className="media-viewer-counter" aria-live="polite">
             {shown.length
               ? `${index + 1} / ${shown.length}`
-              : "Нет доступных работ"}
+              : loading ? "Подготовка просмотра…" : "Нет доступных работ"}
           </span>
           {active && !isVideo ? (
             <button
@@ -274,10 +278,10 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
             <aside className="media-viewer-details">
               <div className="media-viewer-kind">
                 <ModeIcon mode={active.type} size={18} />
-                <h2 id={`${id}-title`}>{isVideo ? "Видео" : "Изображение"}</h2>
+                <h2 id={`${id}-title`}>{active.label || (isVideo ? "Видео" : "Изображение")}</h2>
               </div>
               <div className="media-viewer-prompt">
-                <span>Запрос</span>
+                <span>{isCarousel ? 'Текст слайда' : 'Запрос'}</span>
                 <p>{active.title || "Без описания"}</p>
               </div>
               {active.model && (
@@ -287,14 +291,21 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
                 </span>
               )}
               {active.settings && <div className="media-viewer-options"><span>Настройки</span><p>{describeRequestOptions({ mode: active.type, settings: active.settings, references: active.references || [] })}</p></div>}
+              {active.details && <p className="media-viewer-studio-details">{active.details}</p>}
               <div className="media-viewer-actions">
-                <button type="button" className="pill round viewer-action" aria-label="Использовать запрос" title="Использовать запрос" onClick={() => { if (closing) return; pendingReuse.current = active; requestClose(); }}><ArrowCounterClockwise size={18} weight="regular" aria-hidden="true"/></button>
+                {onReuse && <button type="button" className="pill round viewer-action" aria-label="Использовать запрос" title="Использовать запрос" onClick={() => { if (closing) return; pendingReuse.current = active; requestClose(); }}><RotateCcw size={18} aria-hidden="true" strokeWidth={1.75}/></button>}
                 <a className="pill round viewer-action" href={active.src} download={filename} aria-label={isVideo ? "Скачать исходное видео" : "Скачать результат"} title={isVideo ? "Скачать исходное видео" : "Скачать результат"} onClick={async event => {
-                  if (isVideo || !active.width) return;
+                  if (isVideo || active.filename || !active.width) return;
                   event.preventDefault();
                   try { await downloadImageResult(active); } catch { announce('Не удалось сохранить изображение. Попробуйте ещё раз.'); }
-                }}><DownloadSimple size={18} weight="regular" aria-hidden="true"/></a>
-                <button className="pill round viewer-action" type="button" onClick={copy} aria-label="Копировать запрос" title="Копировать запрос"><Copy size={18} weight="regular" aria-hidden="true"/></button>
+                }}><Download size={18} aria-hidden="true" strokeWidth={1.75}/></a>
+                {onDownloadAll && <button className="pill round viewer-action" type="button" aria-label={downloadingAll ? 'Подготовка архива' : 'Скачать всю карусель'} title="Скачать всю карусель" disabled={downloadingAll || loading} onClick={async () => {
+                  if (downloadingAll) return;
+                  setDownloadingAll(true);
+                  try { await onDownloadAll(); } catch { announce('Не удалось скачать карусель. Попробуйте ещё раз.'); }
+                  finally { setDownloadingAll(false); }
+                }}><FolderDown size={18} aria-hidden="true" strokeWidth={1.75}/></button>}
+                <button className="pill round viewer-action" type="button" onClick={copy} aria-label={copyLabel} title={copyLabel}><Copy size={18} aria-hidden="true" strokeWidth={1.75}/></button>
               </div>
               {notice && (
                 <p className="media-viewer-notice" role="status">
@@ -304,9 +315,10 @@ export function MediaViewer({ items = [], initialId, onClose, onReuse }) {
             </aside>
           </div>
         ) : (
-          <div className="media-viewer-empty">
-            <h2 id={`${id}-title`}>Работа пока недоступна</h2>
-            <p>Закройте просмотр и попробуйте выбрать другой результат.</p>
+          <div className="media-viewer-empty" aria-busy={loading}>
+            <h2 id={`${id}-title`}>{loading ? 'Подготавливаем просмотр' : 'Работа пока недоступна'}</h2>
+            <p role="status">{loading ? 'Подождите немного — загружаем вашу работу.' : error || 'Закройте просмотр и попробуйте выбрать другой результат.'}</p>
+            {!loading && error && onRetry && <button type="button" className="pill" onClick={onRetry}>Попробовать снова</button>}
           </div>
         )}
       </section>

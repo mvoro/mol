@@ -408,8 +408,9 @@
   flex: 0 0 32px;
   border-radius: 10px;
   background: #7a3fff;
+  color: #fff;
 }
-.file-format img {
+.file-format .icon {
   display: block;
   width: 18px;
   height: 18px;
@@ -539,7 +540,7 @@
   height: 20px;
   flex: 0 0 20px;
 }
-.ref-glyph img {
+.ref-glyph .icon {
   grid-area: 1/1;
   display: block;
   width: 20px;

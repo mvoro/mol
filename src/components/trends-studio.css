@@ -1,0 +1,98 @@
+.trends-studio { height: 100%; flex: 1; min-height: 0; width: 100%; overflow: auto; overscroll-behavior: contain; color: #171719; background: #fff; }
+.trends-inner { max-width: 1536px; margin: 0 auto; padding: 28px 40px 60px; }
+.trends-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 38px; }
+.trends-heading h1 { margin: 9px 0 8px; font-family: var(--workspace-title-font); font-size: var(--workspace-title-size); font-weight: var(--workspace-title-weight); line-height: var(--workspace-title-line-height); letter-spacing: var(--workspace-title-spacing); }
+.trends-heading p { margin: 0; color: #929295; font-size: 14px; }
+.trends-heading > .ui-tabs { flex-shrink: 0; }
+.trends-workspace { display: grid; grid-template-columns: 300px minmax(0, 1fr); align-items: start; gap: 30px; }
+.trend-form { padding: 20px; border: 1px solid #eae9ed; border-radius: 24px; background: #fff; }
+.trend-form-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 19px; }
+.trend-form h2 { margin: 0; font-size: 15px; font-weight: 650; letter-spacing: -.3px; }
+.trend-form-heading > span { color: #949297; font-size: 11px; }
+.trend-sources { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.trend-source { position: relative; height: 170px; min-width: 0; border-radius: 18px; background: #faf9fb; border: 1px dashed #d8d5df; transition: border-color 120ms, background 120ms; }
+.trend-source:hover { border-color: #ad99d6; background: #f6f3fc; }
+.trend-source.is-dragging { border-color: var(--primary); background: #f0e9ff; }
+.trend-source.has-source { border: 0; background: #efedf3; overflow: hidden; }
+.trend-source-main { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border-radius: inherit; padding: 12px 5px; overflow: hidden; }
+.trend-source-main > img, .trend-source-main > canvas { position: absolute; width: 100%; height: 100%; inset: 0; object-fit: cover; }
+.trend-source-icon { display: grid; place-items: center; height: 42px; width: 42px; margin-bottom: 8px; color: #77727f; }
+.trend-source-main strong { font-size: 12px; font-weight: 650; }
+.trend-source-main small { color: #a29da7; font-size: 10px; margin-top: 5px; }
+.trend-source-step { position: absolute; top: 10px; left: 10px; color: #aaa5b0; font-size: 10px; pointer-events: none; }
+.trend-source.has-source .trend-source-step { color: #fff; text-shadow: 0 1px 8px #000; }
+.trend-source-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 8px 11px; background: linear-gradient(transparent, #0009); color: #fff; font-size: 10px; font-weight: 600; text-align: center; }
+.trend-source-remove { position: absolute; right: 6px; top: 6px; display: grid; place-items: center; width: 26px; height: 26px; padding: 0; color: #fff; background: #1118; border-radius: 50%; backdrop-filter: blur(6px); }
+.trend-upload-hint { color: #aaa6af; font-size: 10px; margin: 10px 0 25px; text-align: center; }
+.trend-field-label { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 0 0 10px; font-size: 12px; font-weight: 600; }
+.trend-field-label > span { font-size: 10px; font-weight: 400; color: #aaa6af; }
+.trend-caption { width: 100%; min-height: 90px; resize: vertical; outline: none; padding: 12px; border: 1px solid #e7e5eb; border-radius: 13px; background: #fff; font-size: 11px; line-height: 1.7; color: #252329; }
+.trend-caption:focus { border-color: #a684eb; box-shadow: 0 0 0 2px #7a3fff0b; }
+.trend-caption::placeholder { color: #aaa6af; }
+.trend-caption:disabled { opacity: .6; }
+.trend-caption-hint { display: flex; justify-content: space-between; font-size: 9px; color: #aaa6af; margin: 5px 0 22px; }
+.trend-form .ds-select-trigger { height: 43px; border-radius: 12px; font-size: 12px; }
+.trend-primary { display: flex; width: 100%; justify-content: center; align-items: center; gap: 10px; min-height: 46px; padding: 12px 16px; margin-top: 22px; border-radius: 25px; color: #fff; background: var(--primary); font-size: 12px; font-weight: 600; text-decoration: none; }
+.trend-primary:hover { background: #6d32ed; }
+.trend-primary:disabled { opacity: .5; }
+.trend-primary.is-generating { opacity: 1; background: #8c5ada; }
+.trend-generate-button:not(.is-generating) { justify-content: space-between; gap: 8px; }
+.trend-generation-cost { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex: none; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; color: #fff; }
+.trend-cancel { display: block; background: transparent; font-size: 11px; margin: 10px auto -2px; color: #77717f; padding: 6px 12px; }
+.trend-render-note { font-size: 10px; line-height: 1.6; margin: 12px 3px 0; color: #a5a0aa; text-align: center; }
+.trend-error { font-size: 11px; line-height: 1.55; margin: 15px 0 0; color: #b74949; }
+.trend-storage-note { font-size: 12px; color: #8c7152; margin: -10px 0 25px; }
+.trend-spinner { height: 14px; width: 14px; border: 1.5px solid #ffffff55; border-top-color: #fff; border-radius: 50%; animation: trend-spin .8s linear infinite; }
+.trend-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.trends-collection { min-width: 0; scroll-margin-top: 16px; }
+.trend-collection-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+.trend-collection-toolbar > span { font-size: 10px; color: #aaa6af; flex-shrink: 0; }
+.trend-collection-toolbar .ui-tabs { max-width: 100%; }
+.trends-studio .ui-tab { font-size: 11px; padding: 8px 12px; }
+.trend-template-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.trend-card { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; padding: 0; overflow: hidden; text-align: left; isolation: isolate; background: #eae8ee; outline: 2px solid transparent; outline-offset: 3px; transition: outline-color 160ms, transform 160ms; }
+.trend-card:disabled { opacity: .7; }
+.trend-card.is-selected { outline-color: var(--primary); }
+.trend-card:focus-visible { outline-color: var(--primary); outline-offset: 3px; }
+.trend-motion-preview { display: block; width: 100%; height: 100%; object-fit: cover; background-size: cover; background-position: center; }
+.trend-card-shade { position: absolute; inset: 0; background: linear-gradient(180deg, #0001 0%, transparent 35%, transparent 40%, #0009 100%); pointer-events: none; }
+.trend-card-tag { position: absolute; top: 10px; left: 10px; display: flex; align-items: center; gap: 3px; padding: 5px 7px; border-radius: 20px; color: #fff; background: #ffffff26; border: 1px solid #ffffff24; backdrop-filter: blur(8px); font-size: 8px; font-weight: 550; }
+.trend-card-tag.is-new { color: #343024; background: #f2ecd9; border: 0; }
+.trend-card-check { position: absolute; display: grid; place-items: center; right: 9px; top: 10px; width: 24px; height: 24px; border-radius: 50%; background: #0003; backdrop-filter: blur(5px); color: #fff; opacity: 0; transition: opacity 120ms; }
+.trend-card:hover .trend-card-check, .trend-card:focus-visible .trend-card-check, .trend-card-check.is-selected { opacity: 1; }
+.trend-card-check.is-selected { background: #fff; color: var(--primary); }
+.trend-card-copy { position: absolute; left: 12px; bottom: 14px; right: 10px; color: #fff; }
+.trend-card-copy strong { display: block; font-size: 12px; font-weight: 650; line-height: 1.35; letter-spacing: -.2px; }
+.trend-card-copy > span { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 8px; margin-top: 5px; color: #ffffffbd; }
+.trend-card-copy i { font-style: normal; }
+.trend-gallery-hint { display: flex; align-items: center; gap: 6px; margin-top: 19px; font-size: 10px; color: #aaa6af; }
+.trend-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 30px; padding: 13px 20px; margin-top: 10px; font-size: 12px; color: #5f5867; background: #f4f2f7; }
+.trend-history-caption { color: #99939f; font-size: 12px; margin: 0 0 20px; }
+.trend-history-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+.trend-saved-card { background: transparent; padding: 0; text-align: left; }
+.trend-saved-card > span { display: block; position: relative; aspect-ratio: 9 / 16; border-radius: 20px; overflow: hidden; background: #eeebf3; }
+.trend-saved-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.trend-saved-card i { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; color: #fff; background: #0005; height: 42px; width: 42px; border-radius: 50%; backdrop-filter: blur(5px); }
+.trend-saved-card strong { display: block; margin-top: 12px; font-size: 13px; }
+.trend-saved-card small { display: block; margin-top: 5px; color: #96909c; font-size: 11px; }
+.trend-empty { min-height: 350px; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #96909c; }
+.trend-empty h2 { font-size: 21px; color: #28242c; margin: 20px 0 8px; font-weight: 550; }
+.trend-empty p { font-size: 13px; margin: 0 0 15px; }
+@keyframes trend-spin { to { transform: rotate(360deg); } }
+@media (max-width: 1250px) { .trends-inner { padding: 24px 28px 48px; } .trends-workspace { grid-template-columns: 280px minmax(0, 1fr); gap: 22px; } .trend-template-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .trend-card-tag { font-size: 7px; } }
+@media (max-width: 980px) { .trends-heading { align-items: flex-start; } .trends-heading p { max-width: 250px; line-height: 1.6; } .trends-workspace { grid-template-columns: 260px minmax(0, 1fr); gap: 18px; } .trend-form { padding: 16px; } .trend-source { height: 155px; } .trend-template-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .trend-collection-toolbar > span { display: none; } .trend-collection-toolbar .ui-tab { padding: 8px 9px; font-size: 10px; } .trend-history-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .trends-inner { padding: 18px 20px 40px; } .trends-heading { flex-direction: column; gap: 20px; margin-bottom: 25px; } .trends-heading h1 { margin-top: 7px; } .trends-heading p { max-width: none; font-size: 12px; } .trends-heading > .ui-tabs { width: 100%; } .trends-heading > .ui-tabs > .ui-tab { flex: 1; justify-content: center; } .trends-workspace { grid-template-columns: 1fr; gap: 28px; } .trend-form { position: static; padding: 18px; border-radius: 22px; } .trend-source { height: 166px; } .trend-source-main small { font-size: 11px; } .trend-source-main strong { font-size: 13px; } .trend-field-label { font-size: 13px; } .trend-caption { font-size: 12px; } .trend-render-note { max-width: 280px; margin-left: auto; margin-right: auto; } .trend-collection-toolbar { margin-bottom: 16px; } .trend-collection-toolbar > span { display: block; } .trend-collection-toolbar .ui-tab { padding: 8px 12px; } .trend-template-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .trend-card-copy strong { font-size: 13px; } .trend-card-copy > span { font-size: 9px; } .trend-card-tag { font-size: 9px; } .trend-card-check { opacity: 1; } .trend-gallery-hint { display: none; } .trend-history-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 14px; } .trend-empty p { text-align: center; line-height: 1.6; } }
+@media (max-width: 380px) { .trends-inner { padding-inline: 16px; } .trend-collection-toolbar > span { display: none; } .trend-card-tag { font-size: 7px; } }
+@media (prefers-reduced-motion: reduce) { .trends-studio *, .trends-studio *::before, .trends-studio *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+.trends-inner { padding-top: 100px; }
+@media (max-width: 700px) { .trends-inner { padding-top: 76px; } }
+
+@media (max-width: 700px) {
+  .trends-workspace.studio-mobile-step-1 > .trend-form,
+  .trends-workspace.studio-mobile-step-2 > .trends-collection,
+  .trends-workspace.studio-mobile-step-2 > .studio-mobile-next { display: none; }
+}
+
+.trend-source.is-invalid { border-color:#d86b6b; background:#fff4f2; }
+.trend-source.is-invalid .trend-source-icon { color:#c34a4a; }

@@ -17,7 +17,6 @@ import { ModelPicker } from "./components/ModelPicker.jsx";
 import { TextInput } from "./components/TextInput.jsx";
 import { AudioResult } from "./components/AudioResult.jsx";
 import { PromptText } from "./components/PromptInput.jsx";
-import { MediaLibrary } from "./components/MediaLibrary.jsx";
 import { MediaResult } from "./components/MediaResult.jsx";
 import { collectReadyMedia } from "./media-history.js";
 import { useChatAutoScroll } from "./components/useChatAutoScroll.js";
@@ -33,11 +32,17 @@ import { ProjectRow, ProjectWorkspace, ProjectActionDialog } from "./components/
 import { RolesShowcase } from "./components/RolesShowcase.jsx";
 import { NotificationCenter } from "./components/NotificationCenter.jsx";
 import { BillingModal } from "./components/BillingModal.jsx";
+import { CarouselStudio } from "./components/CarouselStudio.jsx";
+import { TrendsStudio } from "./components/TrendsStudio.jsx";
 import { PROJECTS_KEY, HISTORY_KEY, PROJECT_COLORS, readProjects, readHistory, persist, conversationSnapshot, upsertConversation, selectHistory } from "./project-history.js";
 import { useMobileDrawer } from './hooks/useMobileDrawer.js';
 import { useMobileViewport } from './components/useMobileViewport.js';
 import { createGenerationNotification } from './notifications.js';
 import { createGenerationRequest, createDemoMedia, describeRequestOptions, chatImageReferences } from './generation-request.js';
+import { resolveAppNavigation } from './app-navigation.js';
+import { documentFormat, ensureDocumentDemo } from './artifact-model.js';
+import { storeDocument } from './document-storage.js';
+import { ArtifactPanel } from './components/ArtifactPanel.jsx';
 const MediaViewer = lazy(() => import("./components/MediaViewer.jsx").then(module => ({ default: module.MediaViewer })));
 const AudioPlayer = lazy(() => import("./components/AudioPlayer.jsx").then(module => ({ default: module.AudioPlayer })));
 const AuthModal = lazy(() => import("./components/AuthModal.jsx").then(module => ({ default: module.AuthModal })));
@@ -93,6 +98,10 @@ export function App() {
   const [accountSection, setAccountSection] = useState(null);
   const [authOpen, setAuthOpen] = useState(false);
   const [viewerId, setViewerId] = useState(null);
+  const [artifact, setArtifact] = useState(null);
+  const [artifactOpen, setArtifactOpen] = useState(false);
+  const [artifactFull, setArtifactFull] = useState(false);
+  const openArtifact = file => { setArtifact(file); setArtifactOpen(true); setSidebarOpen(false); };
   const [audioQueue, setAudioQueue] = useState([]);
   const [audioId, setAudioId] = useState(null);
   useEffect(() => persist(localStorage, "molecula-account", account), [account]);
@@ -105,7 +114,7 @@ export function App() {
       ),
     ),
     [messages, setMessages] = useState([]),
-    [history, setHistory] = useState(() => readHistory(localStorage)),
+    [history, setHistory] = useState(() => ensureDocumentDemo(readHistory(localStorage))),
     [projectState, setProjectState] = useState(() => {
       const saved = readProjects(localStorage);
       const linkedId = new URLSearchParams(window.location.search).get('project');
@@ -119,19 +128,25 @@ export function App() {
     [inspectedRole, setInspectedRole] = useState(""),
     [sidebarOpen, setSidebarOpen] = useState(false),
     [isMobile, setIsMobile] = useState(() => window.matchMedia("(max-width: 700px)").matches),
-    [collapsed, setCollapsed] = useState(false),
+    [collapsed, setCollapsed] = useState(() => readLocal('molecula-sidebar-collapsed', true) === true),
     [searchOpen, setSearchOpen] = useState(false),
     [search, setSearch] = useState(""),
-    [route, setRoute] = useState(
-      window.location.pathname === "/components" ? "components" : window.location.pathname === "/roles" ? "roles" : projectState.activeId ? "project" : "chat",
-    ),
+    [route, setRoute] = useState(() => resolveAppNavigation(window.location, { projects: projectState.projects, history }).route),
+    [conversationRoute, setConversationRoute] = useState(projectState.activeId ? 'project' : 'chat'),
+    [visitedStudios, setVisitedStudios] = useState(() => ['/carousel', '/trends'].includes(window.location.pathname) ? [window.location.pathname.slice(1)] : []),
+    [studioResultIds, setStudioResultIds] = useState({}),
     [draft, setDraft] = useState(""),
     [composerKey, setComposerKey] = useState(0),
     [generating, setGenerating] = useState(false),
     [toast, setToast] = useState(""),
     [examplesOpen, setExamplesOpen] = useState(false),
-    [mediaOpen, setMediaOpen] = useState(false),
     [offer, setOffer] = useState(false);
+  const contentRoute = route === 'roles' ? rolesReturnRoute : route;
+  const studioActive = contentRoute === 'carousel' || contentRoute === 'trends';
+  useEffect(() => persist(localStorage, 'molecula-sidebar-collapsed', collapsed), [collapsed]);
+  useEffect(() => {
+    if (studioActive) setVisitedStudios(previous => previous.includes(contentRoute) ? previous : [...previous, contentRoute]);
+  }, [contentRoute, studioActive]);
   const { shellRef, mainRef } = useMobileDrawer({enabled:isMobile && route !== 'components',open:sidebarOpen,onOpenChange:setSidebarOpen});
   useMobileViewport();
   const timer = useRef(null),
@@ -179,17 +194,18 @@ export function App() {
       if (document.querySelector('[aria-modal="true"]')) return;
       if ((e.metaKey || e.ctrlKey) && /^[1-5]$/.test(e.key)) {
         e.preventDefault();
-        if (!generating) changeMode(Object.keys(MODE_NAMES)[Number(e.key) - 1]);
+        if (!generating && !studioActive) changeMode(Object.keys(MODE_NAMES)[Number(e.key) - 1]);
       }
       if (e.key === "Escape") {
         setModelOpen(false);
         setRoleOpen(false);
         setSidebarOpen(false);
         setExamplesOpen(false);
-        setMediaOpen(false);
       }
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
+        if (window.matchMedia('(max-width: 700px)').matches) setSidebarOpen(true);
+        else setCollapsed(false);
         setSearchOpen((v) => !v);
       }
     };
@@ -199,7 +215,7 @@ export function App() {
       document.removeEventListener("pointerdown", pointer);
       document.removeEventListener("keydown", key);
     };
-  }, [generating]);
+  }, [generating, studioActive]);
   useEffect(() => {
     if (!toast) return;
     const t = setTimeout(() => setToast(""), 3500);
@@ -249,28 +265,33 @@ export function App() {
     [],
   );
   const navigate = (next) => {
+    setArtifactOpen(false);
     setRoute(next);
+    if (next === 'chat' || next === 'project') setConversationRoute(next);
     window.history.pushState(
       {},
       "",
-      next === "components" ? "/components" : next === "roles" ? "/roles" : next === "project" && projectDestination.current ? `/?project=${encodeURIComponent(projectDestination.current)}` : "/",
+      ['components', 'roles', 'carousel', 'trends'].includes(next) ? `/${next}` : next === "project" && projectDestination.current ? `/?project=${encodeURIComponent(projectDestination.current)}` : "/",
     );
     setSidebarOpen(false);
   };
   useEffect(() => {
     const handler = () => {
-      const linkedChat = new URLSearchParams(window.location.search).get('chat');
-      const sharedChat = historyRef.current.find(chat => chat.id === linkedChat);
-      const linkedId = new URLSearchParams(window.location.search).get('project');
-      if (sharedChat) { openHistory(sharedChat, false); }
-      else if (linkedId && projects.some(project => project.id === linkedId)) { newChat(linkedId, false); setRoute('project'); }
-      else if (window.location.pathname === '/roles') setRoute('roles');
-      else if (window.location.pathname === '/components') setRoute('components');
-      else { newChat(null, false); setRoute('chat'); }
+      const target = resolveAppNavigation(window.location, {
+        projects, history: historyRef.current, conversationRoute,
+        currentChatId: currentChat.current, activeProjectId: projectDestination.current,
+      });
+      if (!target.preserveConversation) {
+        if (target.chatId) openHistory(historyRef.current.find(chat => chat.id === target.chatId), false);
+        else newChat(target.projectId, false);
+      }
+      setRoute(target.route);
+      if (target.route === 'chat' || target.route === 'project') setConversationRoute(target.route);
+      setSidebarOpen(false);
     };
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
-  }, [projects, generating, mode, model, settings]);
+  }, [projects, generating, mode, model, settings, conversationRoute]);
   const changeMode = (next) => {
     if (generating) return;
     setMode(next);
@@ -295,6 +316,7 @@ export function App() {
     return snapshot;
   };
   const newChat = (destination = null, updateLocation = true) => {
+    setArtifactOpen(false);
     resetFollowing();
     stop();
     setMessages([]);
@@ -320,7 +342,7 @@ export function App() {
     setTimeout(() => document.querySelector(".empty-chat [data-composer-input]")?.focus({ preventScroll: true }), 0);
   };
   const openProject = (id, toggle = false) => {
-    newChat(id, false);
+    if (conversationRoute !== 'project' || projectDestination.current !== id) newChat(id, false);
     setExpandedProjects(previous => toggle && route === 'project' && projectState.activeId === id && previous.includes(id) ? previous.filter(value => value !== id) : [...new Set([...previous, id])]);
     navigate('project');
   };
@@ -343,6 +365,7 @@ export function App() {
     navigate('project');
   };
   const openHistory = (entry, updateLocation = true) => {
+    setArtifactOpen(false);
     resetFollowing();
     const stoppedSnapshot = stop();
     const stored = (stoppedSnapshot?.id === entry.id ? stoppedSnapshot : historyRef.current.find(chat => chat.id === entry.id)) || sampleConversation(entry);
@@ -359,7 +382,7 @@ export function App() {
     setDraft("");
     setComposerKey((k) => k + 1);
     setSidebarOpen(false);
-    if (updateLocation) navigate("chat"); else setRoute("chat");
+    if (updateLocation) navigate("chat"); else { setRoute("chat"); setConversationRoute('chat'); }
   };
   const send = (text, attachments, refs, prompt) => {
     if (generating) return;
@@ -390,7 +413,10 @@ export function App() {
     latestMessages.current = initial;
     setMessages(initial);
     saveConversation(initial, conversationId);
-    user.files.forEach((f) => f.url && urls.current.push(f.url));
+    user.files.forEach((f) => {
+      if (f.url) urls.current.push(f.url);
+      if (documentFormat(f)) storeDocument(f).catch(() => setToast('Документ доступен сейчас, но браузер не смог сохранить его для следующего посещения.'));
+    });
     setFiles([]);
     setDraft("");
     setGenerating(true);
@@ -545,10 +571,24 @@ export function App() {
     setDraft(prompt);
   };
   const openNotification = notification => {
+    if (notification.kind === 'studio') {
+      setStudioResultIds(previous => ({...previous, [notification.route]: notification.resultId}));
+      navigate(notification.route);
+      return;
+    }
     const entry = historyRef.current.find(chat => chat.id === notification.chatId);
     if (!entry) { setToast('Этот чат уже удалён'); return; }
     openHistory(entry);
     requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(`message-${notification.messageId}`)?.scrollIntoView({ block:'center', behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })));
+  };
+  const completeStudio = (studio, result) => {
+    setNotifications(previous => [{
+      id: `studio-${studio}-${result.id}`, kind: 'studio', type: 'generation', route: studio,
+      resultId: result.id, title: studio === 'carousel' ? 'Карусель готова' : 'Видео готово',
+      description: result.title || (studio === 'carousel' ? 'Откройте готовые слайды' : 'Откройте видео с вашим персонажем'),
+      mode: studio === 'carousel' ? 'image' : 'video', createdAt: result.createdAt || Date.now(),
+      read: false, actionLabel: 'Открыть результат',
+    }, ...previous].slice(0, 100));
   };
   useEffect(() => {
     const sharedId = new URLSearchParams(window.location.search).get('chat');
@@ -572,14 +612,16 @@ export function App() {
           tabIndex={-1}
           onClick={() => setSidebarOpen(false)}
         />
-      <div id="mobile-navigation" data-mobile-drawer-panel className={'sidebar-shell'+(sidebarOpen?' mobile-open':'')} aria-hidden={isMobile ? !sidebarOpen : collapsed} inert={isMobile ? !sidebarOpen : collapsed}>
+      <div id="mobile-navigation" data-mobile-drawer-panel className={'sidebar-shell'+(sidebarOpen?' mobile-open':'')} aria-hidden={isMobile ? !sidebarOpen : undefined} inert={isMobile && !sidebarOpen}>
       <aside className="sidebar" tabIndex={-1} role={sidebarOpen?'dialog':undefined} aria-modal={sidebarOpen||undefined} aria-label={sidebarOpen?'Главное меню':undefined}>
         <div className="sidebar-top">
           <header className="sidebar-header">
             <button
-              className="brand"
+              className="brand sidebar-brand"
               onClick={newChat}
               aria-label="Молекула — новый чат"
+              tabIndex={collapsed && !isMobile ? -1 : undefined}
+              aria-hidden={collapsed && !isMobile ? true : undefined}
             >
               <img
                 src={sourceAsset("figma-2335-94959", "imgFrame15")}
@@ -595,33 +637,39 @@ export function App() {
               />
             </button>
             <IconButton
-              icon="sidebar"
-              label="Свернуть меню"
+              className="sidebar-collapse-control"
+              icon={collapsed && !isMobile ? 'sidebarExpand' : 'sidebar'}
+              label={collapsed && !isMobile ? 'Развернуть меню' : 'Свернуть меню'}
+              aria-controls="mobile-navigation"
+              aria-expanded={isMobile ? sidebarOpen : !collapsed}
               onClick={() => {
                 if (!window.matchMedia("(max-width: 700px)").matches) setCollapsed(!collapsed);
                 setSidebarOpen(false);
               }}
-            />
+            ><Icon name={collapsed && !isMobile ? 'sidebarExpand' : 'sidebar'} size={20}/></IconButton>
           </header>
-          <nav className="main-navigation">
-            <button onClick={newChat}>
+          <nav className="main-navigation" aria-label="Создать">
+            <button onClick={newChat} aria-label="Новый чат" title="Новый чат">
               <Icon name="newChat" size={18} />
               <span>Новый чат</span>
             </button>
-            <button onClick={() => { setSidebarOpen(false); setMediaOpen(true); }}>
-              <Icon name="files" size={18} />
-              <span>Файлы и медиа</span>
+            <button className={contentRoute === 'carousel' ? 'is-active' : ''} aria-current={contentRoute === 'carousel' ? 'page' : undefined} aria-label="Карусель" title="Карусель" onClick={() => navigate('carousel')}>
+              <Icon name="carousel" size={18} />
+              <span>Карусель</span>
+            </button>
+            <button className={contentRoute === 'trends' ? 'is-active' : ''} aria-current={contentRoute === 'trends' ? 'page' : undefined} aria-label="Тренды" title="Тренды" onClick={() => navigate('trends')}>
+              <Icon name="trends" size={18} />
+              <span>Тренды</span>
             </button>
           </nav>
         </div>
         <div className="sidebar-scroll">
-          <nav className="main-navigation sidebar-secondary-navigation">
-            <button className={route === 'roles' ? 'is-active' : ''} onClick={() => {setRolesReturnRoute(route);navigate('roles');}}>
-              <Icon name="role" size={18}/><span>Витрина ролей</span>
+          <nav className="main-navigation sidebar-secondary-navigation" aria-label="Библиотека">
+            <button className="rail-search" aria-label="Поиск по чатам" title="Поиск по чатам" onClick={() => {setCollapsed(false);setSearchOpen(true);}}>
+              <Icon name="search" size={18}/><span>Поиск по чатам</span>
             </button>
-            <button onClick={() => navigate("components")}>
-              <Icon name="tools" size={18} />
-              <span>Инструменты</span>
+            <button className={route === 'roles' ? 'is-active' : ''} aria-label="Витрина ролей" title="Витрина ролей" onClick={() => {setRolesReturnRoute(route);navigate('roles');}}>
+              <Icon name="role" size={18}/><span>Витрина ролей</span>
             </button>
           </nav>
           <section className="sidebar-projects" aria-label="Проекты">
@@ -633,7 +681,7 @@ export function App() {
               {projects.map((project, index) => {
                 const chats = selectHistory(history, project.id);
                 const expanded = expandedProjects.includes(project.id);
-                return <ProjectRow key={project.id} project={project} index={index} active={projectState.activeId === project.id} expanded={expanded} onOpen={id => openProject(id, true)} onNewChat={id => openProject(id)} onAction={actOnProject}>
+                return <ProjectRow key={project.id} project={project} index={index} active={projectState.activeId === project.id} expanded={expanded} onOpen={id => openProject(id, true)} onNewChat={id => {newChat(id, false);navigate('project');}} onAction={actOnProject}>
                     {chats.map(chat=><HistoryRow key={chat.id} chat={chat} compact active={currentChat.current===chat.id} onOpen={openHistory} onAction={actOnHistory}/>)}
                     {!chats.length&&<p>Пока нет чатов</p>}
                 </ProjectRow>;
@@ -643,7 +691,13 @@ export function App() {
           <section className="chat-history">
             <div className="history-label">
               <span>{historyArchived ? 'Архив чатов' : 'История чатов'}</span>
-              {(historyArchived || history.some(chat => !chat.projectId && chat.archived)) && <button className="history-archive-toggle" onClick={() => setHistoryArchived(value => !value)}>{historyArchived ? 'К чатам' : 'Архив'}</button>}
+              {(historyArchived || history.some(chat => !chat.projectId && chat.archived)) && <button
+                type="button"
+                className={`history-archive-toggle${historyArchived ? ' is-active' : ''}`}
+                aria-label={historyArchived ? 'Вернуться к истории чатов' : 'Открыть архив чатов'}
+                title={historyArchived ? 'Вернуться к истории чатов' : 'Архив чатов'}
+                onClick={() => setHistoryArchived(value => !value)}
+              ><Icon name={historyArchived ? 'arrowLeft' : 'archive'} size={16}/></button>}
               <IconButton
                 icon="search"
                 label="Поиск по чатам"
@@ -675,27 +729,20 @@ export function App() {
           <ProfileMenu account={account} onSection={section => { setSidebarOpen(false); if(section === 'subscription') setBillingOpen(true); else setAccountSection(section); }} onSignOut={() => { setAccount(null); setToast("Вы вышли из демо-аккаунта"); }} onAuth={openAuth} />
         </div>
       </aside>
+      <button type="button" className="sidebar-edge-toggle" aria-label={collapsed ? 'Развернуть боковую панель' : 'Свернуть боковую панель'} aria-controls="mobile-navigation" aria-expanded={!collapsed} tabIndex={-1} title={collapsed ? 'Развернуть меню' : 'Свернуть меню'} onClick={() => setCollapsed(previous => !previous)}/>
       </div>
-      <main ref={mainRef} className={"chat-main " + (route === 'chat' && messages.length ? "has-messages" : "")} inert={isMobile && sidebarOpen}>
-        <header className="chat-header">
+      <main ref={mainRef} className={"chat-main " + (!studioActive && messages.length ? "has-messages " : "") + (studioActive ? 'has-studio' : '')} inert={isMobile && sidebarOpen}>
+        <div className="chat-pane" inert={artifactOpen && !studioActive && (isMobile || artifactFull)}><header className="chat-header">
           <div className="header-start">
             <IconButton
               className="mobile-menu"
-              icon="sidebar"
+              icon="sidebarExpand"
               label="Открыть меню"
               aria-controls="mobile-navigation"
               aria-expanded={sidebarOpen}
               aria-haspopup="dialog"
               onClick={() => setSidebarOpen(true)}
             />
-            {collapsed && (
-              <IconButton
-                className="expand-sidebar"
-                icon="sidebar"
-                label="Развернуть меню"
-                onClick={() => setCollapsed(false)}
-              />
-            )}
             <ProjectSelect projects={projects} value={projectState.activeId} onChange={openProject} onOpen={openProject} onNew={()=>setNewProjectOpen(true)}/>
             {messages.length > 0 && (
               <IconButton
@@ -728,7 +775,8 @@ export function App() {
           </div>
           </div>
         </header>
-        {(route === 'project' || (route === 'roles' && rolesReturnRoute === 'project')) && activeProject ? <ProjectWorkspace key={activeProject.id} onChatAction={actOnHistory} project={activeProject} index={projects.indexOf(activeProject)} chats={history.filter(chat => chat.projectId === activeProject.id)} onOpenChat={openHistory} onAction={actOnProject}>
+        <div className="chat-route-content" hidden={studioActive} inert={studioActive} aria-hidden={studioActive || undefined}>
+        {conversationRoute === 'project' && activeProject ? <ProjectWorkspace key={activeProject.id} onChatAction={actOnHistory} project={activeProject} index={projects.indexOf(activeProject)} chats={history.filter(chat => chat.projectId === activeProject.id)} onOpenChat={openHistory} onAction={actOnProject}>
           <ChatComposer chatImages={chatImageReferences(messages)} key={composerKey} placeholder={`Новый чат в ${activeProject.name}`} sendOnEnter={preferences.sendOnEnter} onAuth={openAuth} mode={mode} onModeChange={changeMode} model={model} onModelOpen={() => setModelOpen(true)} values={settings} onChange={changeValue} initialText={draft} showFooter showPromo={false} files={files} onFilesChange={setFiles} onSend={send} onStop={stop} onRoleInfo={openRoleInfo}/>
         </ProjectWorkspace> : messages.length === 0 ? (
           <HomeExperience onChoose={chooseHomeExample} resetKey={composerKey} mode={mode}>
@@ -826,7 +874,7 @@ export function App() {
                         {message.files?.length > 0 && (
                           <div className="message-files">
                             {message.files.map((f, i) => (
-                              <FileChip key={f.id || i} file={f} />
+                              <FileChip key={f.id || i} file={f} onOpen={documentFormat(f) ? () => openArtifact(f) : undefined} />
                             ))}
                           </div>
                         )}
@@ -837,6 +885,7 @@ export function App() {
                           <ModelIcon model={message.model} size={18} />
                         </span>
                         <div className="assistant-content">
+                          {message.files?.length > 0 && <div className="message-files">{message.files.map((file, index) => <FileChip key={file.id || index} file={file} onOpen={documentFormat(file) ? () => openArtifact(file) : undefined}/>)}</div>}
                           {message.media && (message.media.type === "audio" ? <AudioResult media={{ ...message.media, id: message.id }} pending={generating && message.id === messages.at(-1)?.id} onPlay={() => openMedia(message.id)} /> : <MediaResult media={{ ...message.media, id:message.id }} pending={generating && message.id === messages.at(-1)?.id} onOpen={media => openMedia(media.id)} />)}
                           {!message.text && !message.media ? (
                             <span className="typing-status">
@@ -917,7 +966,12 @@ export function App() {
             </div>
           </>
         )}
+        </div>
+        {visitedStudios.includes('carousel') && <div className="studio-route-content" hidden={contentRoute !== 'carousel'} inert={contentRoute !== 'carousel'} aria-hidden={contentRoute !== 'carousel' || undefined}><CarouselStudio active={contentRoute === 'carousel'} openResultId={studioResultIds.carousel} onResultOpened={() => setStudioResultIds(previous => ({...previous, carousel: undefined}))} onNotify={setToast} onComplete={result => completeStudio('carousel', result)}/></div>}
+        {visitedStudios.includes('trends') && <div className="studio-route-content" hidden={contentRoute !== 'trends'} inert={contentRoute !== 'trends'} aria-hidden={contentRoute !== 'trends' || undefined}><TrendsStudio active={contentRoute === 'trends'} openResultId={studioResultIds.trends} onResultOpened={() => setStudioResultIds(previous => ({...previous, trends: undefined}))} onNotify={setToast} onComplete={result => completeStudio('trends', result)}/></div>}
 
+      </div>
+        <ArtifactPanel file={artifact} open={artifactOpen && !studioActive} onClose={() => setArtifactOpen(false)} full={artifactFull} onFullChange={setArtifactFull} mobile={isMobile} />
       </main>
       {route === 'roles' && <RolesShowcase onSelectRole={(role,prompt) => {chooseRole(role,prompt);}} onClose={() => navigate(rolesReturnRoute)} onBack={() => navigate(rolesReturnRoute)}/>}
       {billingOpen && <BillingModal balance={5} onClose={() => setBillingOpen(false)}/>}
@@ -983,7 +1037,6 @@ export function App() {
           </section>
         </div>
       )}
-      {mediaOpen && <MediaLibrary items={readyMedia} files={[...files, ...messages.flatMap(message => message.files || [])]} onClose={() => setMediaOpen(false)} onOpen={item => openMedia(item.id)} />}
       {viewerId && <Suspense fallback={null}><MediaViewer items={readyMedia.filter(media => media.type !== "audio")} initialId={viewerId} onClose={() => setViewerId(null)} onReuse={media => chooseHomeExample({ mode: media.type, model: media.model, prompt: media.title, settings:media.settings })} /></Suspense>}
       {audioId && <Suspense fallback={null}><AudioPlayer items={audioQueue} currentId={audioId} onSelect={setAudioId} onClose={() => setAudioId(null)} inert={isMobile && sidebarOpen} /></Suspense>}
       {(toast || deletedChat) && (

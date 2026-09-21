@@ -177,6 +177,7 @@
   margin: 0;
   overflow: auto;
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
   font-size: 13px;
   line-height: 1.7;
 }
@@ -195,6 +196,8 @@
   flex-shrink: 0;
 }
 .media-viewer-actions { display:flex;flex-direction:row;gap:8px; }
+.media-viewer-studio-details { margin: 0; color: #8e8798; font-size: 12px; line-height: 1.6; }
+.media-viewer-empty > .pill { min-height: 36px; padding: 0 16px; }
 .media-viewer-actions .viewer-action { flex:0 0 36px;display:grid;place-items:center;width:36px;height:36px;min-height:36px;padding:0;border-radius:50%;background:#f7f7f7;color:#333;text-decoration:none; }
 .media-viewer-actions .viewer-action:hover { background:#ededed;color:#171717; }
 .media-viewer-notice {

@@ -10,6 +10,14 @@
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   --primary: #7a3fff;
   --hover-bg: #e7e7e7;
+  --workspace-title-size: 28px;
+  --workspace-title-line-height: 1.2;
+  --workspace-title-weight: 600;
+  --workspace-title-spacing: 0;
+  --workspace-title-font: "Geist Variable", sans-serif;
+}
+@media (max-width: 700px) {
+  :root { --workspace-title-size: 24px; }
 }
 * {
   box-sizing: border-box;
@@ -61,8 +69,22 @@ button img {
   border-radius: 4px;
   flex-shrink: 0;
 }
-.mode-icon img {
-  object-fit: contain;
+.mode-icon > svg {
+  display: block;
+  flex: none;
+}
+.brand-token {
+  background: currentColor;
+  mask: url(/figma/settings-token.svg) center / contain no-repeat;
+}
+.balance-token {
+  background: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
 }
 .icon-button {
   display: grid;
@@ -269,7 +291,6 @@ button img {
     border-radius: 24px;
     overflow: clip;
   }
-  .sidebar-collapsed .chat-main { margin-left: 8px; }
 }
 .chat-header {
   position: absolute;
@@ -366,11 +387,11 @@ button img {
   font-family: "Geist Variable", sans-serif;
 }
 .greeting h1 {
-  font-size: 28px;
-  line-height: 1.2;
-  font-weight: 600;
+  font-size: var(--workspace-title-size);
+  line-height: var(--workspace-title-line-height);
+  font-weight: var(--workspace-title-weight);
   margin: 0;
-  letter-spacing: 0;
+  letter-spacing: var(--workspace-title-spacing);
 }
 .greeting p {
   margin: 12px 0 0;
@@ -659,7 +680,7 @@ body[data-input="keyboard"] *::before {
   animation-duration: 0s !important;
 }
 @media (hover: hover) and (pointer: fine) {
-  .sidebar button:hover {
+  .sidebar button:not(.sidebar-brand):hover {
     background: #ededed;
   }
   .help-card:hover {
@@ -771,7 +792,7 @@ body[data-input="keyboard"] *::before {
     padding: 0 7px;
   }
   .greeting h1 {
-    font-size: 24px;
+    font-size: var(--workspace-title-size);
     letter-spacing: 0;
     line-height: 1.2;
   }
@@ -931,7 +952,6 @@ body[data-input="keyboard"] *::before {
 .sidebar-project-chats { position:relative; margin:2px 12px 8px 21px; }
 .sidebar-project-chats>button { transition:background-color 160ms ease,color 160ms ease,transform 120ms var(--ease-out); }
 .sidebar-project-row,.history-list>button { transition:background-color 160ms ease,color 160ms ease,transform 120ms var(--ease-out); }
-@media(min-width:701px) { .sidebar-collapsed .sidebar-shell { width:0; opacity:0; } }
 @media(min-width:701px) and (max-width:1080px) { .app-shell { --sidebar-width:220px; } }
 @media(max-width:700px) {
  .sidebar-shell { position:fixed; inset:0 auto 0 0; height:100dvh; z-index:100; width:248px; transform:translateX(-100%); opacity:1; visibility:hidden; pointer-events:none; transition:transform 300ms var(--ease-drawer),visibility 300ms; overflow:hidden; }
@@ -954,10 +974,10 @@ body[data-input="keyboard"] *::before {
 .has-audio .home-experience-shell { bottom:var(--audio-dock-height); }
 .legacy-media-preview { display:block;max-width:100%;padding:0;background:transparent;border-radius:20px; }
 @media(min-width:701px) and (max-width:1080px){.app-shell.has-audio{--audio-player-left:220px}}
-@media(min-width:701px){.app-shell.sidebar-collapsed.has-audio{--audio-player-left:0px}}
+@media(min-width:701px){.app-shell.sidebar-collapsed.has-audio{--audio-player-left:64px}}
 @media(min-width:701px){
   .app-shell .audio-player { right: 8px; bottom: 8px; border-radius: 24px; }
-  .app-shell.sidebar-collapsed .audio-player { left: 8px; }
+  .app-shell.sidebar-collapsed .audio-player { left: 64px; }
 }
 @media(max-width:700px){.app-shell.has-audio{--audio-player-left:0px;--audio-dock-height:calc(132px + env(safe-area-inset-bottom))}.has-audio .chat-composer-dock{bottom:calc(16px + var(--audio-dock-height))}.has-audio .message-scroll{padding-bottom:calc(205px + var(--audio-dock-height))}}
 
@@ -974,4 +994,60 @@ body[data-input="keyboard"] *::before {
  .has-messages .chat-header::before{inset:calc(-16px - env(safe-area-inset-top)) -16px -72px}
  .has-messages .chat-composer-dock::before{inset:-34px -16px -16px;background:linear-gradient(#fff0,#ffffffe6 30%,#fff 65%);-webkit-mask-image:linear-gradient(transparent,#000 35%);mask-image:linear-gradient(transparent,#000 35%)}
 }
-.history-archive-toggle{margin-left:auto;background:transparent;padding:4px;font-size:11px;color:#777}.history-archive-toggle:hover{color:var(--primary)}
+.history-label .history-archive-toggle{margin-left:auto;display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;min-height:0;border:0;border-radius:8px;background:transparent;padding:0;color:#656565}.history-label .history-archive-toggle:hover{background:#dedede;color:#171717}.history-label .history-archive-toggle.is-active{color:var(--primary)}
+
+/* Keep the desktop rail and workspace actions on the same horizontal line. */
+.chat-route-content { display:contents; }
+.studio-route-content { height:100%; min-height:0; }
+.chat-route-content[hidden], .studio-route-content[hidden] { display:none; }
+.chat-main.has-studio::before {
+  content:""; position:absolute; inset:0 0 auto; height:104px; z-index:9;
+  pointer-events:none; background:linear-gradient(#fff 0 74%, #fffffff2 82%, #fff0 100%);
+}
+@media (max-width:700px) {
+  .chat-main.has-studio::before { height:calc(80px + env(safe-area-inset-top)); background:linear-gradient(#fff 0 68%, #fffffff2 78%, #fff0 100%); }
+}
+.main-navigation > .is-active { background:#ededed; }
+.main-navigation > button > span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sidebar-edge-toggle, .main-navigation > .rail-search { display:none; }
+@media (min-width:701px) {
+  .app-shell { --sidebar-rail-width:64px; --workspace-header-top:40px; }
+  .sidebar-shell { position:relative; }
+  .sidebar-shell .sidebar { width:100%; padding-top:var(--workspace-header-top); }
+  .sidebar-header { position:relative; }
+  .chat-header { top:calc(var(--workspace-header-top) - 8px); height:40px; }
+  .sidebar-edge-toggle {
+    display:block; position:absolute; z-index:2; top:0; bottom:0; right:0;
+    width:6px; padding:0; border-radius:0; background:transparent; cursor:ew-resize;
+  }
+  .sidebar-edge-toggle:active { transform:none; }
+  .sidebar-collapsed .sidebar-shell { width:var(--sidebar-rail-width); opacity:1; }
+  .sidebar-collapsed .sidebar { padding-left:12px; padding-right:12px; }
+  .sidebar-collapsed .sidebar-header { padding:0; width:40px; }
+  .sidebar-collapsed .sidebar-brand { position:absolute; inset:0; width:40px; height:40px; justify-content:center; pointer-events:none; }
+  .sidebar-collapsed .sidebar-brand > img:first-child { width:24px; height:24px; transition:opacity 120ms ease; }
+  .sidebar-collapsed .sidebar-brand > img:last-child { display:none; }
+  .sidebar-collapsed .sidebar-collapse-control { position:absolute; inset:0; opacity:0; transition:opacity 120ms ease,background-color 120ms ease; }
+  .sidebar-collapsed .sidebar-header:hover .sidebar-brand > img:first-child,
+  .sidebar-collapsed .sidebar-header:has(.sidebar-collapse-control:focus-visible) .sidebar-brand > img:first-child { opacity:0; }
+  .sidebar-collapsed .sidebar-header:hover .sidebar-collapse-control,
+  .sidebar-collapsed .sidebar-header:has(.sidebar-collapse-control:focus-visible) .sidebar-collapse-control { opacity:1; }
+  .sidebar-collapsed .sidebar-collapse-control:hover { background:transparent; }
+  .sidebar-collapsed .main-navigation > button { width:40px; padding:0; justify-content:center; }
+  .sidebar-collapsed .main-navigation > button > span,
+  .sidebar-collapsed .sidebar-projects,
+  .sidebar-collapsed .chat-history,
+  .sidebar-collapsed .sidebar-separator,
+  .sidebar-collapsed .profile > span:last-child { display:none; }
+  .sidebar-collapsed .main-navigation > .rail-search { display:flex; }
+  .sidebar-collapsed .sidebar-scroll { overflow:visible; }
+  .sidebar-collapsed .profile { width:40px; height:40px; padding:0; justify-content:center; }
+  .sidebar-collapsed .profile-avatar { flex-shrink:0; }
+}
+@media (min-width:701px) and (hover:none) {
+  .sidebar-collapsed .sidebar-brand > img:first-child { opacity:0; }
+  .sidebar-collapsed .sidebar-collapse-control { opacity:1; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .sidebar-brand > img, .sidebar-collapse-control { transition:none!important; }
+}

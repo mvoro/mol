@@ -78,7 +78,7 @@ body.molecula-dialog-open {
 .mp-search {
   flex: 0 0 40px;
 }
-.mp-search > img,
+.mp-search > .icon,
 .mp-search > button {
   flex: 0 0 18px;
   width: 18px;
@@ -231,6 +231,7 @@ body.molecula-dialog-open {
   display: block;
 }
 .mp-check {
+  color: var(--primary);
   flex: 0 0 14px;
   width: 14px;
   height: 14px;
@@ -260,7 +261,7 @@ body.molecula-dialog-open {
   font-size: 12px;
   line-height: 17px;
 }
-.mp-empty img {
+.mp-empty > .icon {
   width: 24px;
   height: 24px;
 }

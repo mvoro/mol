@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { DownloadSimple, MusicNotes, Pause, Play, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from '@phosphor-icons/react';
+import { Download, Music2, Pause, Play, SkipBack, SkipForward, Volume2, VolumeX, X } from 'lucide-react';
 import './audio-player.css';
 
 export function formatAudioTime(seconds) {
@@ -144,22 +144,22 @@ export function AudioPlayer({ items = [], currentId, onSelect, onClose, inert = 
       onError={() => { setPlaying(false); setWaiting(false); setFailed(true); setNotice('Не удалось загрузить аудио. Нажмите «Воспроизвести», чтобы повторить.'); }}
     />
     <div className="audio-player-identity">
-      <span className="audio-player-art">{!coverFailed ? <img src={current.poster || '/media/artwork/orange-bloom.jpg'} alt="" onError={() => setCoverFailed(true)} /> : <MusicNotes size={24} />}</span>
+      <span className="audio-player-art">{!coverFailed ? <img src={current.poster || '/media/artwork/orange-bloom.jpg'} alt="" onError={() => setCoverFailed(true)} /> : <Music2 size={24} strokeWidth={1.75} aria-hidden="true"/>}</span>
       <div className="audio-player-copy"><strong title={title}>{title}</strong><span><span>{current.model || 'Инструментальная композиция'}</span></span></div>
     </div>
     <div className="audio-player-transport">
       <div className="audio-player-buttons">
-        <button type="button" className="audio-player-button" aria-label="Предыдущий трек" disabled={index === 0 && position === 0} onClick={previous}><SkipBack size={18} weight="fill" /></button>
-        <button type="button" className="audio-player-button audio-player-play" aria-label={playing || waiting ? 'Приостановить' : 'Воспроизвести'} aria-busy={waiting} onClick={toggle}>{playing || waiting ? <Pause size={20} weight="fill" /> : <Play size={20} weight="fill" />}</button>
-        <button type="button" className="audio-player-button" aria-label="Следующий трек" disabled={index >= queue.length - 1} onClick={() => onSelect?.(queue[index + 1].id)}><SkipForward size={18} weight="fill" /></button>
+        <button type="button" className="audio-player-button" aria-label="Предыдущий трек" disabled={index === 0 && position === 0} onClick={previous}><SkipBack size={18} fill="currentColor" strokeWidth={1.75} aria-hidden="true"/></button>
+        <button type="button" className="audio-player-button audio-player-play" aria-label={playing || waiting ? 'Приостановить' : 'Воспроизвести'} aria-busy={waiting} onClick={toggle}>{playing || waiting ? <Pause size={20} fill="currentColor" strokeWidth={1.75} aria-hidden="true"/> : <Play size={20} fill="currentColor" strokeWidth={1.75} aria-hidden="true"/>}</button>
+        <button type="button" className="audio-player-button" aria-label="Следующий трек" disabled={index >= queue.length - 1} onClick={() => onSelect?.(queue[index + 1].id)}><SkipForward size={18} fill="currentColor" strokeWidth={1.75} aria-hidden="true"/></button>
       </div>
       <div className="audio-player-timeline"><span>{formatAudioTime(position)}</span><input className="audio-player-range" type="range" min="0" max={duration || 1} step="0.1" value={Math.min(position, duration || 0)} disabled={!duration || failed} onChange={event => seek(Number(event.target.value))} aria-label="Позиция трека" aria-valuetext={`${formatAudioTime(position)} из ${formatAudioTime(duration)}`} style={{ '--audio-fill': `${duration ? Math.min(100, position / duration * 100) : 0}%` }} /><span>{formatAudioTime(duration)}</span></div>
     </div>
     <div className="audio-player-tools">
-      <div className="audio-player-volume"><button type="button" className="audio-player-button" aria-label={muted || volume === 0 ? 'Включить звук' : 'Выключить звук'} aria-pressed={muted || volume === 0} onClick={() => { if (volume === 0) setVolume(0.7); setMuted(value => volume === 0 ? false : !value); }}>{muted || volume === 0 ? <SpeakerSlash size={19} /> : <SpeakerHigh size={19} />}</button><input className="audio-player-range" type="range" min="0" max="1" step="0.01" value={muted ? 0 : volume} onChange={event => { setVolume(Number(event.target.value)); setMuted(false); }} aria-label="Громкость" aria-valuetext={`${Math.round((muted ? 0 : volume) * 100)}%`} style={{ '--audio-fill': `${(muted ? 0 : volume) * 100}%` }} /></div>
-      <a className="audio-player-button" href={current.src} download={downloadName} aria-label="Скачать аудио"><DownloadSimple size={19} /></a>
+      <div className="audio-player-volume"><button type="button" className="audio-player-button" aria-label={muted || volume === 0 ? 'Включить звук' : 'Выключить звук'} aria-pressed={muted || volume === 0} onClick={() => { if (volume === 0) setVolume(0.7); setMuted(value => volume === 0 ? false : !value); }}>{muted || volume === 0 ? <VolumeX size={19} strokeWidth={1.75} aria-hidden="true"/> : <Volume2 size={19} strokeWidth={1.75} aria-hidden="true"/>}</button><input className="audio-player-range" type="range" min="0" max="1" step="0.01" value={muted ? 0 : volume} onChange={event => { setVolume(Number(event.target.value)); setMuted(false); }} aria-label="Громкость" aria-valuetext={`${Math.round((muted ? 0 : volume) * 100)}%`} style={{ '--audio-fill': `${(muted ? 0 : volume) * 100}%` }} /></div>
+      <a className="audio-player-button" href={current.src} download={downloadName} aria-label="Скачать аудио"><Download size={19} strokeWidth={1.75} aria-hidden="true"/></a>
     </div>
-    <button type="button" className="audio-player-button audio-player-close" aria-label="Закрыть плеер" onClick={() => { ++playAttempt.current; audio.current?.pause(); onClose?.(); }}><X size={18} /></button>
+    <button type="button" className="audio-player-button audio-player-close" aria-label="Закрыть плеер" onClick={() => { ++playAttempt.current; audio.current?.pause(); onClose?.(); }}><X size={18} strokeWidth={1.75} aria-hidden="true"/></button>
     {notice && <p className="audio-player-notice" role="status">{notice}</p>}
   </aside>;
 }

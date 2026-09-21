@@ -7,17 +7,16 @@ import { useModalBehavior } from './modal-behavior.js';
 import './popover.css';
 import './notification-center.css';
 
-const ASSET = '/figma/notifications-billing/';
 const GLYPHS = {
-  bell: 'notif-detail-1-717c6.svg',
-  empty: 'notif-detail-0-529c0.svg',
-  gift: 'notif-popover-924e1.svg',
-  'billing-error': 'notif-popover-6b4ca.svg',
-  payment: 'notif-popover-d178b.svg',
-  balance: 'notif-popover-3229e.svg',
+  bell: 'bell',
+  empty: 'bellOff',
+  gift: 'gift',
+  'billing-error': 'circleAlert',
+  payment: 'creditCard',
+  balance: 'wallet',
 };
 function Glyph({ name, size = 18 }) {
-  return <img className="icon" src={ASSET + GLYPHS[name]} width={size} height={size} alt="" />;
+  return <Icon name={GLYPHS[name] || name} size={size}/>;
 }
 
 function MobilePanel({ children, onClose }) {
@@ -99,10 +98,11 @@ function NotificationList({ notifications, tab, onMarkRead, onSelect, onBilling 
 
   return <div className="notification-list">
     {notifications.map(item => {
-      const actionable = Boolean(item.chatId || ['billing-error', 'balance', 'offer'].includes(item.type));
-      const actionLabel = item.actionLabel || (item.chatId ? 'Открыть результат' : item.type === 'billing-error' ? 'Обновить карту' : item.type === 'offer' ? 'Посмотреть предложение' : 'Пополнить баланс');
+      const isResult = Boolean(item.chatId || (item.kind === 'studio' && item.route));
+      const actionable = Boolean(isResult || ['billing-error', 'balance', 'offer'].includes(item.type));
+      const actionLabel = item.actionLabel || (isResult ? 'Открыть результат' : item.type === 'billing-error' ? 'Обновить карту' : item.type === 'offer' ? 'Посмотреть предложение' : 'Пополнить баланс');
       const Card = actionable ? 'button' : 'article';
-      return <Card key={item.id} type={actionable ? 'button' : undefined} className={`notification-card${actionable ? ' is-actionable' : ''}${highlighted.has(item.id) || !item.read ? ' is-unread' : ''}${item.type === 'billing-error' && !item.resolved ? ' is-billing-error' : ''}`} aria-label={actionable ? `${item.title}. ${actionLabel}` : undefined} onClick={actionable ? () => item.chatId ? onSelect?.(item) : onBilling?.(item) : undefined}>
+      return <Card key={item.id} type={actionable ? 'button' : undefined} className={`notification-card${actionable ? ' is-actionable' : ''}${highlighted.has(item.id) || !item.read ? ' is-unread' : ''}${item.type === 'billing-error' && !item.resolved ? ' is-billing-error' : ''}`} aria-label={actionable ? `${item.title}. ${actionLabel}` : undefined} onClick={actionable ? () => isResult ? onSelect?.(item) : onBilling?.(item) : undefined}>
       <span className="notification-preview">
         {item.thumbnail ? <img className="notification-thumbnail" src={item.thumbnail} alt="" /> : item.type === 'generation' ? <ModeIcon mode={item.mode || 'auto'} size={22} /> : <Glyph name={GLYPHS[item.type] ? item.type : 'gift'} />}
       </span>
@@ -150,7 +150,7 @@ export function NotificationCenter({ notifications = [], onMarkRead, onSelect, o
   return <>
     <button ref={triggerRef} type="button" className="notification-trigger" aria-label={`Центр уведомлений${unread ? `, непрочитанных: ${unread}` : ''}`} aria-haspopup="dialog" aria-expanded={open} onClick={() => setOpen(value => !value)}>
       <Glyph name="bell" />
-      <span className={`notification-indicator${indicator === 'unread' ? ' is-visible' : ''}`} aria-hidden="true"><img src={ASSET + 'notif-detail-1-c9285.svg'} alt="" width="14" height="14" /></span>
+      <span className={`notification-indicator notification-indicator-unread${indicator === 'unread' ? ' is-visible' : ''}`} aria-hidden="true" />
       <span className={`notification-indicator notification-indicator-danger${indicator === 'danger' ? ' is-visible' : ''}`} aria-hidden="true" />
       <span className={`notification-indicator notification-indicator-gift${indicator === 'gift' ? ' is-visible' : ''}`} aria-hidden="true"><Glyph name="gift" size={14} /></span>
     </button>

@@ -239,9 +239,7 @@ function AuthShowcase({ variant }) {
           {manualPaused ? (
             <Icon name="play" size={14} />
           ) : (
-            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-              <path d="M4 3h3v10H4zm5 0h3v10H9z" fill="currentColor" />
-            </svg>
+            <Icon name="pause" size={14} />
           )}
         </button>
       )}
