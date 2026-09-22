@@ -1,3 +1,4 @@
+import { withBasePath } from './base-path.js';
 // Binary attachments live separately from the small JSON conversation snapshots.
 function database() {
   return new Promise((resolve, reject) => {
@@ -23,7 +24,7 @@ export async function storeDocument(file) {
 export async function readDocument(file, signal) {
   if (file.raw) return file.raw;
   if (file.url && /^(\/documents\/|blob:)/.test(file.url)) {
-    const response = await fetch(file.url, { signal });
+    const response = await fetch(withBasePath(file.url), { signal });
     if (!response.ok) throw new Error('Не удалось загрузить файл. Проверьте соединение и повторите попытку.');
     return response.blob();
   }

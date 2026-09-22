@@ -1,3 +1,4 @@
+import { withBasePath } from '../base-path.js';
 import { useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Icon, ModeIcon, ModelIcon } from "../ui";
@@ -6,7 +7,7 @@ import { InputShell, TextInput } from "./TextInput.jsx";
 import { Tabs } from "./Tabs.jsx";
 import "./model-picker.css";
 
-const ASSETS = "/assets/models/";
+const ASSETS = withBasePath("/assets/models/");
 const modes = [
   { id: "text", label: "Текст" },
   { id: "image", label: "Картинка" },

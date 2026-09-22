@@ -1,3 +1,4 @@
+import { withBasePath } from './base-path.js';
 import { withTrendVideoDuration } from './trends-webm.js';
 
 export const TREND_TEMPLATES = [
@@ -9,7 +10,7 @@ export const TREND_TEMPLATES = [
   { id: 'rhythm', name: 'В ритме', category: 'motion', motion: 'pulse', duration: 6, poster: '/media/trends/neon.png', description: 'Ритмичное приближение и отдаление' },
   { id: 'rise', name: 'На высоте', category: 'camera', motion: 'rise', duration: 6, poster: '/media/trends/street.png', description: 'Плавный проход камеры снизу вверх' },
   { id: 'swing', name: 'Лёгкий поворот', category: 'motion', motion: 'swing', duration: 6, poster: '/media/trends/studio.png', description: 'Небольшой наклон кадра по дуге' },
-];
+].map(template => ({ ...template, poster: withBasePath(template.poster) }));
 export const DEFAULT_TREND_DRAFT = { templateId: '', caption: '', quality: '720', character: null };
 export const MAX_CHARACTER_BYTES = 15 * 1024 * 1024;
 export const getTrendTemplate = id => TREND_TEMPLATES.find(template => template.id === id);

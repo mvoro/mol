@@ -1,5 +1,6 @@
 import React, { useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { withBasePath } from '../base-path.js';
 import { Icon } from '../ui.jsx';
 import { ProjectIcon } from './Projects.jsx';
 import { TextInput } from './TextInput.jsx';
@@ -16,7 +17,7 @@ export function HistoryDialog({ action, chat, projects, onClose, onSave }) {
   const { dialogRef, requestClose, closing } = useModalBehavior(onClose, action === 'rename' ? inputRef : undefined);
   const rename = action === 'rename';
   const sharing = action === 'share';
-  const shareUrl = new URL(`/?chat=${encodeURIComponent(chat.id)}`, window.location.origin).href;
+  const shareUrl = new URL(withBasePath(`/?chat=${encodeURIComponent(chat.id)}`), window.location.origin).href;
   const valid = rename ? name.trim().length > 0 : true;
   return createPortal(<div className="account-panel-overlay" data-closing={closing || undefined} onPointerDown={event => { if (event.target === event.currentTarget) requestClose(); }}>
     <section ref={dialogRef} className="account-panel" data-closing={closing || undefined} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`} tabIndex={-1}>

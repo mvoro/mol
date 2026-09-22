@@ -1,3 +1,4 @@
+import { withBasePath } from './base-path.js';
 import { sanitizeGenerationRequest } from './generation-request.js';
 export const PROJECTS_KEY = 'molecula-composer-projects';
 export const HISTORY_KEY = 'molecula-composer-history';
@@ -41,7 +42,7 @@ export function conversationSnapshot({ id, projectId, mode, model, values, messa
     messages: messages.map(message => ({
       ...message,
       ...(message.generation ? {generation:sanitizeGenerationRequest(message.generation)} : {}),
-      ...(message.media?.poster?.startsWith('blob:') ? {media:{...message.media,poster:message.media.type === 'video' ? '/media/creative-demo.jpg' : undefined}} : {}),
+      ...(message.media?.poster?.startsWith('blob:') ? {media:{...message.media,poster:message.media.type === 'video' ? withBasePath('/media/creative-demo.jpg') : undefined}} : {}),
       files: message.files?.map(file => ({ id: file.id, name: file.name, mime: file.mime || file.type, size: file.size, ...(file.url?.startsWith("/documents/") ? {url:file.url} : {}) })),
     })),
   };

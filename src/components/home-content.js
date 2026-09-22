@@ -1,4 +1,5 @@
-const art = (name) => `/media/artwork/${name}.jpg`;
+import { withBasePath } from '../base-path.js';
+const art = (name) => withBasePath(`/media/artwork/${name}.jpg`);
 
 export const homeBanners = [
   {
@@ -159,8 +160,8 @@ export const homeCollections = [
       {
         title: "Один живой момент",
         description: "Вдохновение в движении · 5 с",
-        image: "/media/creative-demo.jpg",
-        video: "/media/creative-demo.mp4",
+        image: withBasePath("/media/creative-demo.jpg"),
+        video: withBasePath("/media/creative-demo.mp4"),
         mode: "video",
         model: "Runway",
         prompt:

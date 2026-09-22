@@ -1,3 +1,4 @@
+import { withBasePath } from '../base-path.js';
 import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Icon, ModelIcon } from "../ui.jsx";
@@ -5,7 +6,7 @@ import { TextInput } from "./TextInput.jsx";
 import { useModalBehavior } from "./modal-behavior.js";
 import "./auth-modal.css";
 
-const media = "/media/auth/";
+const media = withBasePath("/media/auth/");
 export const authSlides = {
   photos: [
     {

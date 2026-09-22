@@ -1,7 +1,8 @@
+import { withBasePath } from '../base-path.js';
 import catalog from "./roles-catalog.json";
 import { ROLE_PROMPTS } from "./role-prompts.js";
 
-export const ROLE_CATALOG = catalog.map(role => ({ ...role, prompts: ROLE_PROMPTS[role.name] || [] }));
+export const ROLE_CATALOG = catalog.map(role => ({ ...role, image: withBasePath(role.image), prompts: ROLE_PROMPTS[role.name] || [] }));
 export const ROLE_FAVORITES_KEY = "molecula-role-favorites-v1";
 export const ROLE_FAVORITES_EVENT = "molecula-role-favorites-change";
 export const DEFAULT_ROLE_FAVORITES = ["reels-scenarist", "prompt-engineer", "psychologist"];

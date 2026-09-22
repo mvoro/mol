@@ -1,3 +1,4 @@
+import { withBasePath } from '../base-path.js';
 import { useState } from 'react';
 import { Music2, Play } from 'lucide-react';
 import './audio-result.css';
@@ -11,7 +12,7 @@ export function AudioResult({ media, pending = false, onPlay }) {
   return <figure className="audio-result" aria-busy={pending}>
     <div className="audio-result-track">
       <div className="audio-result-cover">
-        {!coverFailed ? <img src={media.poster || '/media/artwork/orange-bloom.jpg'} alt="" onError={() => setCoverFailed(true)} /> : <Music2 size={30} strokeWidth={1.75} aria-hidden="true"/>}
+        {!coverFailed ? <img src={withBasePath(media.poster || '/media/artwork/orange-bloom.jpg')} alt="" onError={() => setCoverFailed(true)} /> : <Music2 size={30} strokeWidth={1.75} aria-hidden="true"/>}
         {ready && <button type="button" className="audio-result-play" aria-label={`Воспроизвести «${title}»`} disabled={!onPlay} onClick={() => {
           onPlay?.(media);
           document.dispatchEvent(new CustomEvent('molecula-audio-request', { detail: { id: media.id } }));

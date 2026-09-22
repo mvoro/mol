@@ -1,3 +1,4 @@
+import { withBasePath } from './base-path.js';
 import { getSettingsOptions, SETTINGS_DEFAULTS } from './components/settings-data.js';
 
 const valueOrDefault = (mode, key, value) => {
@@ -67,8 +68,8 @@ export function createDemoMedia(request, imageSources = []) {
     const variants = Array.from({ length: request.count }, (_, index) => ({ ...base, src: sources[index % sources.length] }));
     return { ...variants[0], ...(variants.length > 1 ? { variants } : {}) };
   }
-  if (mode === 'video') return { ...base, src: '/media/creative-demo.mp4', poster: '/media/creative-demo.jpg', sound: settings.sound };
-  if (mode === 'audio') return { ...base, src: '/media/ambient-demo.wav', poster: '/media/artwork/orange-bloom.jpg', voice: settings.voice, language: settings.language, backgroundMusic: settings.backgroundMusic };
+  if (mode === 'video') return { ...base, src: withBasePath('/media/creative-demo.mp4'), poster: withBasePath('/media/creative-demo.jpg'), sound: settings.sound };
+  if (mode === 'audio') return { ...base, src: withBasePath('/media/ambient-demo.wav'), poster: withBasePath('/media/artwork/orange-bloom.jpg'), voice: settings.voice, language: settings.language, backgroundMusic: settings.backgroundMusic };
   return null;
 }
 

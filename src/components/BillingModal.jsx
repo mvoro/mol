@@ -1,3 +1,4 @@
+import { withBasePath } from '../base-path.js';
 import React, { useId, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from '../ui.jsx';
@@ -5,7 +6,7 @@ import { Tabs } from './Tabs.jsx';
 import { useModalBehavior } from './modal-behavior.js';
 import './billing-modal.css';
 
-const ASSET = '/figma/notifications-billing/';
+const ASSET = withBasePath('/figma/notifications-billing/');
 export const BILLING_PLANS = [
   { id: 'pro', name: 'Про', tokens: 2000, price: 1649 },
   { id: 'expert', name: 'Эксперт', tokens: 10000, price: 3970, originalPrice: 7940 },

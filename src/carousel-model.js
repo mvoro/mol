@@ -1,3 +1,4 @@
+import { withBasePath } from './base-path.js';
 import { MAX_CAROUSEL_REFERENCES, normalizeCarouselReference } from './carousel-references.js';
 
 export const CAROUSEL_STORAGE_KEY = 'molecula-carousel-v1';
@@ -23,7 +24,7 @@ export const CAROUSEL_TEMPLATES = [
   { id: 'linen', name: 'Лён', description: 'Натуральная ткань и тёплые полутона', image: '/media/carousel/linen.png', background: '#e8dfd2', ink: '#52483c', accent: '#a08b72', title: 'Естественно\nбыть собой.', eyebrow: 'НЕСПЕШНЫЕ ИСТОРИИ', font: 'Georgia' },
   { id: 'cutout', name: 'Бумажная графика', description: 'Красный, чёрный и выразительные вырезки', image: '/media/carousel/cutout.png', background: '#eee9df', ink: '#292725', accent: '#c64036', title: 'Смело.\nПо существу.', eyebrow: 'СИЛА КОНТРАСТА', font: 'Manrope Variable' },
   { id: 'neon', name: 'Неон', description: 'Ультрафиолет и электрический лайм', image: '/media/carousel/neon.png', background: '#19172b', ink: '#f2f4df', accent: '#d3ed75', title: 'На своей\nчастоте.', eyebrow: 'ЭНЕРГИЯ ДВИЖЕНИЯ', font: 'Manrope Variable', dark: true },
-];
+].map(template => ({ ...template, image: withBasePath(template.image) }));
 
 export const CAROUSEL_FORMATS = [
   { value: '1:1', label: '1:1 · Квадрат', description: '1080 × 1080', width: 1080, height: 1080 },

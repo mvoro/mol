@@ -1,3 +1,4 @@
+import { withBasePath } from '../base-path.js';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download, Music2, Pause, Play, SkipBack, SkipForward, Volume2, VolumeX, X } from 'lucide-react';
 import './audio-player.css';
@@ -144,7 +145,7 @@ export function AudioPlayer({ items = [], currentId, onSelect, onClose, inert = 
       onError={() => { setPlaying(false); setWaiting(false); setFailed(true); setNotice('Не удалось загрузить аудио. Нажмите «Воспроизвести», чтобы повторить.'); }}
     />
     <div className="audio-player-identity">
-      <span className="audio-player-art">{!coverFailed ? <img src={current.poster || '/media/artwork/orange-bloom.jpg'} alt="" onError={() => setCoverFailed(true)} /> : <Music2 size={24} strokeWidth={1.75} aria-hidden="true"/>}</span>
+      <span className="audio-player-art">{!coverFailed ? <img src={withBasePath(current.poster || '/media/artwork/orange-bloom.jpg')} alt="" onError={() => setCoverFailed(true)} /> : <Music2 size={24} strokeWidth={1.75} aria-hidden="true"/>}</span>
       <div className="audio-player-copy"><strong title={title}>{title}</strong><span><span>{current.model || 'Инструментальная композиция'}</span></span></div>
     </div>
     <div className="audio-player-transport">

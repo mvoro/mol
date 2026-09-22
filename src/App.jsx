@@ -40,6 +40,7 @@ import { useMobileViewport } from './components/useMobileViewport.js';
 import { createGenerationNotification } from './notifications.js';
 import { createGenerationRequest, createDemoMedia, describeRequestOptions, chatImageReferences } from './generation-request.js';
 import { resolveAppNavigation } from './app-navigation.js';
+import { withBasePath } from './base-path.js';
 import { documentFormat, ensureDocumentDemo } from './artifact-model.js';
 import { storeDocument } from './document-storage.js';
 import { ArtifactPanel } from './components/ArtifactPanel.jsx';
@@ -133,7 +134,7 @@ export function App() {
     [search, setSearch] = useState(""),
     [route, setRoute] = useState(() => resolveAppNavigation(window.location, { projects: projectState.projects, history }).route),
     [conversationRoute, setConversationRoute] = useState(projectState.activeId ? 'project' : 'chat'),
-    [visitedStudios, setVisitedStudios] = useState(() => ['/carousel', '/trends'].includes(window.location.pathname) ? [window.location.pathname.slice(1)] : []),
+    [visitedStudios, setVisitedStudios] = useState(() => ['carousel', 'trends'].includes(route) ? [route] : []),
     [studioResultIds, setStudioResultIds] = useState({}),
     [draft, setDraft] = useState(""),
     [composerKey, setComposerKey] = useState(0),
@@ -271,7 +272,7 @@ export function App() {
     window.history.pushState(
       {},
       "",
-      ['components', 'roles', 'carousel', 'trends'].includes(next) ? `/${next}` : next === "project" && projectDestination.current ? `/?project=${encodeURIComponent(projectDestination.current)}` : "/",
+      withBasePath(['components', 'roles', 'carousel', 'trends'].includes(next) ? `/${next}` : next === "project" && projectDestination.current ? `/?project=${encodeURIComponent(projectDestination.current)}` : "/"),
     );
     setSidebarOpen(false);
   };
@@ -599,7 +600,7 @@ export function App() {
     return (
       <ComponentGallery
         onBack={() => navigate("chat")}
-        imageUrl="/assets/composer/file-sample.png"
+        imageUrl={withBasePath('/assets/composer/file-sample.png')}
       />
     );
   return (

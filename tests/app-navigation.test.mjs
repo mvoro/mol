@@ -31,3 +31,16 @@ test('ordinary chat URLs preserve project-owned conversations after a studio vis
 test('deleted project and chat links fall back to a general chat', () => {
   assert.deepEqual(resolveAppNavigation({ pathname: '/', search: '?project=deleted&chat=deleted' }, projectContext), { route: 'chat', projectId: null, preserveConversation: false });
 });
+
+test('Pages deep links and directory redirects open every standalone page', () => {
+  for (const page of ['components', 'roles', 'carousel', 'trends']) {
+    for (const ending of ['', '/']) {
+      assert.deepEqual(resolveAppNavigation({ pathname: `/mol/${page}${ending}`, search: '' }, { base: '/mol/' }), { route: page, preserveConversation: true });
+    }
+  }
+});
+
+test('Pages chat and project links preserve the current draft after a studio visit', () => {
+  assert.deepEqual(resolveAppNavigation({ pathname: '/mol/', search: '?chat=chat-a' }, { ...chatContext, base: '/mol/' }), { route: 'chat', chatId: 'chat-a', preserveConversation: true });
+  assert.deepEqual(resolveAppNavigation({ pathname: '/mol/', search: '?project=project-a' }, { ...projectContext, base: '/mol/' }), { route: 'project', projectId: 'project-a', preserveConversation: true });
+});

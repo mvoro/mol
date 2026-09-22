@@ -1,3 +1,4 @@
+import { withBasePath } from './base-path.js';
 import React from "react";
 import {
   X, Check, ArrowUp, ArrowLeft, ChevronLeft, ChevronRight, ChevronDown,
@@ -33,7 +34,7 @@ export const MODE_COLORS = {
   audio: "#3f8cff",
 };
 export const sourceAsset = (source, key) =>
-  "/figma/" + assets[source][key].split("/").pop();
+  withBasePath("/figma/" + assets[source][key].split("/").pop());
 const a = assets["figma-2335-94959"];
 
 // Semantic names keep controls consistent across all screens. Brand marks remain assets.
@@ -59,8 +60,8 @@ const icons = {
   collapse: Minimize, sparkles: Sparkles, archive: Archive,
 };
 const brandIcons = {
-  telegram: `/figma/${a.imgSocial.split("/").pop()}`,
-  molecule: `/figma/${a.imgFrame16.split("/").pop()}`,
+  telegram: withBasePath(`/figma/${a.imgSocial.split("/").pop()}`),
+  molecule: withBasePath(`/figma/${a.imgFrame16.split("/").pop()}`),
 };
 function ratioIcon(name) {
   if (name === 'ratio-Авто') return Ratio;
@@ -106,9 +107,9 @@ export function ModelIcon({ model = "Молли 1.0", size = 16 }) {
   ];
   const named = providerAssets.find(([match]) => name.includes(match))?.[1];
   const src = name.includes("молли")
-    ? "/figma/" + a.imgMoleculs.split("/").pop()
+    ? withBasePath("/figma/" + a.imgMoleculs.split("/").pop())
     : named
-      ? "/assets/models/" + named
+      ? withBasePath("/assets/models/" + named)
       : null;
   return src ? (
     <img className="icon" src={src} alt="" width={size} height={size} />

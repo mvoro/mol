@@ -1,5 +1,6 @@
 import React, { useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { withBasePath } from '../base-path.js';
 import { Ellipsis, Pencil, Settings, Share2, Trash2, Plus, X, Link, Pin } from 'lucide-react';
 import { ProjectIcon, PROJECT_COLORS, getProjectNameError } from './Projects.jsx';
 import { Popover, MenuItem } from './Popover.jsx';
@@ -75,7 +76,7 @@ export function ProjectActionDialog({ action, project, index, existingNames, onC
   const {dialogRef, closing, requestClose} = useModalBehavior(onClose, ['rename','settings'].includes(action) ? input : undefined);
   const error = getProjectNameError(name, existingNames);
   const title = action === 'rename' ? 'Название проекта' : action === 'delete' ? 'Удалить проект?' : action === 'share' ? 'Поделиться проектом' : 'Настройки проекта';
-  const shareUrl = new URL(`/?project=${encodeURIComponent(project.id)}`, window.location.origin).href;
+  const shareUrl = new URL(withBasePath(`/?project=${encodeURIComponent(project.id)}`), window.location.origin).href;
   return createPortal(<div className="mc-project-dialog-overlay" data-closing={closing || undefined} onPointerDown={event => { if(event.target === event.currentTarget) requestClose(); }}>
     <section ref={dialogRef} className="mc-project-dialog project-settings-dialog" role="dialog" aria-modal="true" aria-labelledby={`${id}-title`} tabIndex={-1} data-closing={closing || undefined}>
       <header><h2 id={`${id}-title`}>{title}</h2><button className="mc-project-close" aria-label="Закрыть окно проекта" onClick={requestClose}><X size={18} strokeWidth={1.75} aria-hidden="true"/></button></header>

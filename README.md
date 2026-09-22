@@ -2,6 +2,14 @@
 
 React-приложение по секции Figma `2335:87500` (UX rework, iteration 09).
 
+## Публичная версия
+
+[Открыть проект](https://mvoro.github.io/mol/) · [Демо документов PDF / DOCX / MD](https://mvoro.github.io/mol/?chat=molecula-document-demo-v1).
+
+GitHub Actions автоматически тестирует, собирает и публикует `main` на GitHub Pages. `npm run build:pages` создаёт статический сайт в `dist/client` с префиксом `/mol/` и отдельными входными HTML для прямых ссылок на карусели, тренды, роли и компоненты.
+
+Для Vercel в `vercel.json` явно заданы `npm run build`, выходная папка `dist/client` и переходы SPA. Обычная сборка сохраняет совместимость с Sites и размещением в корне домена.
+
 ## Запуск
 
 ```sh

@@ -1,12 +1,15 @@
-const STANDALONE_PAGES = new Set(['components', 'roles', 'carousel', 'trends']);
+import { APP_BASE, withoutBasePath } from './base-path.js';
+
+export const STANDALONE_PAGES = new Set(['components', 'roles', 'carousel', 'trends']);
 
 // A studio visit leaves the conversation mounted. Returning to that same
 // conversation must not call newChat/openHistory and discard its local draft.
 export function resolveAppNavigation(location, {
   projects = [], history = [], conversationRoute = 'chat',
   currentChatId = null, activeProjectId = null,
+  base = APP_BASE,
 } = {}) {
-  const page = location.pathname.slice(1);
+  const page = withoutBasePath(location.pathname, base).replace(/^\/|\/$/g, '');
   if (STANDALONE_PAGES.has(page)) return { route: page, preserveConversation: true };
 
   const params = new URLSearchParams(location.search);
