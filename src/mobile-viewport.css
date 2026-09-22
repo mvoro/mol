@@ -1,3 +1,15 @@
+/* iOS zooms into small text controls on focus. Apply before focus, including
+   portaled/lazy forms and phones in landscape, without limiting pinch zoom.
+   !important keeps component font shorthands from restoring a smaller size. */
+@media (max-width: 700px), (hover: none) and (pointer: coarse) {
+  input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="hidden"]):not([type="image"]),
+  textarea,
+  select,
+  [contenteditable]:not([contenteditable="false" i]) {
+    font-size: max(16px, var(--mobile-input-font-size, 16px)) !important;
+  }
+}
+
 /* Use the visible screen, including when the software keyboard is open. */
 @media (max-width: 700px) {
   html:has(.app-shell),

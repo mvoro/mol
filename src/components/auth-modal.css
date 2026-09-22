@@ -354,6 +354,7 @@
   color: #7a3fff;
 }
 .auth-code-input {
+  --mobile-input-font-size: 20px;
   text-align: center;
   font-size: 20px;
   letter-spacing: 10px;
